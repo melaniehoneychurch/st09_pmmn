@@ -11,25 +11,21 @@
 <div class="container">
 
     
-    <table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Nom</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for product in products %}
-					<tr>
-						<td>{{ product.id }}</td>
-                        <td>{{ product.frenchName }}</td>
-						
-					</tr>
-
-				{% endfor %}
-			</tbody>
-		</table>
+    <h2>Liste des produits</h2>
+    <div class="row flex">
+    {% for product in products %}
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ path('product.show', {id: product.id, slug: product.slug}) }}">{{ product.frenchName }}</a>
+                    </h5>
+                    <p class="card-text">{{ product.id }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
 
 </div>
 {% endblock %}

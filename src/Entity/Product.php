@@ -106,6 +106,11 @@ class Product
      */
     private $code;
 
+    public function getSlug(): string
+    {
+        return $this->frenchName;
+    }
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
