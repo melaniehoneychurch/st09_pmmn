@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Cocur\Slugify\Slugify;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -108,7 +109,7 @@ class Product
 
     public function getSlug(): string
     {
-        return $this->frenchName;
+        return (new Slugify())->slugify($this->frenchName);
     }
 
     /**

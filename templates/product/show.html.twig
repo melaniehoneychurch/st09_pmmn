@@ -1,0 +1,145 @@
+{% extends "base.html.twig" %}
+
+{% block title product.frenchName %}
+
+
+{% block body %}
+
+	{# First line #}
+	<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+  		{# Number information #}
+		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-left text-black overflow-hidden">
+    		
+      			<ul class="list-group py-3 ">
+  					<li class="list-group-item">Masse molaire : {{ product.molarMass }}</li>
+  					<li class="list-group-item">Densité : {{ product.density }}</li>
+  					<li class="list-group-item">Tf : {{ product.meltingTemperature }}</li>
+  					<li class="list-group-item">Te : {{ product.boilingTemperature }}</li>
+  					<li class="list-group-item">n : {{ product.opticalIndex }}</li>
+					<li class="list-group-item">T° autoflamme : {{ product.autoflameTemperature }}</li>
+				</ul>
+  		</div>
+		{# Name information #}
+  		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-left text-black overflow-hidden">
+    		<ul class="list-group py-3">
+  					<li class="list-group-item">{{ product.englishName }}</li>
+					<li class="list-group-item">{{ product.nomenclature }}</li>
+					<li class="list-group-item">{{ product.otherName }}</li>
+					<li></li>
+					<li class="list-group-item">N° CAS : {{ product.casNumber }}</li>
+  					
+				</ul>
+  		</div>
+		{# FrenchName information #}
+		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-black overflow-hidden">
+    		
+			<div class="" >
+  				<h1>{{ product.frenchName }}</h1>
+			</div>
+			
+  		</div>
+		
+	</div>
+
+	{# Second line #}
+	<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+  		{# formula display #}
+		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
+    		
+			<img src="#" alt="Responsive image" class="img-thumbnail img-fluid">
+
+  		</div>
+		{# danger pictogram #}
+  		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
+    		<ul class="list-group list-group-horizontal py-3">
+  					
+				<li class="list-group-item"><img src="#" alt="Responsive image" class="img-thumbnail img-fluid"></li>
+				<li class="list-group-item"><img src="#" alt="Responsive image" class="img-thumbnail img-fluid"></li>
+					
+  					
+			</ul>
+  		</div>
+	</div>
+
+	{# Thrid line #}
+	<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+  		{# using risk #}
+		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
+    		
+			<p>{{ product.riskOfUse }}</p>
+
+  		</div>
+		{# obligation pictogram #}
+  		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
+    		<ul class="list-group list-group-horizontal py-3">
+  					
+				<li class="list-group-item"><img src="#" alt="Responsive image" class="img-thumbnail img-fluid"></li>
+				<li class="list-group-item"><img src="#" alt="Responsive image" class="img-thumbnail img-fluid"></li>
+					
+  					
+			</ul>
+  		</div>
+	</div>
+
+	{# Fourth line #}
+	<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+  		{# dangerous mixtures information #}
+		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
+    		<h3>Mélanges dangereux :</h3>
+			<p>{{ product.dangerousMixtures }}</p>
+
+  		</div>
+		{# storage information #}
+  		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
+    		
+			<h1> TO DO </h1>
+
+  		</div>
+		{# Trash can information #}
+  		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
+    		
+			<h1> TO DO </h1>
+
+  		</div>
+	</div>
+
+	{# Fifth line #}
+	<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+  		{# description #}
+		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
+    		
+			<p>{{ product.frenchCommentary }}</p>
+
+  		</div>
+		
+	</div>
+
+	{# Sixth line #}
+	<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+  		{# hazatd statements #}
+		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
+    		
+			<p>TO DO</p>
+
+  		</div>
+		
+	</div>
+
+	{# Seventh line #}
+	<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+  		{# contact person #}
+		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
+    		
+			<p>TO DO</p>
+
+  		</div>
+		{# last update #}
+		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
+    		
+			<p>TO DO</p>
+
+  		</div>
+		
+	</div>
+	
+{% endblock %}
