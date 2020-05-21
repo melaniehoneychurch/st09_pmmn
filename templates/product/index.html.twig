@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% block title 'Product list' %}
+
+{% block body %}
+<div class="jumbotron text-center">
+    <h1>Labo L2N</h1>
+    <p>C'est la fete au produit</p>
+</div>
+
+<div class="container">
+
+    
+    <table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nom</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for product in products %}
+					<tr>
+						<td>{{ product.id }}</td>
+                        <td>{{ product.frenchName }}</td>
+						
+					</tr>
+
+				{% endfor %}
+			</tbody>
+		</table>
+
+</div>
+{% endblock %}
