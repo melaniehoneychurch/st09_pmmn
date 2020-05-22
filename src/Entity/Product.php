@@ -4,9 +4,14 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @Vich\Uploadable
+ * 
  */
 class Product
 {
@@ -16,6 +21,21 @@ class Product
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * Undocumented variable
+     *
+     * @var string|null
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $filenameFormula;
+
+    /**
+     *
+     * @var File|null
+     * @Vich\UploadableField(mapping="products_images_formula", fileNameProperty="filenameFormula")
+     */
+    private $imageFormula;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -116,6 +136,11 @@ class Product
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $qrCode;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
 
     public function getId(): ?int
     {
@@ -346,6 +371,67 @@ class Product
     public function setQrCode(?string $qrCode): self
     {
         $this->qrCode = $qrCode;
+
+        return $this;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return string|null
+     */
+    public function getFilenameFormula(): ?string
+    {
+        return $this->filenameFormula;
+    }
+
+    /**
+     *
+     * @param string|null $filenameFormula
+     * @return self
+     */
+    public function setFilenameFormula(?string $filenameFormula): self
+    {
+        $this->filenameFormula = $filenameFormula;
+
+        return $this;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return File|null
+     */
+    public function getImageFormula(): ?File
+    {
+        return $this->imageFormula;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param string|null $imageFormula
+     * @return self
+     */
+    public function setImageFormula(?string $imageFormula): self
+    {
+        $this->imageFormula = $imageFormula;
+
+        if ($this->imageFormula instanceof UploadedFile) {
+            $this->updated_at = new \DateTime('now');
+        }
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }

@@ -1,0 +1,8 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        products_images_formula:
+            uri_prefix: /images/products/formula
+            upload_destination: '%kernel.project_dir%/public/images/products/formula'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
