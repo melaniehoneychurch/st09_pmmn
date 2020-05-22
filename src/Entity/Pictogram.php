@@ -55,6 +55,18 @@ class Pictogram
         return $this->imageFile;
     }
 
+    public function setImageName(?string $imageName): self
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
     public function setImageFile(?string $imageFile): self
     {
         $this->imageFile = $imageFile;
