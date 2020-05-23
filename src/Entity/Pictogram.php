@@ -11,6 +11,12 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Pictogram
 {
+
+    public function __construct()
+    {
+        $this->updated_at = new \Datetime();
+    }
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

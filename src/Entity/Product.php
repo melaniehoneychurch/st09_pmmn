@@ -18,10 +18,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Product
 {
     public function __construct()
-  {
-    $this->updated_at = new \Datetime();
-    $this->categories = new ArrayCollection();
-  }
+    {
+        $this->updated_at = new \Datetime();
+        $this->categories = new ArrayCollection();
+    }
    
    
     /**
