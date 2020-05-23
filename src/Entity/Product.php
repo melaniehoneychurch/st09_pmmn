@@ -23,7 +23,6 @@ class Product
         $this->updated_at = new \Datetime();
         $this->categories = new ArrayCollection();
         $this->pictograms = new ArrayCollection();
-        $this->storages = new ArrayCollection();
     }
    
    
@@ -155,9 +154,16 @@ class Product
     private $pictograms;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Storage", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Storage")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $storages;
+    private $storage;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\TrashCan")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $trashCan;
 
     public function addPictogram(Pictogram $pictogram)
     {
@@ -475,28 +481,26 @@ class Product
         return $this;
     }
 
-    /**
-     * @return Collection|Storage[]
-     */
-    public function getStorages(): Collection
+    public function getTrashCan(): ?TrashCan
     {
-        return $this->storages;
+        return $this->trashCan;
     }
 
-    public function addStorage(Storage $storage): self
+    public function setTrashCan(?TrashCan $trashCan): self
     {
-        if (!$this->storages->contains($storage)) {
-            $this->storages[] = $storage;
-        }
+        $this->trashCan = $trashCan;
 
         return $this;
     }
 
-    public function removeStorage(Storage $storage): self
+    public function getStorage(): ?Storage
     {
-        if ($this->storages->contains($storage)) {
-            $this->storages->removeElement($storage);
-        }
+        return $this->storage;
+    }
+
+    public function setStorage(?Storage $storage): self
+    {
+        $this->storage = $storage;
 
         return $this;
     }
