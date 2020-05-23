@@ -349,6 +349,28 @@ class Product
         return $this->pictograms;
     }
 
+    /**
+     * Return array of danger pictogram
+     * @return Collection|Pictogram[]
+     */
+    public function getDangerPictograms(): Collection
+    {
+        return $this->getPictograms()->filter(function(Pictogram $pictogram){
+            return (strcmp($pictogram->getType(), "Danger"))==0;
+        });
+    }
+
+     /**
+     * Return array of obligation pictogram
+     * @return Collection|Pictogram[]
+     */
+    public function getObligationPictograms(): Collection
+    {
+        return $this->getPictograms()->filter(function(Pictogram $pictogram){
+            return (strcmp($pictogram->getType(), "Obligation"))==0;
+        });
+    }
+
     public function addPictogram(Pictogram $pictogram): self
     {
         if (!$this->pictograms->contains($pictogram)) {

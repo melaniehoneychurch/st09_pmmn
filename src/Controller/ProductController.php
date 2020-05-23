@@ -46,7 +46,9 @@ class ProductController extends AbstractController
         }
         dump($product);
         return $this->render('product/show.html.twig', [
-            'product' => $product
+            'product' => $product,
+            'dangerPictograms' => $product->getDangerPictograms(),
+            'obligationPictograms' => $product->getObligationPictograms(),
         ]);
     }
 

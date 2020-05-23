@@ -46,16 +46,20 @@
   		{# formula display #}
 		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
     		
-			<img src="#" alt="Responsive image" class="img-thumbnail img-fluid">
+			{# TO DO Temporarily image name #}
+			<p>{{ product.imageNameFormula }}</p>
+			{#<img src="#" alt="Responsive image" class="img-thumbnail img-fluid">#}
 
   		</div>
 		{# danger pictogram #}
   		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
     		<ul class="list-group list-group-horizontal py-3">
   					
-				<li class="list-group-item"><img src="#" alt="Responsive image" class="img-thumbnail img-fluid"></li>
-				<li class="list-group-item"><img src="#" alt="Responsive image" class="img-thumbnail img-fluid"></li>
-					
+				{#TO DO Temporarily image name#}
+				{% for dangerPictogram in dangerPictograms %}
+					<p>{{ dangerPictogram.imageName }}</p>
+					{#<li class="list-group-item"><img src="#" alt="Responsive image" class="img-thumbnail img-fluid"></li>#}
+				{% endfor %}
   					
 			</ul>
   		</div>
@@ -73,8 +77,11 @@
   		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
     		<ul class="list-group list-group-horizontal py-3">
   					
-				<li class="list-group-item"><img src="#" alt="Responsive image" class="img-thumbnail img-fluid"></li>
-				<li class="list-group-item"><img src="#" alt="Responsive image" class="img-thumbnail img-fluid"></li>
+				{#TO DO Temporarily image name#}
+				{% for obligationPictogram in obligationPictograms %}
+					<p>{{ obligationPictogram.imageName }}</p>
+					{#<li class="list-group-item"><img src="#" alt="Responsive image" class="img-thumbnail img-fluid"></li>#}
+				{% endfor %}
 					
   					
 			</ul>
@@ -92,13 +99,13 @@
 		{# storage information #}
   		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
     		
-			<h1> TO DO </h1>
+			<h1> {{ product.storage.name }} </h1>
 
   		</div>
 		{# Trash can information #}
   		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
     		
-			<h1> TO DO </h1>
+			<h1> {{product.trashCan.name}} </h1>
 
   		</div>
 	</div>
@@ -119,7 +126,9 @@
   		{# hazatd statements #}
 		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
     		
-			<p>TO DO</p>
+				{% for statement in product.hazardStatements %}
+					<p>{{ statement.code }}: {{ statement.text }}</p>
+				{% endfor %}
 
   		</div>
 		
@@ -136,7 +145,7 @@
 		{# last update #}
 		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
     		
-			<p>TO DO</p>
+			<p>{{ product.updateAt }}</p>
 
   		</div>
 		
