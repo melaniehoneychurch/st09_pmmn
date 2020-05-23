@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -21,6 +22,8 @@ class Product
     {
         $this->updated_at = new \Datetime();
         $this->categories = new ArrayCollection();
+        $this->pictograms = new ArrayCollection();
+        $this->storages = new ArrayCollection();
     }
    
    
@@ -150,6 +153,11 @@ class Product
      * @ORM\ManyToMany(targetEntity="App\Entity\Pictogram", cascade={"persist"})
      */
     private $pictograms;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Storage", cascade={"persist"})
+     */
+    private $storages;
 
     public function addPictogram(Pictogram $pictogram)
     {
@@ -463,6 +471,32 @@ class Product
     public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Storage[]
+     */
+    public function getStorages(): Collection
+    {
+        return $this->storages;
+    }
+
+    public function addStorage(Storage $storage): self
+    {
+        if (!$this->storages->contains($storage)) {
+            $this->storages[] = $storage;
+        }
+
+        return $this;
+    }
+
+    public function removeStorage(Storage $storage): self
+    {
+        if ($this->storages->contains($storage)) {
+            $this->storages->removeElement($storage);
+        }
 
         return $this;
     }
