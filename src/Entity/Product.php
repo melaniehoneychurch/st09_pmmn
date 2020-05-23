@@ -40,14 +40,7 @@ class Product
      * @var string|null
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $filenameFormula;
-
-    /**
-     *
-     * @var File|null
-     * @Vich\UploadableField(mapping="products_images_formula", fileNameProperty="filenameFormula")
-     */
-    private $imageFormula;
+    private $imageNameFormula;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -105,11 +98,6 @@ class Product
     private $autoflameTemperature;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $formula;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $riskOfUse;
@@ -123,26 +111,6 @@ class Product
      * @ORM\Column(type="text", nullable=true)
      */
     private $frenchCommentary;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $englishCommentary;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $dangerFrameColor;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $code;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $qrCode;
 
     /**
      * @ORM\Column(type="datetime")
@@ -171,23 +139,6 @@ class Product
      */
     private $hazardStatements;
 
-    public function addPictogram(Pictogram $pictogram)
-    {
-      $this->pictograms[] = $pictogram;
-  
-      return $this;
-    }
-  
-    public function removePictogram(Pictogram $pictogram)
-    {
-      $this->pictograms->removeElement($pictogram);
-    }
-  
-    public function getPictograms()
-    {
-      return $this->pictograms;
-    }
-
     public function getSlug(): string
     {
         return (new Slugify())->slugify($this->frenchName);
@@ -196,6 +147,18 @@ class Product
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getImageNameFormula(): ?string
+    {
+        return $this->imageNameFormula;
+    }
+
+    public function setImageNameFormula(?string $imageNameFormula): self
+    {
+        $this->imageNameFormula = $imageNameFormula;
+
+        return $this;
     }
 
     public function getFrenchName(): ?string
@@ -227,7 +190,7 @@ class Product
         return $this->nomenclature;
     }
 
-    public function setNomenclature(string $nomenclature): self
+    public function setNomenclature(?string $nomenclature): self
     {
         $this->nomenclature = $nomenclature;
 
@@ -330,18 +293,6 @@ class Product
         return $this;
     }
 
-    public function getFormula(): ?string
-    {
-        return $this->formula;
-    }
-
-    public function setFormula(?string $formula): self
-    {
-        $this->formula = $formula;
-
-        return $this;
-    }
-
     public function getRiskOfUse(): ?string
     {
         return $this->riskOfUse;
@@ -378,103 +329,6 @@ class Product
         return $this;
     }
 
-    public function getEnglishCommentary(): ?string
-    {
-        return $this->englishCommentary;
-    }
-
-    public function setEnglishCommentary(?string $englishCommentary): self
-    {
-        $this->englishCommentary = $englishCommentary;
-
-        return $this;
-    }
-
-    public function getDangerFrameColor(): ?string
-    {
-        return $this->dangerFrameColor;
-    }
-
-    public function setDangerFrameColor(?string $dangerFrameColor): self
-    {
-        $this->dangerFrameColor = $dangerFrameColor;
-
-        return $this;
-    }
-
-    public function getCode(): ?string
-    {
-        return $this->code;
-    }
-
-    public function setCode(?string $code): self
-    {
-        $this->code = $code;
-
-        return $this;
-    }
-
-    public function getQrCode(): ?string
-    {
-        return $this->qrCode;
-    }
-
-    public function setQrCode(?string $qrCode): self
-    {
-        $this->qrCode = $qrCode;
-
-        return $this;
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @return string|null
-     */
-    public function getFilenameFormula(): ?string
-    {
-        return $this->filenameFormula;
-    }
-
-    /**
-     *
-     * @param string|null $filenameFormula
-     * @return self
-     */
-    public function setFilenameFormula(?string $filenameFormula): self
-    {
-        $this->filenameFormula = $filenameFormula;
-
-        return $this;
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @return File|null
-     */
-    public function getImageFormula(): ?File
-    {
-        return $this->imageFormula;
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @param string|null $imageFormula
-     * @return self
-     */
-    public function setImageFormula(?string $imageFormula): self
-    {
-        $this->imageFormula = $imageFormula;
-
-        if ($this->imageFormula instanceof UploadedFile) {
-            $this->updated_at = new \DateTime('now');
-        }
-
-        return $this;
-    }
-
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updated_at;
@@ -487,14 +341,28 @@ class Product
         return $this;
     }
 
-    public function getTrashCan(): ?TrashCan
+    /**
+     * @return Collection|Pictogram[]
+     */
+    public function getPictograms(): Collection
     {
-        return $this->trashCan;
+        return $this->pictograms;
     }
 
-    public function setTrashCan(?TrashCan $trashCan): self
+    public function addPictogram(Pictogram $pictogram): self
     {
-        $this->trashCan = $trashCan;
+        if (!$this->pictograms->contains($pictogram)) {
+            $this->pictograms[] = $pictogram;
+        }
+
+        return $this;
+    }
+
+    public function removePictogram(Pictogram $pictogram): self
+    {
+        if ($this->pictograms->contains($pictogram)) {
+            $this->pictograms->removeElement($pictogram);
+        }
 
         return $this;
     }
@@ -507,6 +375,18 @@ class Product
     public function setStorage(?Storage $storage): self
     {
         $this->storage = $storage;
+
+        return $this;
+    }
+
+    public function getTrashCan(): ?TrashCan
+    {
+        return $this->trashCan;
+    }
+
+    public function setTrashCan(?TrashCan $trashCan): self
+    {
+        $this->trashCan = $trashCan;
 
         return $this;
     }
@@ -536,4 +416,5 @@ class Product
 
         return $this;
     }
+
 }

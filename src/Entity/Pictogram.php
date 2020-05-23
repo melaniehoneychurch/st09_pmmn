@@ -29,15 +29,7 @@ class Pictogram
      * @var string|null
      */
     private $imageName;
-
-    /**
-     * @Vich\UploadableField(mapping="products_images_pictogram", fileNameProperty="imageName")
-     * 
-     * @var File|null
-     */
-    private $imageFile;
  
-
     /**
      * @ORM\Column(type="datetime")
      */
@@ -58,26 +50,14 @@ class Pictogram
         return $this->id;
     }
 
-    public function getImageFile(): ?string
-    {
-        return $this->imageFile;
-    }
-
-    public function setImageName(?string $imageName): self
-    {
-        $this->imageName = $imageName;
-
-        return $this;
-    }
-
     public function getImageName(): ?string
     {
         return $this->imageName;
     }
 
-    public function setImageFile(?string $imageFile): self
+    public function setImageName(?string $imageName): self
     {
-        $this->imageFile = $imageFile;
+        $this->imageName = $imageName;
 
         return $this;
     }
@@ -117,4 +97,6 @@ class Pictogram
 
         return $this;
     }
+
+    
 }

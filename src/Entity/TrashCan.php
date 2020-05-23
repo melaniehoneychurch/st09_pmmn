@@ -21,11 +21,6 @@ class TrashCan
      */
     private $name;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $color;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -43,15 +38,4 @@ class TrashCan
         return $this;
     }
 
-    public function getColor(): ?string
-    {
-        return $this->color;
-    }
-
-    public function setColor(string $color): self
-    {
-        $this->color = $color;
-
-        return $this;
-    }
 }
