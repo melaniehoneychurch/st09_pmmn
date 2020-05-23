@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 
 /**
@@ -15,6 +17,13 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Product
 {
+    public function __construct()
+  {
+    $this->updated_at = new \Datetime();
+    $this->categories = new ArrayCollection();
+  }
+   
+   
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -127,11 +136,6 @@ class Product
      */
     private $code;
 
-    public function getSlug(): string
-    {
-        return (new Slugify())->slugify($this->frenchName);
-    }
-
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -141,6 +145,33 @@ class Product
      * @ORM\Column(type="datetime")
      */
     private $updated_at;
+
+     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Pictogram", cascade={"persist"})
+     */
+    private $pictograms;
+
+    public function addPictogram(Pictogram $pictogram)
+    {
+      $this->pictograms[] = $pictogram;
+  
+      return $this;
+    }
+  
+    public function removePictogram(Pictogram $pictogram)
+    {
+      $this->pictograms->removeElement($pictogram);
+    }
+  
+    public function getPictograms()
+    {
+      return $this->pictograms;
+    }
+
+    public function getSlug(): string
+    {
+        return (new Slugify())->slugify($this->frenchName);
+    }
 
     public function getId(): ?int
     {
