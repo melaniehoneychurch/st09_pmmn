@@ -23,6 +23,7 @@ class Product
         $this->updated_at = new \Datetime();
         $this->categories = new ArrayCollection();
         $this->pictograms = new ArrayCollection();
+        $this->hazardStatements = new ArrayCollection();
     }
    
    
@@ -148,7 +149,7 @@ class Product
      */
     private $updated_at;
 
-     /**
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Pictogram", cascade={"persist"})
      */
     private $pictograms;
@@ -164,6 +165,11 @@ class Product
      * @ORM\JoinColumn(nullable=false)
      */
     private $trashCan;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\HazardStatement", cascade={"persist"})
+     */
+    private $hazardStatements;
 
     public function addPictogram(Pictogram $pictogram)
     {
@@ -501,6 +507,32 @@ class Product
     public function setStorage(?Storage $storage): self
     {
         $this->storage = $storage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|HazardStatement[]
+     */
+    public function getHazardStatements(): Collection
+    {
+        return $this->hazardStatements;
+    }
+
+    public function addHazardStatement(HazardStatement $hazardStatement): self
+    {
+        if (!$this->hazardStatements->contains($hazardStatement)) {
+            $this->hazardStatements[] = $hazardStatement;
+        }
+
+        return $this;
+    }
+
+    public function removeHazardStatement(HazardStatement $hazardStatement): self
+    {
+        if ($this->hazardStatements->contains($hazardStatement)) {
+            $this->hazardStatements->removeElement($hazardStatement);
+        }
 
         return $this;
     }
