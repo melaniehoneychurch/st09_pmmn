@@ -8,7 +8,7 @@
 	{# First line #}
 	<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
   		{# Number information #}
-		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-left text-black overflow-hidden">
+		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-left text-black">
     		
       			<ul class="list-group py-3 ">
   					<li class="list-group-item">Masse molaire : {{ product.molarMass }}</li>
@@ -20,7 +20,7 @@
 				</ul>
   		</div>
 		{# Name information #}
-  		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-left text-black overflow-hidden">
+  		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-left text-black">
     		<ul class="list-group py-3">
   					<li class="list-group-item">{{ product.englishName }}</li>
 					<li class="list-group-item">{{ product.nomenclature }}</li>
@@ -31,7 +31,7 @@
 				</ul>
   		</div>
 		{# FrenchName information #}
-		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-black overflow-hidden">
+		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-black">
     		
 			<div class="" >
   				<h1>{{ product.frenchName }}</h1>
@@ -44,7 +44,7 @@
 	{# Second line #}
 	<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
   		{# formula display #}
-		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
+		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black">
     		
 			{# TO DO Temporarily image name #}
 			<p>{{ product.imageNameFormula }}</p>
@@ -52,7 +52,7 @@
 
   		</div>
 		{# danger pictogram #}
-  		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
+  		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black">
     		<ul class="list-group list-group-horizontal py-3">
   					
 				{#TO DO Temporarily image name#}
@@ -68,13 +68,13 @@
 	{# Thrid line #}
 	<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
   		{# using risk #}
-		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
+		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black">
     		
 			<p>{{ product.riskOfUse }}</p>
 
   		</div>
 		{# obligation pictogram #}
-  		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
+  		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black">
     		<ul class="list-group list-group-horizontal py-3">
   					
 				{#TO DO Temporarily image name#}
@@ -91,19 +91,19 @@
 	{# Fourth line #}
 	<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
   		{# dangerous mixtures information #}
-		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
+		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-left text-black">
     		<h3>Mélanges dangereux :</h3>
 			<p>{{ product.dangerousMixtures }}</p>
 
   		</div>
 		{# storage information #}
-  		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
+  		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black ">
     		
 			<h1> {{ product.storage.name }} </h1>
 
   		</div>
 		{# Trash can information #}
-  		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
+  		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black">
     		
 			<h1> {{product.trashCan.name}} </h1>
 
@@ -113,7 +113,7 @@
 	{# Fifth line #}
 	<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
   		{# description #}
-		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
+		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black">
     		
 			<p>{{ product.frenchCommentary }}</p>
 
@@ -124,7 +124,7 @@
 	{# Sixth line #}
 	<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
   		{# hazatd statements #}
-		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
+		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black">
     		
 				{% for statement in product.hazardStatements %}
 					<p>{{ statement.code }}: {{ statement.text }}</p>
@@ -137,13 +137,13 @@
 	{# Seventh line #}
 	<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
   		{# contact person #}
-		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
+		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black">
     		
 			<p>TO DO</p>
 
   		</div>
 		{# last update #}
-		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black overflow-hidden">
+		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black">
     		
 			<p>{{ update }}</p>
 
