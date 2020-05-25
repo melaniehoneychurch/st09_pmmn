@@ -49,6 +49,7 @@ class ProductController extends AbstractController
             'product' => $product,
             'dangerPictograms' => $product->getDangerPictograms(),
             'obligationPictograms' => $product->getObligationPictograms(),
+            'update' => $product->getUpdatedAt()->format('Y-m-d H:i:s'),
         ]);
     }
 

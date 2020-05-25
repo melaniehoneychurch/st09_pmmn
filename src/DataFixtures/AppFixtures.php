@@ -83,10 +83,11 @@ class AppFixtures extends Fixture
             $pictogram->setImageName($pictogramsImageNameArray[$i])
                 ->setType($pictogramsTypeArray[$i])
                 ->setName($pictogramsImageNameArray[$i])
+                ->setUpdateAt(new \Datetime())
             ;
 
             $hazardStatement = new HazardStatement();
-            $hazardStatement->setCode($hazardStatement[$i])
+            $hazardStatement->setCode($hazardStatementsCodeArray[$i])
                 ->setText($hazardStatementsTextArray[$i])
             ;
 
