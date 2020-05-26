@@ -150,5 +150,8 @@
   		</div>
 		
 	</div>
+
+	{# QrCode #}
+	<img src="{{ qr_code_url( url('product.show', {slug: slug, id: product.id}) ) }}" />
 	
 {% endblock %}
