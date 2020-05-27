@@ -1,4 +1,4 @@
-{% extends "base.html.twig" %}
+{% extends "admin/base.html.twig" %}
 
 {% block title 'Gérer Produit' %}
 
@@ -6,7 +6,7 @@
 
 	<div class="container mt-4">
 
-		<h1>Gérer les produits</h1>
+		<h1>Gérer les mentions de danger</h1>
 
 		{% for message in app.flashes('success') %}
 			<div class="alert alert-success">
@@ -23,14 +23,14 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% for product in products %}
+				{% for pictogram in pictograms %}
 					<tr>
-						<td>{{ product.frenchName }}</td>
+						<td>{{ pictogram.name }}</td>
 						<td>
-							<a href="{{ path('admin.product.edit', {id: product.id}) }}" class="btn btn-secondary">Editer</a>
-							<form method="post" action="{{ path('admin.product.delete', {id: product.id}) }}" style="display: inline-block">
+							<a href="{{ path('admin.pictogram.edit', {id: pictogram.id}) }}" class="btn btn-secondary">Editer</a>
+							<form method="post" action="{{ path('admin.pictogram.delete', {id: pictogram.id}) }}" style="display: inline-block">
 								<input type="hidden" name="_method" value="DELETE">
-								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ pictogram.id) }}">
 								<button class="btn btn-danger">Supprimer</button>
 							</form>
 						</td>
@@ -41,7 +41,7 @@
 		</table>
 
 		<div class="text-right">
-			<a href="{{ path('admin.product.new') }}" class="btn btn-primary">Créer un nouveau product</a>
+			<a href="{{ path('admin.pictogram.new') }}" class="btn btn-primary">Créer un nouveau pictogram</a>
 		</div>
 	</div>
 {% endblock %}

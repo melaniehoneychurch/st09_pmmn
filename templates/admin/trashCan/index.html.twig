@@ -1,0 +1,47 @@
+{% extends "admin/base.html.twig" %}
+
+{% block title 'Gérer Produit' %}
+
+{% block body %}
+
+	<div class="container mt-4">
+
+		<h1>Gérer les mentions de danger</h1>
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Titre</th>
+					<th>Action</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for trashCan in trashCans %}
+					<tr>
+						<td>{{ trashCan.name }}</td>
+						<td>
+							<a href="{{ path('admin.trashCan.edit', {id: trashCan.id}) }}" class="btn btn-secondary">Editer</a>
+							<form method="post" action="{{ path('admin.trashCan.delete', {id: trashCan.id}) }}" style="display: inline-block">
+								<input type="hidden" name="_method" value="DELETE">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trashCan.id) }}">
+								<button class="btn btn-danger">Supprimer</button>
+							</form>
+						</td>
+					</tr>
+
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<div class="text-right">
+			<a href="{{ path('admin.trashCan.new') }}" class="btn btn-primary">Créer une nouveau poubelle</a>
+		</div>
+	</div>
+{% endblock %}

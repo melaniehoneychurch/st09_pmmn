@@ -29,7 +29,7 @@ class AdminProductController extends AbstractController{
     {
         $products = $this->productRep->findAll();
 
-        return $this->render('admin/index.html.twig', [
+        return $this->render('admin/product/index.html.twig', [
             'products' => $products,
         ]);
     }
