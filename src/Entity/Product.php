@@ -8,12 +8,16 @@ use Cocur\Slugify\Slugify;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  * @Vich\Uploadable
+ * @UniqueEntity("frenchName")
  * 
  */
 class Product
@@ -64,6 +68,7 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Regex("/\b[1-9]{1}[0-9]{1,5}-\d{2}-\d\b/")
      */
     private $casNumber;
 
