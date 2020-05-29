@@ -5,11 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
+
 
 
 
@@ -39,7 +40,14 @@ class Product
     private $id;
 
     /**
-     * Undocumented variable
+     * 
+     * @Vich\UploadableField(mapping="product_images_formula", fileNameProperty="imageNameFormula")
+     * 
+     * @var File|null
+     */
+    private $imageFile;
+
+    /**
      *
      * @var string|null
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -152,6 +160,23 @@ class Product
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @param File|null $imageFile
+     */
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
     }
 
     public function getImageNameFormula(): ?string
