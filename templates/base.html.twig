@@ -20,10 +20,25 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link {% if current_menu is defined and current_menu == 'modules' %}active{% endif %}" href="{{ path('product.index') }}">Listes <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{{ path('product.index') }}">Listes <span class="sr-only">(current)</span></a>
       </li>
     </ul>
+    {% if app.user %}
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a href="{{ path('logout') }}" class="nav-link">Se deconnecter</a>
+        </li>
+      </ul>
+    {% else %}
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a href="{{ path('login') }}" class="nav-link">Se connecter</a>
+        </li>
+      </ul>
+    {% endif %}
   </div>
+  
+  
 </nav>
 
         {% block body %}{% endblock %}
