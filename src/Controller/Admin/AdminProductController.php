@@ -71,6 +71,9 @@ class AdminProductController extends AbstractController{
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $product->setUpdatedAt(new \Datetime());
+            
             $this->em->flush();
             $this->addFlash('success', 'produit modifié avec succès');
             return $this->redirectToRoute('admin.product.index');
