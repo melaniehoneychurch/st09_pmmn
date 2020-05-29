@@ -31,6 +31,7 @@ class AdminTrashCanController extends AbstractController{
 
         return $this->render('admin/trashCan/index.html.twig', [
             'trashCans' => $trashCans,
+            'current_admin_menu' => 'trashCan',
         ]);
     }
 

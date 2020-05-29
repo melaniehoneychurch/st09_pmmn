@@ -31,6 +31,7 @@ class AdminStorageController extends AbstractController{
 
         return $this->render('admin/storage/index.html.twig', [
             'storages' => $storages,
+            'current_admin_menu' => 'storage',
         ]);
     }
 

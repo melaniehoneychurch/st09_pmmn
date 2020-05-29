@@ -31,6 +31,7 @@ class AdminPictogramController extends AbstractController{
 
         return $this->render('admin/pictogram/index.html.twig', [
             'pictograms' => $pictograms,
+            'current_admin_menu' => 'pictogram',
         ]);
     }
 

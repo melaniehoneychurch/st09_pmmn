@@ -31,6 +31,7 @@ class AdminProductController extends AbstractController{
 
         return $this->render('admin/product/index.html.twig', [
             'products' => $products,
+            'current_admin_menu' => 'product',
         ]);
     }
 

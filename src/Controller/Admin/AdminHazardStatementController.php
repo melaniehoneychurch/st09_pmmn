@@ -31,6 +31,7 @@ class AdminHazardStatementController extends AbstractController{
 
         return $this->render('admin/hazardStatement/index.html.twig', [
             'hazardStatements' => $hazardStatements,
+            'current_admin_menu' => 'hazardStatement',
         ]);
     }
 
