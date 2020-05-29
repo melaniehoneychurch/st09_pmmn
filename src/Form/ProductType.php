@@ -2,7 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\HazardStatement;
+use App\Entity\Pictogram;
 use App\Entity\Product;
+use App\Entity\Storage;
+use App\Entity\TrashCan;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -28,10 +33,26 @@ class ProductType extends AbstractType
             ->add('dangerousMixtures')
             ->add('frenchCommentary')
             /* ->add('updated_at') */
-            /* ->add('pictograms') */
-            /* ->add('storage') */
-            /* ->add('trashCan') */
-            /* ->add('hazardStatements') */
+             ->add('pictograms', EntityType::class,[
+                'class' => Pictogram::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true,
+             ])
+             ->add('storage', EntityType::class,[
+                'class' => Storage::class,
+                'choice_label' => 'name',
+             ])
+             ->add('trashCan', EntityType::class,[
+                'class' => TrashCan::class,
+                'choice_label' => 'name',
+             ])
+            ->add('hazardStatements', EntityType::class,[
+                'class' => HazardStatement::class,
+                'choice_label' => 'code',
+                'multiple' => true,
+                'expanded' => true,
+             ])
         ;
     }
 
