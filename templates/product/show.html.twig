@@ -45,11 +45,9 @@
 	<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
   		{# formula display #}
 		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black">
-    		
-			{# TO DO Temporarily image name #}
-			<p>{{ product.imageNameFormula }}</p>
-			{#<img src="#" alt="Responsive image" class="img-thumbnail img-fluid">#}
-
+    		{% if product.imageNameFormula %}
+				<img src="{{ vich_uploader_asset(product, 'formulaImageFile') }}"  class="img-fluid" alt="Responsive image">
+			{% endif %}
   		</div>
 		{# danger pictogram #}
   		<div class="bg-light mr-md-1 pt-3 px-3 pt-md px-md-5 text-center text-black">
@@ -57,10 +55,10 @@
   					
 				{#TO DO Temporarily image name#}
 				{% for dangerPictogram in dangerPictograms %}
-					<p>{{ dangerPictogram.imageName }}</p>
-					{#<li class="list-group-item"><img src="#" alt="Responsive image" class="img-thumbnail img-fluid"></li>#}
+					{% if dangerPictogram.imageName %}
+						<img src="{{ vich_uploader_asset(dangerPictogram, 'imageFile') }}"  class="img-fluid" alt="Responsive image">
+					{% endif %}
 				{% endfor %}
-  					
 			</ul>
   		</div>
 	</div>
@@ -79,8 +77,9 @@
   					
 				{#TO DO Temporarily image name#}
 				{% for obligationPictogram in obligationPictograms %}
-					<p>{{ obligationPictogram.imageName }}</p>
-					{#<li class="list-group-item"><img src="#" alt="Responsive image" class="img-thumbnail img-fluid"></li>#}
+					{% if obligationPictogram.imageName %}
+						<img src="{{ vich_uploader_asset(obligationPictogram, 'imageFile') }}"  class="img-fluid" alt="Responsive image">
+					{% endif %}
 				{% endfor %}
 					
   					

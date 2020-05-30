@@ -72,6 +72,9 @@ class AdminPictogramController extends AbstractController{
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $pictogram->setUpdatedAt(new \Datetime());
+
             $this->em->flush();
             $this->addFlash('success', 'Pictogramme modifié avec succès');
             return $this->redirectToRoute('admin.pictogram.index');

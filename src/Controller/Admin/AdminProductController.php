@@ -21,7 +21,7 @@ class AdminProductController extends AbstractController{
     }
 
     /**
-     * @Route("/admin", name="admin.product.index")
+     * @Route("/admin/product", name="admin.product.index")
      *
      * @return void
      */
