@@ -4,10 +4,13 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PictogramRepository")
+ * @Vich\Uploadable
  */
 class Pictogram
 {
@@ -25,6 +28,14 @@ class Pictogram
     private $id;
 
     /**
+     * 
+     * @Vich\UploadableField(mapping="product_images_pictogram", fileNameProperty="imageName")
+     * 
+     * @var File|null
+     */
+    private $imageFile;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @var string|null
      */
@@ -33,7 +44,7 @@ class Pictogram
     /**
      * @ORM\Column(type="datetime")
      */
-    private $update_at;
+    private $updated_at;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -44,6 +55,23 @@ class Pictogram
      * @ORM\Column(type="string", length=255)
      */
     private $name;
+
+     /**
+     * @param File|null $imageFile
+     */
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
 
     public function getId(): ?int
     {
@@ -62,14 +90,14 @@ class Pictogram
         return $this;
     }
 
-    public function getUpdateAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->update_at;
+        return $this->updated_at;
     }
 
-    public function setUpdateAt(\DateTimeInterface $update_at): self
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
-        $this->update_at = $update_at;
+        $this->updated_at = $updated_at;
 
         return $this;
     }

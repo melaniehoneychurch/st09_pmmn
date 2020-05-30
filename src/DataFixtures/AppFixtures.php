@@ -58,7 +58,7 @@ class AppFixtures extends Fixture
         
 
         $product = new Product();
-        $product->setImageNameFormula('testImagename')
+        $product
             ->setFrenchName('Chloroforme')
             ->setEnglishName('Chloroform')
             ->setNomenclature('1,1,1-trichloromethane')
@@ -80,10 +80,9 @@ class AppFixtures extends Fixture
         // Add pictogram to product
         for($i=0;$i<4;$i++){
             $pictogram=new Pictogram();
-            $pictogram->setImageName($pictogramsImageNameArray[$i])
+            $pictogram
                 ->setType($pictogramsTypeArray[$i])
                 ->setName($pictogramsImageNameArray[$i])
-                ->setUpdateAt(new \Datetime())
             ;
 
             $hazardStatement = new HazardStatement();

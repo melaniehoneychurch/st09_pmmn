@@ -18,7 +18,7 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('imageFile', FileType::class, [
+            ->add('formulaImageFile', FileType::class, [
                 'required' => false,
             ])
             ->add('frenchName')

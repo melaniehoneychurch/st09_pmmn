@@ -45,7 +45,7 @@ class Product
      * 
      * @var File|null
      */
-    private $imageFile;
+    private $formulaImageFile;
 
     /**
      *
@@ -165,18 +165,18 @@ class Product
     /**
      * @param File|null $imageFile
      */
-    public function setImageFile(?File $imageFile = null): void
+    public function setFormulaImageFile(?File $formulaImageFile = null): void
     {
-        $this->imageFile = $imageFile;
+        $this->formulaImageFile = $formulaImageFile;
 
-        if (null !== $imageFile) {
+        if (null !== $formulaImageFile) {
             $this->updatedAt = new \DateTimeImmutable();
         }
     }
 
-    public function getImageFile(): ?File
+    public function getFormulaImageFile(): ?File
     {
-        return $this->imageFile;
+        return $this->formulaImageFile;
     }
 
     public function getImageNameFormula(): ?string
