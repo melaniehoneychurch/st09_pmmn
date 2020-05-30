@@ -5,6 +5,10 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\File as Image;
+
+
 
 
 
@@ -35,7 +39,7 @@ class Pictogram
     /**
      * 
      * @Vich\UploadableField(mapping="product_images_pictogram", fileNameProperty="imageName")
-     * 
+     * @Assert\Image(mimeTypes="image/jpeg")
      * @var File|null
      */
     private $imageFile;

@@ -8,6 +8,7 @@ use Cocur\Slugify\Slugify;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\File as Image;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 
@@ -42,7 +43,7 @@ class Product
     /**
      * 
      * @Vich\UploadableField(mapping="product_images_formula", fileNameProperty="imageNameFormula")
-     * 
+     * @Assert\Image(mimeTypes="image/jpeg")
      * @var File|null
      */
     private $formulaImageFile;
