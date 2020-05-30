@@ -5,11 +5,21 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
 class User implements UserInterface, \Serializable
 {
+
+    const allRoles = array(
+        'ROLE_ADMIN',
+        'ROLE_ACCOUNT_MANAGER',
+        'ROLE_REPORT_MANAGER',
+        'ROLE_PRODUCT_MANAGER',
+        'ROLE_USER'
+    );
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -31,6 +41,26 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="json")
      */
     private $roles = [];
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $familyName;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $emailAddress;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $phone;
 
     public function getId(): ?int
     {
@@ -61,13 +91,72 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getRoles()
+    public function getRoles(): array
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getFamilyName(): ?string
+    {
+        return $this->familyName;
+    }
+
+    public function setFamilyName(string $familyName): self
+    {
+        $this->familyName = $familyName;
+
+        return $this;
+    }
+
+    public function getEmailAddress(): ?string
+    {
+        return $this->emailAddress;
+    }
+
+    public function setEmailAddress(string $emailAddress): self
+    {
+        $this->emailAddress = $emailAddress;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Adds a new role, if correct and not already in
+     * @param String $newRole
+     */
+    public function addRole(String $newRole)
+    {
+        if(in_array($newRole,self::allRoles))
+            if(!in_array($newRole,$this->getRoles()))
+                $this->roles[] = $newRole;
     }
 
     public function getSalt()
