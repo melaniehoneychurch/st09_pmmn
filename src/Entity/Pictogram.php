@@ -15,6 +15,11 @@ use Symfony\Component\HttpFoundation\File\File;
 class Pictogram
 {
 
+    const TYPE = [
+        0 => 'Danger',
+        1 => 'Obligation'
+    ];
+
     public function __construct()
     {
         $this->updated_at = new \Datetime();
@@ -47,7 +52,7 @@ class Pictogram
     private $updated_at;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $type;
 
@@ -102,12 +107,12 @@ class Pictogram
         return $this;
     }
 
-    public function getType(): ?string
+    public function getType(): ?int
     {
         return $this->type;
     }
 
-    public function setType(string $type): self
+    public function setType(int $type): self
     {
         $this->type = $type;
 

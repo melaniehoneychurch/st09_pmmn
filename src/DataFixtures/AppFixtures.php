@@ -25,10 +25,10 @@ class AppFixtures extends Fixture
         ];
 
         $pictogramsTypeArray=[
-            'Danger',
-            'Danger',
-            'Obligation',
-            'Obligation',
+            0,
+            0,
+            1,
+            1,
         ];
 
         $hazardStatementsCodeArray=[
