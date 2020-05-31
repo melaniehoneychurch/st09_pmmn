@@ -34,9 +34,8 @@ class ProductController extends AbstractController
         $form = $this->createForm(ProductSearchType::class, $search);
         $form->handleRequest($request);
 
-        
         $products = $paginatorInterface->paginate(
-            $this->productRep->findAllVisibleQuery(),
+            $this->productRep->findAllVisibleQuery($search),
             $request->query->getInt('page', 1),
             10
         );

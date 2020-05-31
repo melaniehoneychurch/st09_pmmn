@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Product;
+use App\Entity\ProductSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\Query;
@@ -26,10 +27,16 @@ class ProductRepository extends ServiceEntityRepository
      *
      * @return Query
      */
-    public function findAllVisibleQuery(): Query
+    public function findAllVisibleQuery(ProductSearch $productSearch): Query
     {
-        return $this->findVisibleQuery()
-            ->getQuery()
+        $query =  $this->findVisibleQuery();
+            
+        if($productSearch->getFrenchName()){
+            $query = $query->andWhere('p.frenchName LIKE :name')
+                ->setParameter('name', '%'.$productSearch->getFrenchName().'%');
+        }
+    
+        return $query->getQuery();
         ;
     }
 
