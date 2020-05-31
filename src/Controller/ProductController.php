@@ -1,17 +1,18 @@
 <?php
 namespace App\Controller;
 
+use Twig\Environment;
 use App\Entity\Product;
 use App\Entity\ProductSearch;
 use App\Form\ProductSearchType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
-use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Twig\Environment;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 class ProductController extends AbstractController
 {
@@ -27,18 +28,26 @@ class ProductController extends AbstractController
      * 
      * @return HttpFoundationResponse
      */
-    public function index(Request $request):HttpFoundationResponse
+    public function index(PaginatorInterface $paginatorInterface, Request $request):HttpFoundationResponse
     {
         $search = new ProductSearch();
         $form = $this->createForm(ProductSearchType::class, $search);
         $form->handleRequest($request);
 
-        $products = $this->productRep->findAll();
+        
+        $products = $paginatorInterface->paginate(
+            $this->productRep->findAllVisibleQuery(),
+            $request->query->getInt('page', 1),
+            10
+        );
+        
+
+
         return $this->render('product/index.html.twig', [
             'products' => $products,
             'form' => $form->createView(),
             ]);
-    }
+    } 
 
     /**
      * @Route("/products/{slug}-{id}", name="product.show", requirements={"slug": "[a-zA-Z0-9\-]*"})

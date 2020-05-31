@@ -111,6 +111,9 @@
     "endroid/qr-code-bundle": {
         "version": "3.4.3"
     },
+    "fzaninotto/faker": {
+        "version": "v1.9.1"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -119,6 +122,12 @@
     },
     "khanamiryan/qrcode-detector-decoder": {
         "version": "1.0.3"
+    },
+    "knplabs/knp-components": {
+        "version": "v2.3.5"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.2.0"
     },
     "monolog/monolog": {
         "version": "1.25.3"
