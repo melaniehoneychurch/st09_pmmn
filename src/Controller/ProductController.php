@@ -2,11 +2,14 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\ProductSearch;
+use App\Form\ProductSearchType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ProductRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
@@ -24,10 +27,17 @@ class ProductController extends AbstractController
      * 
      * @return HttpFoundationResponse
      */
-    public function index():HttpFoundationResponse
+    public function index(Request $request):HttpFoundationResponse
     {
+        $search = new ProductSearch();
+        $form = $this->createForm(ProductSearchType::class, $search);
+        $form->handleRequest($request);
+
         $products = $this->productRep->findAll();
-        return $this->render('product/index.html.twig', compact('products'));
+        return $this->render('product/index.html.twig', [
+            'products' => $products,
+            'form' => $form->createView(),
+            ]);
     }
 
     /**
