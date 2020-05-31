@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AdminUserController extends AbstractController{
 
@@ -25,14 +26,21 @@ class AdminUserController extends AbstractController{
     private $em;
 
     /**
+     *
+     * @var UserPasswordEncoderInterface
+     */
+    private $encoder;
+
+    /**
      * AdminUserController constructor.
      * @param UserRepository $repository
      * @param EntityManagerInterface $em
      */
-    public function __construct(UserRepository $repository, EntityManagerInterface $em)
+    public function __construct(UserRepository $repository, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder)
     {
         $this->repository = $repository;
         $this->em = $em;
+        $this->encoder = $encoder;
     }
 
     /**
@@ -57,6 +65,7 @@ class AdminUserController extends AbstractController{
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
+            $user->setPassword($this->encoder->encodePassword($user, $user->getPassword()));
             $this->em->persist($user);
             $this->em->flush();
             $this->addFlash('success', 'Bien créé avec succès');

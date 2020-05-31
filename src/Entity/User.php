@@ -20,6 +20,22 @@ class User implements UserInterface, \Serializable
         'ROLE_USER'
     );
 
+    const rolesToNames = array(
+        'ROLE_ADMIN' => 'Administrateur',
+        'ROLE_ACCOUNT_MANAGER' => 'Gérant des comptes',
+        'ROLE_REPORT_MANAGER' => 'Gérant des rapports',
+        'ROLE_PRODUCT_MANAGER' => 'Gérant des produits',
+        'ROLE_USER' => 'Utilisateur'
+    );
+
+    const namesToRoles = array(
+        'Administrateur' => 'ROLE_ADMIN',
+        'Gérant des comptes' => 'ROLE_ACCOUNT_MANAGER',
+        'Gérant des rapports' => 'ROLE_REPORT_MANAGER',
+        'Gérant des produits' => 'ROLE_PRODUCT_MANAGER',
+        'Utilisateur' => 'ROLE_USER'
+    );
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -61,6 +77,11 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $phone;
+
+    public function __construct()
+    {
+        array_push($this->roles, 'ROLE_USER');
+    }
 
     public function getId(): ?int
     {
@@ -159,6 +180,31 @@ class User implements UserInterface, \Serializable
                 $this->roles[] = $newRole;
     }
 
+    /**
+     * Removes a role, if correct and not already in
+     * @param String $oldRole
+     */
+    public function removeRole(String $oldRole)
+    {
+        if(in_array($oldRole,self::allRoles))
+            if(($key = array_search($oldRole,$this->roles)) !== false)
+                unset($this->roles[$key]);
+
+    }
+
+    /**
+     * Returns the name of the roles in order to display them
+     * @return string
+     */
+    public function getRolesString(): string
+    {
+        $res = "";
+        foreach ($this->getRoles() as $role){
+            $res = $res . self::rolesToNames[$role] . ", ";
+        }
+        return $res;
+    }
+
     public function getSalt()
     {
         return null;
@@ -175,8 +221,11 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
-            // see section on salt below
-            // $this->salt,
+            $this->roles,
+            $this->name,
+            $this->familyName,
+            $this->emailAddress,
+            $this->phone
         ));
     }
 
@@ -187,8 +236,11 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
-            // see section on salt below
-            // $this->salt
+            $this->roles,
+            $this->name,
+            $this->familyName,
+            $this->emailAddress,
+            $this->phone
         ) = unserialize($serialized, array('allowed_classes' => false));
     }
 }
