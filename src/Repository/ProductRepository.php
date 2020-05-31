@@ -35,7 +35,13 @@ class ProductRepository extends ServiceEntityRepository
             $query = $query->andWhere('p.frenchName LIKE :name')
                 ->setParameter('name', '%'.$productSearch->getFrenchName().'%');
         }
-    
+
+        if($productSearch->getCasNumber()){
+            $query = $query->andWhere('p.casNumber LIKE :cas')
+                ->setParameter('cas', '%'.$productSearch->getCasNumber().'%');
+        }
+
+       
         return $query->getQuery();
         ;
     }

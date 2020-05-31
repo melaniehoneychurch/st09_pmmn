@@ -21,30 +21,13 @@ class ProductSearchType extends AbstractType
                     'placeholder' => 'Nom produit'
                 ]
             ])
-            ->add('code', SearchType::class, [
+            ->add('casNumber', SearchType::class, [
                 'required' => false,
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Code produit'
+                    'placeholder' => 'Numero cas'
                 ]
             ])
-            ->add('trashCanName', SearchType::class, [
-                'required' => false,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Nom poubelle'
-                ]
-            ])
-            ->add('storageName', SearchType::class, [
-                'required' => false,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Nom stockage'
-                ]
-            ])
-            /* ->add('submit', SubmitType::class, [
-                'label' => 'Rechercher'
-            ]) */
         ;
     }
 
