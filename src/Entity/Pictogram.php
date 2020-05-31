@@ -20,8 +20,8 @@ class Pictogram
 {
 
     const TYPE = [
-        0 => 'Danger',
-        1 => 'Obligation'
+        'Danger' => 0,
+        'Obligation' => 1
     ];
 
     public function __construct()
@@ -39,7 +39,6 @@ class Pictogram
     /**
      * 
      * @Vich\UploadableField(mapping="product_images_pictogram", fileNameProperty="imageName")
-     * @Assert\Image(mimeTypes="image/jpeg")
      * @var File|null
      */
     private $imageFile;

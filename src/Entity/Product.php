@@ -43,7 +43,6 @@ class Product
     /**
      * 
      * @Vich\UploadableField(mapping="product_images_formula", fileNameProperty="imageNameFormula")
-     * @Assert\Image(mimeTypes="image/jpeg")
      * @var File|null
      */
     private $formulaImageFile;
@@ -387,7 +386,7 @@ class Product
     public function getDangerPictograms(): Collection
     {
         return $this->getPictograms()->filter(function(Pictogram $pictogram){
-            return (strcmp($pictogram->getType(), "Danger"))==0;
+            return $pictogram->getType()==Pictogram::TYPE['Danger'];
         });
     }
 
@@ -398,7 +397,7 @@ class Product
     public function getObligationPictograms(): Collection
     {
         return $this->getPictograms()->filter(function(Pictogram $pictogram){
-            return (strcmp($pictogram->getType(), "Obligation"))==0;
+            return $pictogram->getType()==Pictogram::TYPE['Obligation'];
         });
     }
 
