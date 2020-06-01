@@ -62,7 +62,6 @@ class ProductController extends AbstractController
                 'slug' => $product->getSlug()
             ], 301);
         }
-        dump($product);
         return $this->render('product/show.html.twig', [
             'product' => $product,
             'dangerPictograms' => $product->getDangerPictograms(),

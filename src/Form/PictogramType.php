@@ -20,7 +20,7 @@ class PictogramType extends AbstractType
             ])
             /* ->add('updated_at') */
             ->add('type', ChoiceType::class, [
-                'choices' => $this->getChoices()
+                'choices' => Pictogram::TYPE
             ])
             ->add('name')
         ;
@@ -31,16 +31,5 @@ class PictogramType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Pictogram::class,
         ]);
-    }
-
-    private function getChoices()
-    {
-        $choices = Pictogram::TYPE;
-        $output = [];
-        foreach($choices as $key => $value){
-            $output[$value] = $key;
-        }
-
-        return $output;
     }
 }
