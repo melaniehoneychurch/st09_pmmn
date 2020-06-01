@@ -50,7 +50,10 @@ class AdminUserController extends AbstractController{
     public function index()
     {
         $users = $this->repository->findAll();
-        return $this->render('admin/users/index.html.twig',compact('users'));
+        return $this->render('admin/users/index.html.twig',[
+            'users' => $users,
+            'current_admin_menu' => 'user',
+        ]);
     }
 
     /**

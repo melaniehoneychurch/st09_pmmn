@@ -64,6 +64,9 @@
                 <li class="nav-item">
                     <a class="nav-link {% if current_admin_menu is defined and current_admin_menu == 'hazardStatement' %}active{% endif %}" href="{{ path('admin.hazardStatement.index') }}">GHS Mentions de danger</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if current_admin_menu is defined and current_admin_menu == 'user' %}active{% endif %}" href="{{ path('admin.user.index') }}">Utilisateurs</a>
+                </li>
             </ul>
         </div>
     </div>
