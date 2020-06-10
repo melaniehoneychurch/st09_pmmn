@@ -1,0 +1,26 @@
+
+    {# Navbar 2 #}
+    <div class="card text-center">
+        <div class="card-header">
+            <ul class="nav nav-pills card-header-pills">
+                <li class="nav-item">
+                    <a class="nav-link {% if current_admin_menu is defined and current_admin_menu == 'product' %}active{% endif %}" href="{{ path('admin.product.index') }}">Produits</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if current_admin_menu is defined and current_admin_menu == 'pictogram' %}active{% endif %}" href="{{ path('admin.pictogram.index') }}">Pictogrammes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if current_admin_menu is defined and current_admin_menu == 'storage' %}active{% endif %}" href="{{ path('admin.storage.index') }}">Stockages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if current_admin_menu is defined and current_admin_menu == 'trashCan' %}active{% endif %}" href="{{ path('admin.trashCan.index') }}">Poubelles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if current_admin_menu is defined and current_admin_menu == 'hazardStatement' %}active{% endif %}" href="{{ path('admin.hazardStatement.index') }}">GHS Mentions de danger</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if current_admin_menu is defined and current_admin_menu == 'user' %}active{% endif %}" href="{{ path('admin.user.index') }}">Utilisateurs</a>
+                </li>
+            </ul>
+        </div>
+    </div>
