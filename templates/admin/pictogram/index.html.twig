@@ -7,13 +7,9 @@
 
 	<div class="container mt-4">
 
-		<h1>Gérer les mentions de danger</h1>
+		<h1>Gérer les pictogrammes</h1>
 
-		{% for message in app.flashes('success') %}
-			<div class="alert alert-success">
-				{{ message }}
-			</div>
-		{% endfor %}
+		{% include 'admin/adminFlashes.html.twig' %}
 
 		<table class="table table-striped">
 			<thead>

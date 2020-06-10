@@ -72,8 +72,13 @@ class AdminTrashCanController extends AbstractController{
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($form->get('cancel')->isClicked()){
+                $this->addFlash('warning', 'Poubelle non enregistré');
+
+            }else{
             $this->em->flush();
             $this->addFlash('success', 'Poubelle modifié avec succès');
+            }
             return $this->redirectToRoute('admin.trashCan.index');
         }
 

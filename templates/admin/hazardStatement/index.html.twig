@@ -9,13 +9,7 @@
 
 		<h1>Gérer les mentions de danger</h1>
 
-		{% for label,messages in app.flashes(['success','notice','warning']) %}
-			{% for message in messages %}
-				<div class="alert alert-{{ label }}">
-					{{ message }}
-				</div>
-			{% endfor %}
-		{% endfor %}
+		{% include 'admin/adminFlashes.html.twig' %}
 
 		<table class="table table-striped">
 			<thead>

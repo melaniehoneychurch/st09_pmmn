@@ -14,6 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ProductType extends AbstractType
 {
@@ -64,6 +65,9 @@ class ProductType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
              ])
+             ->add('cancel', SubmitType::class, [
+                'label' => 'Annuler'
+            ])
         ;
     }
 

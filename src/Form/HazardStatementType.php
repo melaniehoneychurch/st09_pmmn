@@ -16,7 +16,7 @@ class HazardStatementType extends AbstractType
             ->add('code')
             ->add('text')
             ->add('cancel', SubmitType::class, [
-                'label' => 'Cancel'
+                'label' => 'Annuler'
             ])
         ;
     }

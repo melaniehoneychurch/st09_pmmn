@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class StorageType extends AbstractType
 {
@@ -15,6 +16,9 @@ class StorageType extends AbstractType
         $builder
             ->add('name')
             ->add('color', ColorType::class)
+            ->add('cancel', SubmitType::class, [
+                'label' => 'Annuler'
+            ])
         ;
     }
 

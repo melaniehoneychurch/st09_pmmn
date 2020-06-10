@@ -4,10 +4,11 @@ namespace App\Form;
 
 use App\Entity\Pictogram;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
 class PictogramType extends AbstractType
@@ -23,6 +24,9 @@ class PictogramType extends AbstractType
                 'choices' => Pictogram::TYPE
             ])
             ->add('name')
+            ->add('cancel', SubmitType::class, [
+                'label' => 'Annuler'
+            ])
         ;
     }
 
