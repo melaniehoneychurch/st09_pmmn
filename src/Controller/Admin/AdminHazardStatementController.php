@@ -71,9 +71,16 @@ class AdminHazardStatementController extends AbstractController{
         $form = $this->createForm(HazardStatementType::class, $hazardStatement);
         $form->handleRequest($request);
 
+
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->flush();
-            $this->addFlash('success', 'mention de danger modifié avec succès');
+            if($form->get('cancel')->isClicked()){
+                $this->addFlash('warning', 'Mention de danger non enregistré');
+
+            }else{
+                $this->em->flush();
+                $this->addFlash('success', 'mention de danger modifié avec succès');
+            }
             return $this->redirectToRoute('admin.hazardStatement.index');
         }
 
@@ -99,4 +106,5 @@ class AdminHazardStatementController extends AbstractController{
         }
         return $this->redirectToRoute('admin.hazardStatement.index');
     }
+
 }
