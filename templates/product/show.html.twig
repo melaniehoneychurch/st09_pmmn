@@ -6,17 +6,18 @@
 {% block body %}
 
 	<div class="container-fluid">
-
-
+    {%if product.securityFormNameFile%}
+      <a href="{{ path('product.show.securityForm', {slug: product.slug, id: product.id}) }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Afficher la fiche de sécurité</a>
+    {%endif%}
           <!-- Content Row -->
           <div class="row mt-2">
 
 		  	<div class="col-xl-2 col-lg-3">
-                  <div class="card bg-primary text-white shadow">
+                  <div class="card bg-{% if product.colorName %}{{product.colorName}}{% else %}primary{%endif%} text-white shadow">
                     <div class="card-body">
-						<div class="text-center">
-                      		{{ product.frenchName }}
-					  	</div>
+                      <div class="text-center">
+                        {{ product.frenchName }}
+                      </div>
                     </div>
                   </div>
             </div>
@@ -50,12 +51,12 @@
                 <!-- Card Body -->
                 <div class="card-body">
                   	<ul class="list-group py-3 ">
-						<li class="list-group-item">Masse molaire : {{ product.molarMass }}</li>
+						<li class="list-group-item">Masse molaire : {{ product.molarMass }} g/mol</li>
 						<li class="list-group-item">Densité : {{ product.density }}</li>
-						<li class="list-group-item">Tf : {{ product.meltingTemperature }}</li>
-						<li class="list-group-item">Te : {{ product.boilingTemperature }}</li>
+						<li class="list-group-item">Tf : {{ product.meltingTemperature }} C°</li>
+						<li class="list-group-item">Te : {{ product.boilingTemperature }} C°</li>
 						<li class="list-group-item">n : {{ product.opticalIndex }}</li>
-						<li class="list-group-item">T° autoflamme : {{ product.autoflameTemperature }}</li>
+						<li class="list-group-item">T° autoflamme : {{ product.autoflameTemperature }} C°</li>
 					</ul>
                 </div>
               </div>
@@ -178,9 +179,9 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-					<div class="text-center">
-						{{ product.storage.name }}
-					</div>
+                  <div style="background-color: {{product.storage.color}};" class="rounded text-center">
+                    {{ product.storage.name }}
+					        </div>
                 </div>
               </div>
             </div>
@@ -194,7 +195,7 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  <div class="text-center">
+                  <div style="background-color: {{product.trashCan.color}};" class="rounded text-center">
                     {{ product.trashCan.name }}
                   </div>
                 </div>

@@ -6,6 +6,7 @@ use App\Entity\Storage;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
 
 class StorageType extends AbstractType
 {
@@ -13,6 +14,7 @@ class StorageType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('color', ColorType::class)
         ;
     }
 

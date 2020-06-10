@@ -47,10 +47,10 @@
                         </h5>
                     </td>
                     <td>
-                        <p>{{ product.storage.name }}</p>
+                        <p style="height: 60px;width: 60px;background-color: {{product.storage.color}};border-radius: 100%;display: table-cell;text-align: center;vertical-align: middle;">{{ product.storage.name }}</p>
                     </td>
                     <td>
-                        <p>{{ product.trashCan.name }}</p>
+                        <p style="height: 60px;width: 60px;background-color: {{product.trashCan.color}};border-radius: 100%;display: table-cell;text-align: center;vertical-align: middle;">{{ product.trashCan.name }}</p>
                     </td>
                 </tr>
             {% endfor %}

@@ -66,8 +66,30 @@ class ProductController extends AbstractController
             'product' => $product,
             'dangerPictograms' => $product->getDangerPictograms(),
             'obligationPictograms' => $product->getObligationPictograms(),
-            'update' => $product->getUpdatedAt()->format('Y-m-d H:i:s'),
+            'update' => $product->getUpdatedAt()->format('d/m/Y'),
         ]);
+    }
+
+    /**
+     * @Route("/products/{slug}-{id}/securityForm", name="product.show.securityForm", requirements={"slug": "[a-zA-Z0-9\-]*"})
+     *
+     * @param Product $product
+     * @param string $slug
+     * @return Response
+     */
+    public function showSeucityForm(Product $product, string $slug): Response
+    {
+        if($product->getSlug() !== $slug){
+            return $this->redirectToRoute('product.show', [
+                'id' => $product->getId(),
+                'slug' => $product->getSlug()
+            ], 301);
+        }
+
+        return $this->render('product/securityForm.html.twig', [
+            'product' => $product,
+        ]);
+
     }
 
 }

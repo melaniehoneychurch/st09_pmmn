@@ -2,24 +2,32 @@
 
 namespace App\Form;
 
-use App\Entity\HazardStatement;
-use App\Entity\Pictogram;
 use App\Entity\Product;
 use App\Entity\Storage;
 use App\Entity\TrashCan;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Pictogram;
+use App\Entity\HazardStatement;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ProductType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('securityFormFile', FileType::class, [
+                'required' => false,
+            ])
             ->add('formulaImageFile', FileType::class, [
                 'required' => false,
+            ])
+            ->add('colorName', ChoiceType::class, [
+                'choices' => Product::COLOR,
             ])
             ->add('frenchName')
             ->add('englishName')
@@ -66,4 +74,5 @@ class ProductType extends AbstractType
             'translation_domain' => 'forms',
         ]);
     }
+
 }
