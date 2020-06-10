@@ -48,7 +48,9 @@ class ProductRepository extends ServiceEntityRepository
 
     private function findVisibleQuery()
     {
-        return $this->createQueryBuilder('p');
+        return $this->createQueryBuilder('p')
+        ->orderBy('p.frenchName', 'ASC');
+        ;
     }
 
     // /**

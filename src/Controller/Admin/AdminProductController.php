@@ -2,14 +2,17 @@
 
 namespace App\Controller\Admin;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Form\ProductType;
 use App\Entity\Product;
-use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
-use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Form\ProductType;
+use App\Entity\ProductSearch;
+use App\Form\ProductSearchType;
 use App\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 
 class AdminProductController extends AbstractController{
@@ -25,14 +28,23 @@ class AdminProductController extends AbstractController{
      *
      * @return void
      */
-    public function index()
+    public function index(PaginatorInterface $paginatorInterface, Request $request)
     {
-        $products = $this->productRep->findAll();
+        $search = new ProductSearch();
+        $form = $this->createForm(ProductSearchType::class, $search);
+        $form->handleRequest($request);
 
+        $products = $paginatorInterface->paginate(
+            $this->productRep->findAllVisibleQuery($search),
+            $request->query->getInt('page', 1),
+            10
+        );
+        
         return $this->render('admin/product/index.html.twig', [
             'products' => $products,
+            'form' => $form->createView(),
             'current_admin_menu' => 'product',
-        ]);
+            ]);
     }
 
     /**

@@ -8,9 +8,27 @@
 
 	<div class="container mt-4">
 
-		<h1>Gérer les produits</h1>
+		<h1>Gérer les produits</h1> 
 
 		{% include 'admin/adminFlashes.html.twig' %}
+
+		<div class="jumbotron">
+			<div class="container">
+				{{ form_start(form) }}
+					<div class="form-row">
+						<div class="col">
+							{{form_row(form.frenchName)}}
+						</div>
+						<div class="col">
+							{{form_row(form.casNumber)}}
+						</div>
+					</div>
+					<div class="col">
+						<button type="submit" class="btn-primary btn">Rechercher</button>
+					</div>
+				{{ form_end(form) }}
+			</div>
+		</div>
 
 		<table class="table table-striped">
 			<thead>
@@ -37,6 +55,11 @@
 				{% endfor %}
 			</tbody>
 		</table>
+
+		{# display navigation #}
+		<div class="navigation">
+			{{ knp_pagination_render(products) }}
+		</div>
 
 		<div class="text-right">
 			<a href="{{ path('admin.product.new') }}" class="btn btn-primary">Créer un nouveau product</a>
