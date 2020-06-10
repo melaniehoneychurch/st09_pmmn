@@ -32,7 +32,7 @@ class ProductRepository extends ServiceEntityRepository
         $query =  $this->findVisibleQuery();
             
         if($productSearch->getFrenchName()){
-            $query = $query->andWhere('p.frenchName LIKE :name')
+            $query = $query->andWhere('p.frenchName LIKE :name OR p.englishName LIKE :name OR p.nomenclature LIKE :name OR p.otherName LIKE :name')
                 ->setParameter('name', '%'.$productSearch->getFrenchName().'%');
         }
 
