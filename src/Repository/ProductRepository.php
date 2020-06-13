@@ -33,7 +33,9 @@ class ProductRepository extends ServiceEntityRepository
             
         if($productSearch->getFrenchName()){
             $query = $query->andWhere('p.frenchName LIKE :name OR p.englishName LIKE :name OR p.nomenclature LIKE :name OR p.otherName LIKE :name')
-                ->setParameter('name', '%'.$productSearch->getFrenchName().'%');
+                ->setParameter('name', '%'.$productSearch->getFrenchName().'%')
+                ->orderBy('p.updated_at', 'DESC')
+                ;
         }
 
         if($productSearch->getCasNumber()){
@@ -41,9 +43,45 @@ class ProductRepository extends ServiceEntityRepository
                 ->setParameter('cas', '%'.$productSearch->getCasNumber().'%');
         }
 
+        if($productSearch->getStorage()){
+            $query = $query->leftJoin('p.storage', 'storage')
+            ->andWhere('storage.name LIKE :storage')
+                ->setParameter('storage', '%'.$productSearch->getStorage().'%');
+        }
+
+        if($productSearch->getTrashCan()){
+            $query = $query->leftJoin('p.trashCan', 'trashCan')
+            ->andWhere('trashCan.name LIKE :trashCan')
+                ->setParameter('trashCan', '%'.$productSearch->getTrashCan().'%');
+        }
+
+        if($productSearch->getAlphabet()){
+            switch($productSearch->getAlphabet()){
+                case 0:
+                    $query = $query->orderBy('p.frenchName', 'ASC');
+                break;
+                case 1:
+                    $query = $query->orderBy('p.frenchName', 'DESC');
+                break;
+            }
+            
+        }
+
+        if($productSearch->getDate()){
+            switch($productSearch->getAlphabet()){
+                case 0:
+                    $query = $query->orderBy('p.updated_at', 'ASC');
+                break;
+                case 1:
+                    $query = $query->orderBy('p.updated_at', 'DESC');
+                break;
+            }
+            
+        }
+
        
         return $query->getQuery();
-        ;
+        
     }
 
     private function findVisibleQuery()
