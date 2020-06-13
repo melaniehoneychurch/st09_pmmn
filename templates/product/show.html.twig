@@ -8,6 +8,7 @@
       <a href="{{ path('product.show.securityForm', {slug: product.slug, id: product.id}) }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Afficher la fiche de sécurité</a>
     {%endif%}
 	<a href="{{ path('product.show.download', {slug: product.slug, id: product.id}) }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Télécharger la fiche de sécurité résumé</a>
+	<a href="{{ qr_code_url( url('product.show', {slug: product.slug, id: product.id}) ) }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" download><i class="fas fa-download fa-sm text-white-50"></i> Télécharger le qr du produit</a>
 
 
 	{% include "/product/summarySheet.html.twig" %}
