@@ -1,0 +1,298 @@
+<div class="container-fluid">
+          <!-- Content Row -->
+          <div class="row mt-2">
+
+		  	<div class="col-xl-2 col-lg-3">
+                  <div class="card bg-{% if product.colorName %}{{product.colorName}}{% else %}primary{%endif%} text-white shadow">
+                    <div class="card-body">
+                      <div class="text-center">
+                        {{ product.frenchName }}
+                      </div>
+                    </div>
+                  </div>
+            </div>
+
+			<!-- Area Chart -->
+            <div class="col-xl-5 col-lg-3">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Information général</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  	<ul class="list-group py-3">
+						<li class="list-group-item">{{ product.englishName }}</li>
+						<li class="list-group-item">{{ product.nomenclature }}</li>
+						<li class="list-group-item">{{ product.otherName }}</li>
+						<li class="list-group-item">N° CAS : {{ product.casNumber }}</li>
+					</ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Area Chart -->
+            <div class="col-xl-5 col-lg-3">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Information technique</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  	<ul class="list-group py-3 ">
+						<li class="list-group-item">Masse molaire : {{ product.molarMass }} g/mol</li>
+						<li class="list-group-item">Densité : {{ product.density }}</li>
+						<li class="list-group-item">Tf : {{ product.meltingTemperature }} C°</li>
+						<li class="list-group-item">Te : {{ product.boilingTemperature }} C°</li>
+						<li class="list-group-item">n : {{ product.opticalIndex }}</li>
+						<li class="list-group-item">T° autoflamme : {{ product.autoflameTemperature }} C°</li>
+					</ul>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+		  <!-- Content Row -->
+          <div class="row mt-2">
+
+            <!-- Area Chart -->
+            <div class="col-xl-5 col-lg-3">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Schéma</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  	<div class="text-center">
+					  {% if product.imageNameFormula %}
+                    	<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 250px; height:auto;" src="{{ vich_uploader_asset(product, 'formulaImageFile') }}" alt="">
+                  	  {% endif %}
+					</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Area Chart -->
+            <div class="col-xl-7 col-lg-3">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Pictogramme de danger</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+					<div class="text-center">
+						{% for dangerPictogram in dangerPictograms %}
+							{% if dangerPictogram.imageName %}
+								<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 250px; height:auto;" src="{{ vich_uploader_asset(dangerPictogram, 'imageFile') }}" alt="">
+							{% endif %}
+						{% endfor %}
+					</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+		  
+
+		  <!-- Content Row -->
+          <div class="row mt-2">
+
+            <!-- Area Chart -->
+            <div class="col-xl-5 col-lg-3">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Risque d'utilisation</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+					<div class="text-justify">
+                  		<p>{{ product.riskOfUse }}</p>
+					</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Area Chart -->
+            <div class="col-xl-7 col-lg-3">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Pictogramme de recommandation</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="text-center">
+                    {% for obligationPictogram in obligationPictograms %}
+                      {% if obligationPictogram.imageName %}
+                        <img class="img-fluid px-2 px-sm-4 mt-3 mb-4" style="width: 250px; height:auto;" src="{{ vich_uploader_asset(obligationPictogram, 'imageFile') }}" alt="" >
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+		  <!-- Content Row -->
+          <div class="row mt-2">
+
+            <!-- Area Chart -->
+            <div class="col-xl-6 col-lg-3">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Mélange dangereux</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="text-justify">
+                              <p>{{ product.dangerousMixtures }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Area Chart -->
+            <div class="col-xl-3 col-lg-3">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Stockage</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div style="background-color: {{product.storage.color}};" class="rounded text-center">
+                    {{ product.storage.name }}
+					        </div>
+                </div>
+              </div>
+            </div>
+
+			<!-- Area Chart -->
+            <div class="col-xl-3 col-lg-3">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Poubelle</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div style="background-color: {{product.trashCan.color}};" class="rounded text-center">
+                    {{ product.trashCan.name }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+			<!-- Content Row -->
+          <div class="row mt-2">
+
+			<!-- Area Chart -->
+            <div class="col-xl-12 col-lg-12">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Description</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  	<div class="text-justify">
+                      <p>{{ product.frenchCommentary }}</p>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+		  <!-- Content Row -->
+          <div class="row mt-2">
+
+			<!-- Area Chart -->
+            <div class="col-xl-12 col-lg-12">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Mentions de danger</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  	{% for statement in product.hazardStatements %}
+						          <p>{{ statement.code }}: {{ statement.text }}</p>
+					          {% endfor %}
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+		        <!-- Content Row -->
+          <div class="row mt-2">
+
+			        <!-- Area Chart -->
+            <div class="col-xl-9 col-lg-12">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Responsable</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  	<p>TO DO</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Area Chart -->
+            <div class="col-xl-3 col-lg-12">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Date de dernière mise à jour</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  	<p>{{ update }}</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+           <!-- Content Row -->
+          <div class="row mt-2">
+
+			        <!-- Area Chart -->
+            <div class="col-xl-12 col-lg-3">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">QrCode</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="text-center">
+                    
+                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="{{ qr_code_url( url('product.show', {slug: product.slug, id: product.id}) ) }}" alt="">
+                      
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+
+</div>
