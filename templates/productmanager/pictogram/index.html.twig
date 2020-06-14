@@ -1,0 +1,46 @@
+{% extends "base.html.twig" %}
+
+{% block title 'Gérer Pictogrammes' %}
+
+{% block body %}
+
+	<div class="container mt-4">
+
+		<h1>Gérer les pictogrammes</h1>
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Titre</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for pictogram in pictograms %}
+					<tr>
+						<td>{{ pictogram.name }}</td>
+						<td>
+							<a href="{{ path('productmanager.pictogram.edit', {id: pictogram.id}) }}" class="btn btn-secondary">Editer</a>
+							<form method="post" action="{{ path('productmanager.pictogram.delete', {id: pictogram.id}) }}" style="display: inline-block">
+								<input type="hidden" name="_method" value="DELETE">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ pictogram.id) }}">
+								<button class="btn btn-danger">Supprimer</button>
+							</form>
+						</td>
+					</tr>
+
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<div class="text-right">
+			<a href="{{ path('productmanager.pictogram.new') }}" class="btn btn-primary">Créer un nouveau pictogram</a>
+		</div>
+	</div>
+{% endblock %}

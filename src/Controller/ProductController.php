@@ -24,7 +24,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/products", name="product.index")
+     * @Route("", name="home")
      * 
      * @return HttpFoundationResponse
      */

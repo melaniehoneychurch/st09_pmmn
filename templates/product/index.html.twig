@@ -3,64 +3,94 @@
 {% block title 'Product list' %}
 
 {% block body %}
-<div class="jumbotron text-center">
-    <h1>Labo L2N</h1>
-</div>
 
-<div class="jumbotron">
-    <div class="container">
-        {{ form_start(form) }}
-            <div class="form-row">
-                <div class="col">
-                    {{form_row(form.frenchName)}}
+    <h2 class="mb-3">Liste des produits</h2>
+
+    {# recherche #}
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Area Chart -->
+        <div class="col-xl-12 col-lg-12">
+            <div class="card shadow mb-4">
+
+                <!-- Card Header -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Recherche</h6>
                 </div>
-                <div class="col">
-                    {{form_row(form.casNumber)}}
+
+                <!-- Card Body - search options -->
+                <div class="card-body">
+
+                    {{ form_start(form) }}
+                    <div class="form-row">
+                        <div class="col-lg-5">
+                            {{form_row(form.frenchName)}}
+                        </div>
+                        <div class="col-lg-5">
+                            {{form_row(form.casNumber)}}
+                        </div>
+                        <div class="col-lg-2">
+                            <button type="submit" class="btn-primary btn">Rechercher</button>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+
                 </div>
+
             </div>
-            <div class="col">
-                <button type="submit" class="btn-primary btn">Rechercher</button>
-            </div>
-        {{ form_end(form) }}
+        </div>
+
     </div>
-</div>
 
-<div class="container">
-    <h2>Liste des produits</h2>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Stockage</th>
-                <th>Poubelle</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for product in products %}
-                <tr>
-                    <td>
-                        <h5>
+    {# liste #}
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Area Chart -->
+        <div class="col-xl-12 col-lg-12">
+            <div class="card shadow mb-4">
+
+                <!-- Card Header -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Liste</h6>
+                </div>
+
+                <!-- Card Body - search options -->
+                <div class="card-body">
+
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Stockage</th>
+                            <th>Poubelle</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for product in products %}
                             <a href="{{ path('product.show', {slug: product.slug, id: product.id}) }}">
-                                {{ product.frenchName }}
+                                <tr>
+                                    <td><h6>{{ product.frenchName }}</h6></td>
+                                    <td><p>{{ product.storage.name }}</p></td>
+                                    <td><p>{{ product.trashCan.name }}</p></td>
+                                </tr>
                             </a>
-                        </h5>
-                    </td>
-                    <td>
-                        <p>{{ product.storage.name }}</p>
-                    </td>
-                    <td>
-                        <p>{{ product.trashCan.name }}</p>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                        {% endfor %}
+                        </tbody>
+                    </table>
 
-    {# display navigation #}
-    <div class="navigation">
-        {{ knp_pagination_render(products) }}
+                    {# display navigation #}
+                    <div class="navigation">
+                        {{ knp_pagination_render(products) }}
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
-</div>
 {% endblock %}

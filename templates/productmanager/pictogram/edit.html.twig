@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block title 'Editer pictogramme' %}
+
+{% block body %}
+
+	<div class="container mt-4">
+
+		<h1>Editer le pictogramme</h1>
+		{{ include('productmanager/product/_form.html.twig', {form: form, button: 'Editer'}) }}
+
+	</div>
+
+
+{% endblock %}

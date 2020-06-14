@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block title 'Editer Poubelle' %}
+
+{% block body %}
+
+	<div class="container mt-4">
+
+		<h1>Editer la poubelle</h1>
+		{{ include('productmanager/product/_form.html.twig', {form: form, button: 'Editer'}) }}
+
+	</div>
+
+
+{% endblock %}
