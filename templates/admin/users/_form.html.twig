@@ -1,0 +1,23 @@
+{{ form_start(form) }}
+		<div class="row">
+			<div class="col-md-6">{{ form_row(form.username) }}</div>
+			{# to be sure that password won't be changed by admin, and keep one only form #}
+			<div class="col-md-6" style="display:none;">{{ form_row(form.password) }}</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">{{ form_row(form.roles) }}</div>
+			<div class="col-md-8">
+				<div class="row">
+					<div class="col-md-6">{{ form_row(form.name) }}</div>
+					<div class="col-md-6">{{ form_row(form.familyName) }}</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">{{ form_row(form.emailAddress) }}</div>
+					<div class="col-md-6">{{ form_row(form.phone) }}</div>
+				</div>
+			</div>
+		</div>
+		<button class="btn btn-primary">{{ button|default('Enregistrer') }}</button>
+		{{ form_end(form) }}
+		<a href="{{ path('admin.user.cancel') }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Annuler</a>
+ 
