@@ -2,15 +2,18 @@
 
 namespace App\Controller\ProductManager;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Form\ProductType;
 use App\Entity\Product;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use App\Form\ProductType;
+use App\Entity\ProductSearch;
+use App\Form\ProductSearchType;
+use App\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\ProductRepository;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 class ProductManagerProductController extends AbstractController{
@@ -36,13 +39,22 @@ class ProductManagerProductController extends AbstractController{
      *
      * @return Response
      */
-    public function index()
+    public function index(PaginatorInterface $paginatorInterface, Request $request)
     {
-        $products = $this->productRep->findAll();
+        $search = new ProductSearch();
+        $form = $this->createForm(ProductSearchType::class, $search);
+        $form->handleRequest($request);
 
+        $products = $paginatorInterface->paginate(
+            $this->productRep->findAllVisibleQuery($search),
+            $request->query->getInt('page', 1),
+            10
+        );
+        
         return $this->render('productmanager/product/index.html.twig', [
             'products' => $products,
-        ]);
+            'form' => $form->createView(),
+            ]);
     }
 
     /**
@@ -85,11 +97,16 @@ class ProductManagerProductController extends AbstractController{
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($form->get('cancel')->isClicked()){
+                $this->addFlash('warning', 'produit non enregistré');
+
+            }else{
 
             $product->setUpdatedAt(new \Datetime());
             
             $this->em->flush();
-            $this->addFlash('success', 'Produit modifié avec succès');
+            $this->addFlash('success', 'produit modifié avec succès');
+            }
             return $this->redirectToRoute('productmanager.product.index');
         }
 

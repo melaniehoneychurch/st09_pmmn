@@ -59,11 +59,19 @@ class ProductManagerPictogramController extends AbstractController{
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->persist($pictogram);
+            if($form->get('cancel')->isClicked()){
+                $this->addFlash('warning', 'Pictogramme non enregistré');
+
+            }else{
+
+            $pictogram->setUpdatedAt(new \Datetime());
+
             $this->em->flush();
-            $this->addFlash('success', 'Pictogramme créé avec succès');
+            $this->addFlash('success', 'Pictogramme modifié avec succès');
+            }
             return $this->redirectToRoute('productmanager.pictogram.index');
         }
+
 
         return $this->render('productmanager/pictogram/new.html.twig', [
             'pictogram' => $pictogram,

@@ -85,8 +85,13 @@ class ProductManagerStorageController extends AbstractController{
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($form->get('cancel')->isClicked()){
+                $this->addFlash('warning', 'Stockage non enregistré');
+
+            }else{
             $this->em->flush();
             $this->addFlash('success', 'Stockage modifié avec succès');
+            }
             return $this->redirectToRoute('productmanager.storage.index');
         }
 

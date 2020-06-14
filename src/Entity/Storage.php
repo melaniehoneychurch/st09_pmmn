@@ -21,6 +21,12 @@ class Storage
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     */
+    private $color;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -38,5 +44,24 @@ class Storage
         return $this;
     }
 
-    
+
+    /**
+     * Get the value of color
+     */ 
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    /**
+     * Set the value of color
+     *
+     * @return  self
+     */ 
+    public function setColor($color)
+    {
+        $this->color = $color;
+
+        return $this;
+    }
 }

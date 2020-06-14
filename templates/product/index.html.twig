@@ -73,8 +73,16 @@
                             <a href="{{ path('product.show', {slug: product.slug, id: product.id}) }}">
                                 <tr>
                                     <td><h6>{{ product.frenchName }}</h6></td>
-                                    <td><p>{{ product.storage.name }}</p></td>
-                                    <td><p>{{ product.trashCan.name }}</p></td>
+                                    <td>
+                                        <p style="height: 60px;width: 60px;background-color: {{product.storage.color}};border-radius: 100%;display: table-cell;text-align: center;vertical-align: middle;">
+                                        {{ product.storage.name }}
+                                        </p>
+                                    </td>
+                                    <td>
+                                    <p style="height: 60px;width: 60px;background-color: {{product.trashCan.color}};border-radius: 100%;display: table-cell;text-align: center;vertical-align: middle;">
+                                    {{ product.trashCan.name }}
+                                    </p>
+                                    </td>
                                 </tr>
                             </a>
                         {% endfor %}

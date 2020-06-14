@@ -24,6 +24,12 @@ use Symfony\Component\HttpFoundation\File\File;
  */
 class Product
 {
+    const COLOR = [
+        "Vert" => "success",
+        "Orange" => "warning",
+        "Rouge" => "danger",
+    ];
+
     public function __construct()
     {
         $this->updated_at = new \Datetime();
@@ -42,6 +48,20 @@ class Product
 
     /**
      * 
+     * @Vich\UploadableField(mapping="product_security_form", fileNameProperty="securityFormNameFile")
+     * @var File|null
+     */
+    private $securityFormFile;
+
+    /**
+     *
+     * @var string|null
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $securityFormNameFile;
+
+    /**
+     * 
      * @Vich\UploadableField(mapping="product_images_formula", fileNameProperty="imageNameFormula")
      * @var File|null
      */
@@ -53,6 +73,13 @@ class Product
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $imageNameFormula;
+
+    /**
+     *
+     * @var string|null
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $colorName;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -469,4 +496,77 @@ class Product
         return $this;
     }
 
+    
+
+    /**
+     * Get the value of colorName
+     *
+     * @return  int|null
+     */ 
+    public function getColorName()
+    {
+        return $this->colorName;
+    }
+
+    /**
+     * Set the value of colorName
+     *
+     * @param  int|null  $colorName
+     *
+     * @return  self
+     */ 
+    public function setColorName($colorName)
+    {
+        $this->colorName = $colorName;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of securityFormFile
+     *
+     * @return  File|null
+     */ 
+    public function getSecurityFormFile()
+    {
+        return $this->securityFormFile;
+    }
+
+    /**
+     * Set the value of securityFormFile
+     *
+     * @param  File|null  $securityFormFile
+     *
+     * @return  self
+     */ 
+    public function setSecurityFormFile($securityFormFile)
+    {
+        $this->securityFormFile = $securityFormFile;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of securityFormNameFile
+     *
+     * @return  string|null
+     */ 
+    public function getSecurityFormNameFile()
+    {
+        return $this->securityFormNameFile;
+    }
+
+    /**
+     * Set the value of securityFormNameFile
+     *
+     * @param  string|null  $securityFormNameFile
+     *
+     * @return  self
+     */ 
+    public function setSecurityFormNameFile($securityFormNameFile)
+    {
+        $this->securityFormNameFile = $securityFormNameFile;
+
+        return $this;
+    }
 }

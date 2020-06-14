@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{% block title 'Security form product' %}
+
+{% block body %}
+
+<div class="container">
+    <embed src="{{ vich_uploader_asset(product, 'securityFormFile') }}" width="100%" height="700px" type='application/pdf'>
+</div>
+
+{% endblock %}

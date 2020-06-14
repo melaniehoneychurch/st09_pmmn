@@ -6,6 +6,8 @@ use App\Entity\TrashCan;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class TrashCanType extends AbstractType
 {
@@ -13,6 +15,10 @@ class TrashCanType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('color', ColorType::class)
+            ->add('cancel', SubmitType::class, [
+                'label' => 'Annuler'
+            ])
         ;
     }
 

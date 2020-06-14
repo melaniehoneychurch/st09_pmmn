@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\HazardStatement;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,6 +15,9 @@ class HazardStatementType extends AbstractType
         $builder
             ->add('code')
             ->add('text')
+            ->add('cancel', SubmitType::class, [
+                'label' => 'Annuler'
+            ])
         ;
     }
 

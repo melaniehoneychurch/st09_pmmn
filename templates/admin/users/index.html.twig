@@ -8,11 +8,7 @@
 
 		<h1 class="mb-4">Gérer les utilisateurs</h1>
 
-		{% for message in app.flashes('success') %}
-			<div class="alert alert-success">
-				{{ message }}
-			</div>
-		{% endfor %}
+		{% include 'admin/adminFlashes.html.twig' %}
 
 		<table class="table table-striped">
 			<thead>

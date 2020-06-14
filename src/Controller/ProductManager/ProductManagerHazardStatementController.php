@@ -85,8 +85,13 @@ class ProductManagerHazardStatementController extends AbstractController{
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->flush();
-            $this->addFlash('success', 'Mention de danger modifiée avec succès');
+            if($form->get('cancel')->isClicked()){
+                $this->addFlash('warning', 'Mention de danger non enregistré');
+
+            }else{
+                $this->em->flush();
+                $this->addFlash('success', 'mention de danger modifié avec succès');
+            }
             return $this->redirectToRoute('productmanager.hazardStatement.index');
         }
 
