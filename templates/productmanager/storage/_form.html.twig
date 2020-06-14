@@ -2,3 +2,4 @@
 {{ form_widget(form) }}
 <button class="btn btn-primary">{{ button|default('Enregistrer') }}</button>
 {{ form_end(form) }}
+<a href="{{ path('productmanager.storage.cancel') }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Annuler</a>

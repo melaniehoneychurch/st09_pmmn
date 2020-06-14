@@ -65,9 +65,6 @@ class ProductType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
              ])
-             ->add('cancel', SubmitType::class, [
-                'label' => 'Annuler'
-            ])
         ;
     }
 

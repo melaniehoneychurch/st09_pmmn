@@ -24,9 +24,6 @@ class PictogramType extends AbstractType
                 'choices' => Pictogram::TYPE
             ])
             ->add('name')
-            ->add('cancel', SubmitType::class, [
-                'label' => 'Annuler'
-            ])
         ;
     }
 

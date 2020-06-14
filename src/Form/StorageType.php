@@ -16,9 +16,6 @@ class StorageType extends AbstractType
         $builder
             ->add('name')
             ->add('color', ColorType::class)
-            ->add('cancel', SubmitType::class, [
-                'label' => 'Annuler'
-            ])
         ;
     }
 

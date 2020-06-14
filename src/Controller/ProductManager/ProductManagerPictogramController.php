@@ -58,20 +58,13 @@ class ProductManagerPictogramController extends AbstractController{
         $form = $this->createForm(PictogramType::class, $pictogram);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
-            if($form->get('cancel')->isClicked()){
-                $this->addFlash('warning', 'Pictogramme non enregistré');
-
-            }else{
-
-            $pictogram->setUpdatedAt(new \Datetime());
-
+            $this->em->persist($pictogram);
             $this->em->flush();
-            $this->addFlash('success', 'Pictogramme modifié avec succès');
-            }
+            $this->addFlash('success', 'Pictogramme créé avec succès');
             return $this->redirectToRoute('productmanager.pictogram.index');
         }
-
 
         return $this->render('productmanager/pictogram/new.html.twig', [
             'pictogram' => $pictogram,
@@ -93,11 +86,12 @@ class ProductManagerPictogramController extends AbstractController{
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            
             $pictogram->setUpdatedAt(new \Datetime());
 
             $this->em->flush();
             $this->addFlash('success', 'Pictogramme modifié avec succès');
+            
             return $this->redirectToRoute('productmanager.pictogram.index');
         }
 
@@ -122,6 +116,19 @@ class ProductManagerPictogramController extends AbstractController{
             $this->em->flush();
             $this->addFlash('success', 'Pictogramme supprimé avec succès');
         }
+        return $this->redirectToRoute('productmanager.pictogram.index');
+    }
+
+    /**
+     * @Route("/productmanager/cancel/pictogram", name="productmanager.pictogram.cancel")
+     *
+     * @return RedirectResponse
+     */
+    public function cancel(Request $request)
+    {
+
+        $this->addFlash('warning', 'Pictogramme non enregistré');
+
         return $this->redirectToRoute('productmanager.pictogram.index');
     }
 }

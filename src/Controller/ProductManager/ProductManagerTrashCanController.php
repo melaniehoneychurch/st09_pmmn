@@ -119,4 +119,17 @@ class ProductManagerTrashCanController extends AbstractController{
         }
         return $this->redirectToRoute('productmanager.trashCan.index');
     }
+
+    /**
+     * @Route("/productmanager/cancel/trashCan", name="productmanager.trashCan.cancel")
+     *
+     * @return RedirectResponse
+     */
+    public function cancel(Request $request)
+    {
+
+        $this->addFlash('warning', 'Poubelle non enregistré');
+
+        return $this->redirectToRoute('productmanager.trashCan.index');
+    }
 }

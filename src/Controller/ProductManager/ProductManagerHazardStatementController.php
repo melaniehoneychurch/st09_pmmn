@@ -85,13 +85,10 @@ class ProductManagerHazardStatementController extends AbstractController{
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if($form->get('cancel')->isClicked()){
-                $this->addFlash('warning', 'Mention de danger non enregistré');
-
-            }else{
+            
                 $this->em->flush();
                 $this->addFlash('success', 'mention de danger modifié avec succès');
-            }
+            
             return $this->redirectToRoute('productmanager.hazardStatement.index');
         }
 
@@ -116,6 +113,19 @@ class ProductManagerHazardStatementController extends AbstractController{
             $this->em->flush();
             $this->addFlash('success', 'Mention de danger supprimée avec succès');
         }
+        return $this->redirectToRoute('productmanager.hazardStatement.index');
+    }
+
+    /**
+     * @Route("/productmanager/cancel/hazardStatement", name="productmanager.hazardStatement.cancel")
+     *
+     * @return RedirectResponse
+     */
+    public function cancel(Request $request)
+    {
+
+        $this->addFlash('warning', 'Mention de danger non enregistré');
+
         return $this->redirectToRoute('productmanager.hazardStatement.index');
     }
 }

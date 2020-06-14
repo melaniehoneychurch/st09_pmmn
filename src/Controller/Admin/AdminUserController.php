@@ -93,13 +93,8 @@ class AdminUserController extends AbstractController{
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
-            if($form->get('cancel')->isClicked()){
-                $this->addFlash('warning', 'utilisateur non enregistré');
-
-            }else{
             $this->em->flush();
             $this->addFlash('success', 'Bien modifié avec succès');
-            }
             return $this->redirectToRoute('admin.user.index');
         }
 
@@ -123,6 +118,19 @@ class AdminUserController extends AbstractController{
             $this->addFlash('success', 'Bien supprimé avec succès');
             return $this->redirectToRoute('admin.user.index');
         }
+    }
+
+    /**
+     * @Route("/admin/cancel/users", name="admin.user.cancel")
+     *
+     * @return RedirectResponse
+     */
+    public function cancel(Request $request)
+    {
+
+        $this->addFlash('warning', 'Utilisateur non enregistré');
+
+        return $this->redirectToRoute('admin.user.index');
     }
     
 }
