@@ -93,13 +93,9 @@ class UserManagerUserController extends AbstractController{
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
-            if($form->get('cancel')->isClicked()){
-                $this->addFlash('warning', 'utilisateur non enregistré');
-
-            }else{
             $this->em->flush();
             $this->addFlash('success', 'Utilisateur modifié avec succès');
-            }
+            
             return $this->redirectToRoute('usermanager.user.index');
         }
 
