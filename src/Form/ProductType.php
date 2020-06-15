@@ -45,27 +45,27 @@ class ProductType extends AbstractType
             ->add('dangerousMixtures')
             ->add('frenchCommentary')
             /* ->add('updated_at') */
-             ->add('pictograms', EntityType::class,[
+            ->add('pictograms', EntityType::class,[
                 'class' => Pictogram::class,
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
-             ])
-             ->add('storage', EntityType::class,[
+            ])
+            ->add('storage', EntityType::class,[
                 'class' => Storage::class,
                 'choice_label' => 'name',
-             ])
-             ->add('trashCan', EntityType::class,[
+            ])
+            ->add('trashCan', EntityType::class,[
                 'class' => TrashCan::class,
                 'choice_label' => 'name',
-             ])
+            ])
             ->add('hazardStatements', EntityType::class,[
                 'class' => HazardStatement::class,
                 'choice_label' => 'code',
                 'multiple' => true,
                 'expanded' => true,
-             ])
-             ->add('cancel', SubmitType::class, [
+            ])
+            ->add('cancel', SubmitType::class, [
                 'label' => 'Annuler'
             ])
         ;

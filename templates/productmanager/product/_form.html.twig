@@ -1,4 +1,52 @@
 {{ form_start(form) }}
-{{ form_widget(form) }}
-<button class="btn btn-primary">{{ button|default('Enregistrer') }}</button>
+
+{# Form #}
+<!-- Content Row -->
+<div class="row">
+
+    <!-- Area Chart -->
+    <div class="col-xl-12 col-lg-12">
+        <div class="card shadow mb-4">
+
+            <!-- Card Header -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">{{ button|default('Formulaire') }} un produit</h6>
+            </div>
+
+            <!-- Card Body - search options -->
+            <div class="card-body">
+                {{ form_row(form.securityFormFile) }}
+                {{ form_row(form.formulaImageFile) }}
+                {{ form_row(form.colorName) }}
+                {{ form_row(form.frenchName) }}
+                {{ form_row(form.englishName) }}
+                {{ form_row(form.nomenclature) }}
+                {{ form_row(form.otherName) }}
+                {{ form_row(form.casNumber) }}
+                {{ form_row(form.molarMass) }}
+                {{ form_row(form.density) }}
+                {{ form_row(form.meltingTemperature) }}
+                {{ form_row(form.boilingTemperature) }}
+                {{ form_row(form.opticalIndex) }}
+                {{ form_row(form.autoflameTemperature) }}
+                {{ form_row(form.riskOfUse) }}
+                {{ form_row(form.dangerousMixtures) }}
+                {{ form_row(form.frenchCommentary) }}
+                {{ form_row(form.pictograms) }}
+                {{ form_row(form.storage) }}
+                {{ form_row(form.trashCan) }}
+                {{ form_row(form.hazardStatements) }}
+            </div>
+
+        </div>
+
+        <div class="text-right">
+            <div style="display:inline-block"><button class="btn btn-primary">{{ button|default('Enregistrer') }}</button></div>
+            <div style="display:inline-block">{{ form_row(form.cancel) }}</div>
+        </div>
+
+    </div>
+
+</div>
+
 {{ form_end(form) }}

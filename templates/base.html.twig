@@ -61,10 +61,11 @@
                     Gestion comptes utilisateurs
                 </div>
 
-                {# todo path gestion utilisateurs en /usermanager #}
                 <!-- Nav Item - user list -->
-                <li class="nav-item {% if app.request.get('_route') == '' %} active {% endif %}">
-                    <a class="nav-link" href="{#{{ path('') }}#}">
+                <li class="nav-item {% if app.request.get('_route') == 'usermanager.user.index'
+                or app.request.get('_route') == 'usermanager.user.edit'
+                or app.request.get('_route') == 'usermanager.user.new'%} active {% endif %}">
+                    <a class="nav-link" href="{{ path('usermanager.user.index') }}">
                         <i class="fas fa-users"></i>
                         <span>Liste utilisateurs</span>
                     </a>
@@ -84,7 +85,9 @@
                 </div>
 
                 <!-- Nav Item - products list -->
-                <li class="nav-item {% if app.request.get('_route') == 'productmanager.product.index' %} active {% endif %}">
+                <li class="nav-item {% if app.request.get('_route') == 'productmanager.product.index'
+                    or app.request.get('_route') == 'productmanager.product.edit'
+                    or app.request.get('_route') == 'productmanager.product.new'%} active {% endif %}">
                     <a class="nav-link" href="{{ path('productmanager.product.index') }}">
                         <i class="fas fa-vial"></i>
                         <span>Produits</span>
@@ -92,7 +95,9 @@
                 </li>
 
                 <!-- Nav Item - pictograms list -->
-                <li class="nav-item {% if app.request.get('_route') == 'productmanager.pictogram.index' %} active {% endif %}">
+                <li class="nav-item {% if app.request.get('_route') == 'productmanager.pictogram.index'
+                    or app.request.get('_route') == 'productmanager.pictogram.edit'
+                    or app.request.get('_route') == 'productmanager.pictogram.new'%} active {% endif %}">
                     <a class="nav-link" href="{{ path('productmanager.pictogram.index') }}">
                         <i class="fas fa-images"></i>
                         <span>Pictogrammes</span>
@@ -100,7 +105,9 @@
                 </li>
 
                 <!-- Nav Item - stock list -->
-                <li class="nav-item {% if app.request.get('_route') == 'productmanager.storage.index' %} active {% endif %}">
+                <li class="nav-item {% if app.request.get('_route') == 'productmanager.storage.index'
+                or app.request.get('_route') == 'productmanager.storage.edit'
+                or app.request.get('_route') == 'productmanager.storage.new'%} active {% endif %}">
                     <a class="nav-link" href="{{ path('productmanager.storage.index') }}">
                         <i class="fas fa-cubes"></i>
                         <span>Stockages</span>
@@ -108,16 +115,19 @@
                 </li>
 
                 <!-- Nav Item - trash list -->
-                <li class="nav-item {% if app.request.get('_route') == 'productmanager.trashCan.index' %} active {% endif %}">
+                <li class="nav-item {% if app.request.get('_route') == 'productmanager.trashCan.index'
+                or app.request.get('_route') == 'productmanager.trashCan.edit'
+                or app.request.get('_route') == 'productmanager.trashCan.new'%} active {% endif %}">
                     <a class="nav-link" href="{{ path('productmanager.trashCan.index') }}">
                         <i class="far fa-trash-alt"></i>
                         <span>Poubelles</span>
                     </a>
                 </li>
 
-                {# todo refaire path gestion GHS en /productmanager #}
                 <!-- Nav Item - GHS Danger -->
-                <li class="nav-item {% if app.request.get('_route') == 'productmanager.hazardStatement.index' %} active {% endif %}">
+                <li class="nav-item {% if app.request.get('_route') == 'productmanager.hazardStatement.index'
+                or app.request.get('_route') == 'productmanager.hazardStatement.edit'
+                or app.request.get('_route') == 'productmanager.hazardStatement.new'%} active {% endif %}">
                     <a class="nav-link" href="{{ path('productmanager.hazardStatement.index') }}">
                         <i class="fas fa-exclamation-circle"></i>
                         <span>GHS Mention de danger</span>
@@ -138,7 +148,9 @@
                 </div>
 
                 <!-- Nav Item - products list -->
-                <li class="nav-item {% if app.request.get('_route') == 'admin.user.index' %} active {% endif %}">
+                <li class="nav-item {% if app.request.get('_route') == 'admin.user.index'
+                    or app.request.get('_route') == 'admin.user.edit'
+                    or app.request.get('_route') == 'admin.user.new'%} active {% endif %}">
                     <a class="nav-link" href="{{ path('admin.user.index') }}">
                         <i class="fas fa-users-cog"></i>
                         <span>Administration utilisateurs</span>

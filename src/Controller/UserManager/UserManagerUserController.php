@@ -1,8 +1,8 @@
 <?php
-namespace App\Controller\Admin;
+namespace App\Controller\UserManager;
 
 use App\Entity\User;
-use App\Form\AdminUserType;
+use App\Form\UserManagerUserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class AdminUserController extends AbstractController{
+class UserManagerUserController extends AbstractController{
 
     /**
      * @var UserRepository
@@ -32,7 +32,7 @@ class AdminUserController extends AbstractController{
     private $encoder;
 
     /**
-     * AdminUserController constructor.
+     * UserManagerUserController constructor.
      * @param UserRepository $repository
      * @param EntityManagerInterface $em
      * @param UserPasswordEncoderInterface $encoder
@@ -45,26 +45,26 @@ class AdminUserController extends AbstractController{
     }
 
     /**
-     * @Route("/admin/users", name="admin.user.index")
+     * @Route("/usermanager/users", name="usermanager.user.index")
      * @return Response
      */
     public function index()
     {
         $users = $this->repository->findAll();
-        return $this->render('admin/users/index.html.twig',[
+        return $this->render('usermanager/users/index.html.twig',[
             'users' => $users,
         ]);
     }
 
     /**
-     * @Route("/admin/users/create", name="admin.user.new")
+     * @Route("/usermanager/users/create", name="usermanager.user.new")
      * @param Request $request
      * @return RedirectResponse|Response
      */
     public function new(Request $request)
     {
         $user = new User();
-        $form = $this->createForm(AdminUserType::class, $user);
+        $form = $this->createForm(UserManagerUserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
@@ -72,57 +72,41 @@ class AdminUserController extends AbstractController{
             $this->em->persist($user);
             $this->em->flush();
             $this->addFlash('success', 'Utilisateur créé avec succès');
-            return $this->redirectToRoute('admin.user.index');
+            return $this->redirectToRoute('usermanager.user.index');
         }
 
-        return $this->render('admin/users/new.html.twig',[
+        return $this->render('usermanager/users/new.html.twig',[
             'user' => $user,
             'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/admin/users/{id}", name="admin.user.edit", methods="GET|POST")
+     * @Route("/usermanager/users/{id}", name="usermanager.user.edit", methods="GET|POST")
      * @param User $user
      * @param Request $request
      * @return Response
      */
     public function edit(User $user, Request $request)
     {
-        $form = $this->createForm(AdminUserType::class, $user);
+        $form = $this->createForm(UserManagerUserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
             if($form->get('cancel')->isClicked()){
-                $this->addFlash('warning', 'Utilisateur non enregistré');
+                $this->addFlash('warning', 'utilisateur non enregistré');
 
             }else{
             $this->em->flush();
             $this->addFlash('success', 'Utilisateur modifié avec succès');
             }
-            return $this->redirectToRoute('admin.user.index');
+            return $this->redirectToRoute('usermanager.user.index');
         }
 
-        return $this->render('admin/users/edit.html.twig',[
+        return $this->render('usermanager/users/edit.html.twig',[
             'user' => $user,
             'form' => $form->createView()
         ]);
-    }
-
-    /**
-     * @Route("/admin/users/{id}", name="admin.user.delete", methods="DELETE")
-     * @param User $user
-     * @param Request $request
-     * @return RedirectResponse
-     */
-    public function delete(User $user, Request $request)
-    {
-        if($this->isCsrfTokenValid('delete' . $user->getId(),$request->get('_token'))){
-            $this->em->remove($user);
-            $this->em->flush();
-            $this->addFlash('success', 'Utilisateur supprimé avec succès');
-            return $this->redirectToRoute('admin.user.index');
-        }
     }
     
 }

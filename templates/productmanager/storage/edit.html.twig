@@ -4,12 +4,6 @@
 
 {% block body %}
 
-	<div class="container mt-4">
-
-		<h1>Editer le stokage</h1>
-		{{ include('productmanager/product/_form.html.twig', {form: form, button: 'Editer'}) }}
-
-	</div>
-
+		{{ include('productmanager/storage/_form.html.twig', {form: form, button: 'Editer'}) }}
 
 {% endblock %}

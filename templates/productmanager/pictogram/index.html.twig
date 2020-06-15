@@ -4,39 +4,92 @@
 
 {% block body %}
 
-	<div class="container mt-4">
+	{% include 'admin/adminFlashes.html.twig' %}
 
-		<h1>Gérer les pictogrammes</h1>
+	<h2>Gérer les pictogrammes</h2>
 
-		{% include 'admin/adminFlashes.html.twig' %}
+{#	#}{# Recherche #}
+{#	<!-- Content Row -->#}
+{#	<div class="row">#}
 
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Titre</th>
-					<th>Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for pictogram in pictograms %}
-					<tr>
-						<td>{{ pictogram.name }}</td>
-						<td>
-							<a href="{{ path('productmanager.pictogram.edit', {id: pictogram.id}) }}" class="btn btn-secondary">Editer</a>
-							<form method="post" action="{{ path('productmanager.pictogram.delete', {id: pictogram.id}) }}" style="display: inline-block">
-								<input type="hidden" name="_method" value="DELETE">
-								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ pictogram.id) }}">
-								<button class="btn btn-danger">Supprimer</button>
-							</form>
-						</td>
-					</tr>
+{#		<!-- Area Chart -->#}
+{#		<div class="col-xl-12 col-lg-12">#}
+{#			<div class="card shadow mb-4">#}
 
-				{% endfor %}
-			</tbody>
-		</table>
+{#				<!-- Card Header -->#}
+{#				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">#}
+{#					<h6 class="m-0 font-weight-bold text-primary">Recherche</h6>#}
+{#				</div>#}
 
-		<div class="text-right">
-			<a href="{{ path('productmanager.pictogram.new') }}" class="btn btn-primary">Créer un nouveau pictogram</a>
+{#				<!-- Card Body - search options -->#}
+{#				<div class="card-body">#}
+
+					{# TODO : recherche picto #}
+
+{#				</div>#}
+
+{#			</div>#}
+{#		</div>#}
+
+{#	</div>#}
+
+	{# Table #}
+	<!-- Content Row -->
+	<div class="row">
+
+		<!-- Area Chart -->
+		<div class="col-xl-12 col-lg-12">
+			<div class="card shadow mb-4">
+
+				<!-- Card Header -->
+				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+					<h6 class="m-0 font-weight-bold text-primary">Liste</h6>
+				</div>
+
+				<!-- Card Body - search options -->
+				<div class="card-body">
+
+					<table class="table table-striped">
+						<thead>
+						<tr>
+							<th>Titre</th>
+							<th>Action</th>
+						</tr>
+						</thead>
+						<tbody>
+						{% for pictogram in pictograms %}
+							<tr>
+								<td>{{ pictogram.name }}</td>
+								<td>
+									<a href="{{ path('productmanager.pictogram.edit', {id: pictogram.id}) }}" class="btn btn-secondary">Editer</a>
+									<form method="post" action="{{ path('productmanager.pictogram.delete', {id: pictogram.id}) }}" style="display: inline-block">
+										<input type="hidden" name="_method" value="DELETE">
+										<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ pictogram.id) }}">
+										<button class="btn btn-danger">Supprimer</button>
+									</form>
+								</td>
+							</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+
+					{# display navigation #}
+{#					<div class="navigation">#}
+{#						{{ knp_pagination_render(products) }}#}
+{#					</div>#}
+
+				</div>
+
+			</div>
+
+			<div class="text-right">
+				<div style="display:inline-block">
+					<a href="{{ path('productmanager.pictogram.new') }}" class="btn btn-primary">Créer un nouveau pictogramme</a>
+				</div>
+			</div>
+
 		</div>
+
 	</div>
+
 {% endblock %}

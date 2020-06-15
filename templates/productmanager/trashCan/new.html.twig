@@ -4,12 +4,6 @@
 
 {% block body %}
 
-	<div class="container mt-4">
-
-		<h1>Créer une poubelle</h1>
-		{{ include('productmanager/product/_form.html.twig', {form: form, button: 'Créer'}) }}
-
-	</div>
-
+		{{ include('productmanager/trashCan/_form.html.twig', {form: form, button: 'Créer'}) }}
 
 {% endblock %}
