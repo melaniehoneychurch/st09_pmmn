@@ -97,16 +97,12 @@ class ProductManagerProductController extends AbstractController{
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if($form->get('cancel')->isClicked()){
-                $this->addFlash('warning', 'produit non enregistré');
-
-            }else{
 
             $product->setUpdatedAt(new \Datetime());
             
             $this->em->flush();
             $this->addFlash('success', 'produit modifié avec succès');
-            }
+            
             return $this->redirectToRoute('productmanager.product.index');
         }
 
@@ -131,6 +127,19 @@ class ProductManagerProductController extends AbstractController{
             $this->em->flush();
             $this->addFlash('success', 'Produit supprimé avec succès');
         }
+        return $this->redirectToRoute('productmanager.product.index');
+    }
+
+    /**
+     * @Route("/productmanager/cancel/product", name="productmanager.product.cancel")
+     *
+     * @return RedirectResponse
+     */
+    public function cancel(Request $request)
+    {
+
+        $this->addFlash('warning', 'produit non enregistré');
+
         return $this->redirectToRoute('productmanager.product.index');
     }
 }

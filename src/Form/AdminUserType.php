@@ -26,9 +26,6 @@ class AdminUserType extends AbstractType
             ->add('familyName')
             ->add('emailAddress')
             ->add('phone')
-            ->add('cancel', SubmitType::class, [
-                'label' => 'Annuler'
-            ])
         ;
     }
 

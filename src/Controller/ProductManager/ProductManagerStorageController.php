@@ -2,15 +2,16 @@
 
 namespace App\Controller\ProductManager;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Form\StorageType;
 use App\Entity\Storage;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use App\Form\StorageType;
+use App\Repository\StorageRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\StorageRepository;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 class ProductManagerStorageController extends AbstractController{
@@ -36,13 +37,18 @@ class ProductManagerStorageController extends AbstractController{
      *
      * @return Response
      */
-    public function index()
+    public function index(PaginatorInterface $paginatorInterface, Request $request)
     {
-        $storages = $this->storageRep->findAll();
-
+        $storages = $paginatorInterface->paginate(
+            $this->storageRep->findAllOrderQuery(),
+            $request->query->getInt('page', 1),
+            10
+        );
+        
         return $this->render('productmanager/storage/index.html.twig', [
             'storages' => $storages,
-        ]);
+            
+            ]);
     }
 
     /**
@@ -85,13 +91,10 @@ class ProductManagerStorageController extends AbstractController{
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if($form->get('cancel')->isClicked()){
-                $this->addFlash('warning', 'Stockage non enregistré');
-
-            }else{
+            
             $this->em->flush();
             $this->addFlash('success', 'Stockage modifié avec succès');
-            }
+            
             return $this->redirectToRoute('productmanager.storage.index');
         }
 
@@ -118,4 +121,18 @@ class ProductManagerStorageController extends AbstractController{
         }
         return $this->redirectToRoute('productmanager.storage.index');
     }
+
+    /**
+     * @Route("/productmanager/cancel/storage", name="productmanager.storage.cancel")
+     *
+     * @return RedirectResponse
+     */
+    public function cancel(Request $request)
+    {
+
+        $this->addFlash('warning', 'Stockage non enregistré');
+
+        return $this->redirectToRoute('productmanager.storage.index');
+    }
+    
 }
