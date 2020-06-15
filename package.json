@@ -14,8 +14,6 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "html5-qrcode": "^1.1.5",
-        "instascan": "^1.0.0",
         "qr-scanner": "^1.1.1"
     }
 }
