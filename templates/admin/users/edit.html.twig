@@ -43,7 +43,7 @@
 
 			<div class="text-right">
 				<div style="display:inline-block"><button class="btn btn-primary">{{ button|default('Enregistrer') }}</button></div>
-				<div style="display:inline-block">{{ form_row(form.cancel) }}</div>
+				<div style="display:inline-block"><a href="{{ path('admin.user.cancel') }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Annuler</a></div>
 			</div>
 
 		</div>
