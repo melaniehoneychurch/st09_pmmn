@@ -2,15 +2,16 @@
 
 namespace App\Controller\ProductManager;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Form\HazardStatementType;
 use App\Entity\HazardStatement;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Form\HazardStatementType;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\HazardStatementRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 
 class ProductManagerHazardStatementController extends AbstractController{
@@ -36,13 +37,19 @@ class ProductManagerHazardStatementController extends AbstractController{
      *
      * @return HttpFoundationResponse
      */
-    public function index()
+    public function index(PaginatorInterface $paginatorInterface, Request $request)
     {
-        $hazardStatements = $this->hazardStatementRep->findAll();
-
+        $hazardStatements = $paginatorInterface->paginate(
+            $this->hazardStatementRep->findAllOrderQuery(),
+            $request->query->getInt('page', 1),
+            10
+        );
+        
         return $this->render('productmanager/hazardStatement/index.html.twig', [
             'hazardStatements' => $hazardStatements,
-        ]);
+            
+            ]);
+
     }
 
     /**

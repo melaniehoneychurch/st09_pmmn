@@ -19,6 +19,15 @@ class TrashCanRepository extends ServiceEntityRepository
         parent::__construct($registry, TrashCan::class);
     }
 
+    public function findAllOrderQuery()
+    {
+        return $this->createQueryBuilder('p')
+        ->orderBy('p.name', 'ASC')
+        ->getQuery()
+        ;
+        
+    }
+
     // /**
     //  * @return TrashCan[] Returns an array of TrashCan objects
     //  */

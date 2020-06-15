@@ -35,6 +35,11 @@
 			</tbody>
 		</table>
 
+		{# display navigation #}
+		<div class="navigation">
+			{{ knp_pagination_render(products) }}
+		</div>
+
 		<div class="text-right">
 			<a href="{{ path('productmanager.hazardStatement.new') }}" class="btn btn-primary">Créer un nouveau hazardStatement</a>
 		</div>

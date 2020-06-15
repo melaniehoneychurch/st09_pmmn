@@ -19,6 +19,15 @@ class PictogramRepository extends ServiceEntityRepository
         parent::__construct($registry, Pictogram::class);
     }
 
+    public function findAllOrderQuery()
+    {
+        return $this->createQueryBuilder('p')
+        ->orderBy('p.name', 'ASC')
+        ->getQuery()
+        ;
+        
+    }
+
     // /**
     //  * @return Pictogram[] Returns an array of Pictogram objects
     //  */

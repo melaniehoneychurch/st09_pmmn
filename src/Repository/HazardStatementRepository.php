@@ -19,6 +19,15 @@ class HazardStatementRepository extends ServiceEntityRepository
         parent::__construct($registry, HazardStatement::class);
     }
 
+    public function findAllOrderQuery()
+    {
+        return $this->createQueryBuilder('h')
+        ->orderBy('h.code', 'ASC')
+        ->getQuery()
+        ;
+        
+    }
+
     // /**
     //  * @return HazardStatement[] Returns an array of HazardStatement objects
     //  */

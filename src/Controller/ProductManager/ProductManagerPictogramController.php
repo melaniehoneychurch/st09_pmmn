@@ -2,15 +2,16 @@
 
 namespace App\Controller\ProductManager;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Form\PictogramType;
 use App\Entity\Pictogram;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use App\Form\PictogramType;
+use App\Repository\PictogramRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\PictogramRepository;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 class ProductManagerPictogramController extends AbstractController{
@@ -36,13 +37,18 @@ class ProductManagerPictogramController extends AbstractController{
      *
      * @return Response
      */
-    public function index()
+    public function index(PaginatorInterface $paginatorInterface, Request $request)
     {
-        $pictograms = $this->pictogramRep->findAll();
-
+        $pictograms = $paginatorInterface->paginate(
+            $this->pictogramRep->findAllOrderQuery(),
+            $request->query->getInt('page', 1),
+            10
+        );
+        
         return $this->render('productmanager/pictogram/index.html.twig', [
             'pictograms' => $pictograms,
-        ]);
+            
+            ]);
     }
 
     /**

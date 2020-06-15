@@ -2,15 +2,16 @@
 
 namespace App\Controller\ProductManager;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Form\TrashCanType;
 use App\Entity\TrashCan;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use App\Form\TrashCanType;
+use App\Repository\TrashCanRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\TrashCanRepository;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 class ProductManagerTrashCanController extends AbstractController{
@@ -36,13 +37,18 @@ class ProductManagerTrashCanController extends AbstractController{
      *
      * @return Response
      */
-    public function index()
+    public function index(PaginatorInterface $paginatorInterface, Request $request)
     {
-        $trashCans = $this->trashCanRep->findAll();
-
+        $trashCans = $paginatorInterface->paginate(
+            $this->trashCanRep->findAllOrderQuery(),
+            $request->query->getInt('page', 1),
+            10
+        );
+        
         return $this->render('productmanager/trashCan/index.html.twig', [
             'trashCans' => $trashCans,
-        ]);
+            
+            ]);
     }
 
     /**

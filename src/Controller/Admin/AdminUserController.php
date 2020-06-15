@@ -4,13 +4,14 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use App\Form\AdminUserType;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AdminUserController extends AbstractController{
@@ -47,13 +48,18 @@ class AdminUserController extends AbstractController{
      * @Route("/admin/users", name="admin.user.index")
      * @return Response
      */
-    public function index()
+    public function index(PaginatorInterface $paginatorInterface, Request $request)
     {
-        $users = $this->repository->findAll();
-        return $this->render('admin/users/index.html.twig',[
+        $users = $paginatorInterface->paginate(
+            $this->repository->findAllOrderQuery(),
+            $request->query->getInt('page', 1),
+            10
+        );
+        
+        return $this->render('admin/users/index.html.twig', [
             'users' => $users,
-            'current_admin_menu' => 'user',
-        ]);
+            
+            ]);
     }
 
     /**
