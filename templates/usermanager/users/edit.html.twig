@@ -4,50 +4,6 @@
 
 {% block body %}
 
-	{# Edition #}
-	<!-- Content Row -->
-	<div class="row">
-
-		<!-- Area Chart -->
-		<div class="col-xl-12 col-lg-12">
-			<div class="card shadow mb-4">
-
-				<!-- Card Header -->
-				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-					<h6 class="m-0 font-weight-bold text-primary">Editer l'utilisateur</h6>
-				</div>
-
-				<!-- Card Body - search options -->
-				<div class="card-body">
-
-					{{ form_start(form) }}
-					<div class="row">
-						<div class="col-md-6">{{ form_row(form.username) }}</div>
-						{# to be sure that password won't be changed by usermanager, and keep one only form #}
-						<div class="col-md-6" style="display:none;">{{ form_row(form.password) }}</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">{{ form_row(form.name) }}</div>
-						<div class="col-md-6">{{ form_row(form.familyName) }}</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">{{ form_row(form.emailAddress) }}</div>
-						<div class="col-md-6">{{ form_row(form.phone) }}</div>
-					</div>
-
-				</div>
-
-			</div>
-
-			<div class="text-right">
-				<div class="" style="display:inline-block"><button class="btn btn-primary">{{ button|default('Enregistrer') }}</button></div>
-				<div class="" style="display:inline-block"><a href="{{ path('admin.user.cancel') }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Annuler</a>
-</div>
-			</div>
-
-		</div>
-
-	</div>
-
+	{{ include('usermanager/users/_form.html.twig', {form: form, button: 'Editer'}) }}
 
 {% endblock %}

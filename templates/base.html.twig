@@ -35,20 +35,16 @@
             </a>
 
             {# USER #}
-            {% if is_granted('ROLE_USER') %}
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
 
-                <!-- Divider -->
-                <hr class="sidebar-divider my-0">
-
-                <!-- Nav Item - Products list -->
-                <li class="nav-item {% if app.request.get('_route') == 'home' %} active {% endif %}">
-                    <a class="nav-link" href="{{ path('home') }}">
-                        <i class="fas fa-vial"></i>
-                        <span>Liste produits</span>
-                    </a>
-                </li>
-
-            {% endif %}
+            <!-- Nav Item - Products list -->
+            <li class="nav-item {% if app.request.get('_route') == 'home' %} active {% endif %}">
+                <a class="nav-link" href="{{ path('home') }}">
+                    <i class="fas fa-vial"></i>
+                    <span>Liste produits</span>
+                </a>
+            </li>
 
             {# ACCOUNT MANAGER #}
             {% if is_granted('ROLE_ACCOUNT_MANAGER') %}
@@ -229,7 +225,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Laboratoire L2N 2020</span>
+                        <span>Copyright &copy; Laboratoire L2n 2020</span>
                     </div>
                 </div>
             </footer>
