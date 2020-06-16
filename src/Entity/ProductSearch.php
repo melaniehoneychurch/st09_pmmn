@@ -33,16 +33,9 @@ class ProductSearch {
     /**
      * Undocumented variable
      *
-     * @var string|null
+     * @var int|null
      */
-    private $alphabet;
-
-    /**
-     * Undocumented variable
-     *
-     * @var string|null
-     */
-    private $date;
+    private $trie;
 
     
     
@@ -145,50 +138,27 @@ class ProductSearch {
         return $this;
     }
 
+
     /**
      * Get undocumented variable
      *
-     * @return  string|null
+     * @return  int|null
      */ 
-    public function getAlphabet()
+    public function getTrie()
     {
-        return $this->alphabet;
+        return $this->trie;
     }
 
     /**
      * Set undocumented variable
      *
-     * @param  string|null  $alphabet  Undocumented variable
+     * @param  int|null  $trie  Undocumented variable
      *
      * @return  self
      */ 
-    public function setAlphabet($alphabet)
+    public function setTrie($trie)
     {
-        $this->alphabet = $alphabet;
-
-        return $this;
-    }
-
-    /**
-     * Get undocumented variable
-     *
-     * @return  string|null
-     */ 
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * Set undocumented variable
-     *
-     * @param  string|null  $date  Undocumented variable
-     *
-     * @return  self
-     */ 
-    public function setDate($date)
-    {
-        $this->date = $date;
+        $this->trie = $trie;
 
         return $this;
     }

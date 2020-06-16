@@ -9,6 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class HazardStatement
 {
+
+    public function __construct()
+    {
+        $this->updated_at = new \Datetime();
+    }
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -25,6 +31,11 @@ class HazardStatement
      * @ORM\Column(type="text")
      */
     private $text;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
 
     public function getId(): ?int
     {
@@ -51,6 +62,26 @@ class HazardStatement
     public function setText(string $text): self
     {
         $this->text = $text;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of updated_at
+     */ 
+    public function getUpdated_at()
+    {
+        return $this->updated_at;
+    }
+
+    /**
+     * Set the value of updated_at
+     *
+     * @return  self
+     */ 
+    public function setUpdated_at($updated_at)
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }

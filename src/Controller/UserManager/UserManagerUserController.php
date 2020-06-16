@@ -2,15 +2,18 @@
 namespace App\Controller\UserManager;
 
 use App\Entity\User;
+use App\Entity\UserSearch;
+use App\Form\UserSearchType;
 use App\Form\UserManagerUserType;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserManagerUserController extends AbstractController{
@@ -48,11 +51,21 @@ class UserManagerUserController extends AbstractController{
      * @Route("/usermanager/users", name="usermanager.user.index")
      * @return Response
      */
-    public function index()
+    public function index(PaginatorInterface $paginatorInterface, Request $request)
     {
-        $users = $this->repository->findAll();
-        return $this->render('usermanager/users/index.html.twig',[
+        $search = new UserSearch();
+        $form = $this->createForm(UserSearchType::class, $search);
+        $form->handleRequest($request);
+
+        $users = $paginatorInterface->paginate(
+            $this->repository->findSearchedQuery($search),
+            $request->query->getInt('page', 1),
+            10
+        );
+
+        return $this->render('admin/users/index.html.twig', [
             'users' => $users,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -103,6 +116,19 @@ class UserManagerUserController extends AbstractController{
             'user' => $user,
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/usermanager/cancel/users", name="usermanager.user.cancel")
+     *
+     * @return RedirectResponse
+     */
+    public function cancel(Request $request)
+    {
+
+        $this->addFlash('warning', 'Utilisateur non enregistré');
+
+        return $this->redirectToRoute('usermanager.user.index');
     }
     
 }

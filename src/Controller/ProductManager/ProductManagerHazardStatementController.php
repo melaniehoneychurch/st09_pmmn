@@ -3,15 +3,17 @@
 namespace App\Controller\ProductManager;
 
 use App\Entity\HazardStatement;
-use App\Form\HazardStatementType;
+use App\Entity\HazardStatementSearch;
+use App\Form\HazardStatementSearchType;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\HazardStatementRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
+
+
+
 
 
 class ProductManagerHazardStatementController extends AbstractController{
@@ -39,15 +41,19 @@ class ProductManagerHazardStatementController extends AbstractController{
      */
     public function index(PaginatorInterface $paginatorInterface, Request $request)
     {
+        $search = new HazardStatementSearch();
+        $form = $this->createForm(HazardStatementSearchType::class, $search);
+        $form->handleRequest($request);
+        
         $hazardStatements = $paginatorInterface->paginate(
-            $this->hazardStatementRep->findAllOrderQuery(),
+            $this->hazardStatementRep->findSearchedQuery($search),
             $request->query->getInt('page', 1),
             10
         );
         
         return $this->render('productmanager/hazardStatement/index.html.twig', [
             'hazardStatements' => $hazardStatements,
-            
+            'form' => $form->createView(),
             ]);
 
     }

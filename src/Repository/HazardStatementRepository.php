@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\HazardStatement;
+use App\Entity\HazardStatementSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,12 +20,40 @@ class HazardStatementRepository extends ServiceEntityRepository
         parent::__construct($registry, HazardStatement::class);
     }
 
-    public function findAllOrderQuery()
+
+
+    public function findSearchedQuery(HazardStatementSearch $search)
     {
-        return $this->createQueryBuilder('h')
-        ->orderBy('h.code', 'ASC')
-        ->getQuery()
-        ;
+        $query =  $this->createQueryBuilder('h');
+
+        if($search->getCode()){
+            $query = $query->andWhere('h.code LIKE :code')
+                ->setParameter('code', '%'.$search->getCode().'%');
+        }
+
+        if($search->getTrie()){
+            switch($search->getTrie()){
+                case 0:
+                    $query = $query->orderBy('h.code', 'ASC');
+                break;
+                case 1:
+                    $query = $query->orderBy('h.code', 'DESC');
+                break;
+                case 2:
+                    $query = $query->orderBy('h.updated_at', 'ASC');
+                break;
+                case 3:
+                    $query = $query->orderBy('h.updated_at', 'DESC');
+                break;
+                
+
+            }
+        }else{
+            $query = $query->orderBy('h.code', 'ASC');
+        }
+
+       
+        return $query->getQuery();
         
     }
 

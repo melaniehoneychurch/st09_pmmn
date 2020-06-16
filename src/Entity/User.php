@@ -78,9 +78,15 @@ class User implements UserInterface, \Serializable
      */
     private $phone;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
+
     public function __construct()
     {
         array_push($this->roles, 'ROLE_USER');
+        $this->updated_at = new \Datetime();
     }
 
     public function getId(): ?int
@@ -242,5 +248,25 @@ class User implements UserInterface, \Serializable
             $this->emailAddress,
             $this->phone
         ) = unserialize($serialized, array('allowed_classes' => false));
+    }
+
+    /**
+     * Get the value of updated_at
+     */ 
+    public function getUpdated_at()
+    {
+        return $this->updated_at;
+    }
+
+    /**
+     * Set the value of updated_at
+     *
+     * @return  self
+     */ 
+    public function setUpdated_at($updated_at)
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
     }
 }

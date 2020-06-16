@@ -2,45 +2,37 @@
 
 namespace App\Form;
 
-use App\Entity\ProductSearch;
+use App\Entity\UserSearch;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class ProductSearchType extends AbstractType
+class UserSearchType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('frenchName', SearchType::class, [
+            ->add('username', SearchType::class, [
                 'required' => false,
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Nom produit'
+                    'placeholder' => "Nom d'utilisateur"
                 ]
             ])
-            ->add('casNumber', SearchType::class, [
+            ->add('name', SearchType::class, [
                 'required' => false,
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Numero cas'
+                    'placeholder' => 'Prénom'
                 ]
             ])
-            ->add('storage', SearchType::class, [
+            ->add('familyName', SearchType::class, [
                 'required' => false,
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Stockage'
-                ]
-            ])
-            ->add('trashCan', SearchType::class, [
-                'required' => false,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Poubelle'
+                    'placeholder' => 'Nom de famille'
                 ]
             ])
             ->add('trie', ChoiceType::class, [
@@ -60,14 +52,7 @@ class ProductSearchType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => ProductSearch::class,
-            'method' => 'get',
-            'csrf_protection' => false,
+            'data_class' => UserSearch::class,
         ]);
-    }
-
-    public function getBlockPrefix()
-    {
-        return '';
     }
 }

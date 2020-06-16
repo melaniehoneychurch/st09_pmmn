@@ -2,7 +2,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Entity\UserSearch;
 use App\Form\AdminUserType;
+use App\Form\UserSearchType;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -51,14 +53,19 @@ class AdminUserController extends AbstractController{
      */
     public function index(PaginatorInterface $paginatorInterface, Request $request)
     {
+        $search = new UserSearch();
+        $form = $this->createForm(UserSearchType::class, $search);
+        $form->handleRequest($request);
+
         $users = $paginatorInterface->paginate(
-            $this->repository->findAllOrderQuery(),
+            $this->repository->findSearchedQuery($search),
             $request->query->getInt('page', 1),
             10
         );
         
         return $this->render('admin/users/index.html.twig', [
             'users' => $users,
+            'form' => $form->createView(),
         ]);
     }
 

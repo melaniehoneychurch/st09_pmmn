@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\UserSearch;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,12 +20,48 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    public function findAllOrderQuery()
+    public function findSearchedQuery(UserSearch $search)
     {
-        return $this->createQueryBuilder('p')
-        ->orderBy('p.name', 'ASC')
-        ->getQuery()
-        ;
+        $query =  $this->createQueryBuilder('u');
+
+        if($search->getUsername()){
+            $query = $query->andWhere('u.username LIKE :username')
+                ->setParameter('username', '%'.$search->getUsername().'%');
+        }
+
+        if($search->getName()){
+            $query = $query->andWhere('u.name LIKE :name')
+                ->setParameter('name', '%'.$search->getName().'%');
+        }
+
+        if($search->getFamilyName()){
+            $query = $query->andWhere('u.familyName LIKE :familyName')
+                ->setParameter('familyName', '%'.$search->getFamilyName().'%');
+        }
+
+        if($search->getTrie()){
+            switch($search->getTrie()){
+                case 0:
+                    $query = $query->orderBy('u.username', 'ASC');
+                break;
+                case 1:
+                    $query = $query->orderBy('u.username', 'DESC');
+                break;
+                case 2:
+                    $query = $query->orderBy('u.updated_at', 'ASC');
+                break;
+                case 3:
+                    $query = $query->orderBy('u.updated_at', 'DESC');
+                break;
+                
+
+            }
+        }else{
+            $query = $query->orderBy('u.username', 'ASC');
+        }
+
+       
+        return $query->getQuery();
         
     }
 

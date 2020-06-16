@@ -4,7 +4,36 @@
 
 {% block body %}
 
-	{% include 'admin/adminFlashes.html.twig' %}
+	{% include 'flashes.html.twig' %}
+
+	{# Recherche #}
+	<!-- Content Row -->
+	<div class="row">
+
+		<!-- Area Chart -->
+		<div class="col-xl-12 col-lg-12">
+			<div class="card shadow mb-4">
+
+				<!-- Card Header -->
+				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+					<h6 class="m-0 font-weight-bold text-primary">Recherche</h6>
+				</div>
+
+				<!-- Card Body - search options -->
+				<div class="card-body">
+
+					{{ form_start(form) }}
+						{{ form_widget(form) }}
+						<button type="submit" class="btn-primary btn">Rechercher</button>
+					{{ form_end(form) }}
+
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
 
 	{# liste #}
 	<!-- Content Row -->

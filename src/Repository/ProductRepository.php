@@ -3,11 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Product;
-use App\Entity\ProductSearch;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\Query;
+use App\Entity\ProductSearch;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
@@ -27,68 +27,58 @@ class ProductRepository extends ServiceEntityRepository
      *
      * @return Query
      */
-    public function findAllVisibleQuery(ProductSearch $productSearch): Query
+    public function findSearchedQuery(ProductSearch $search): Query
     {
-        $query =  $this->findVisibleQuery();
+        $query =  $this->createQueryBuilder('p');
             
-        if($productSearch->getFrenchName()){
+        if($search->getFrenchName()){
             $query = $query->andWhere('p.frenchName LIKE :name OR p.englishName LIKE :name OR p.nomenclature LIKE :name OR p.otherName LIKE :name')
-                ->setParameter('name', '%'.$productSearch->getFrenchName().'%')
+                ->setParameter('name', '%'.$search->getFrenchName().'%')
                 ->orderBy('p.updated_at', 'DESC')
                 ;
         }
 
-        if($productSearch->getCasNumber()){
+        if($search->getCasNumber()){
             $query = $query->andWhere('p.casNumber LIKE :cas')
-                ->setParameter('cas', '%'.$productSearch->getCasNumber().'%');
+                ->setParameter('cas', '%'.$search->getCasNumber().'%');
         }
 
-        if($productSearch->getStorage()){
+        if($search->getStorage()){
             $query = $query->leftJoin('p.storage', 'storage')
             ->andWhere('storage.name LIKE :storage')
-                ->setParameter('storage', '%'.$productSearch->getStorage().'%');
+                ->setParameter('storage', '%'.$search->getStorage().'%');
         }
 
-        if($productSearch->getTrashCan()){
+        if($search->getTrashCan()){
             $query = $query->leftJoin('p.trashCan', 'trashCan')
             ->andWhere('trashCan.name LIKE :trashCan')
-                ->setParameter('trashCan', '%'.$productSearch->getTrashCan().'%');
+                ->setParameter('trashCan', '%'.$search->getTrashCan().'%');
         }
 
-        if($productSearch->getAlphabet()){
-            switch($productSearch->getAlphabet()){
+        if($search->getTrie()){
+            switch($search->getTrie()){
                 case 0:
                     $query = $query->orderBy('p.frenchName', 'ASC');
                 break;
                 case 1:
                     $query = $query->orderBy('p.frenchName', 'DESC');
                 break;
-            }
-            
-        }
-
-        if($productSearch->getDate()){
-            switch($productSearch->getAlphabet()){
-                case 0:
+                case 2:
                     $query = $query->orderBy('p.updated_at', 'ASC');
                 break;
-                case 1:
+                case 3:
                     $query = $query->orderBy('p.updated_at', 'DESC');
                 break;
+                
+
             }
-            
+        }else{
+            $query = $query->orderBy('p.frenchName', 'ASC');
         }
 
        
         return $query->getQuery();
         
-    }
-
-    private function findVisibleQuery()
-    {
-        return $this->createQueryBuilder('p')
-        ->orderBy('p.frenchName', 'ASC');
-        ;
     }
 
     // /**
