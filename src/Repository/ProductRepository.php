@@ -44,15 +44,14 @@ class ProductRepository extends ServiceEntityRepository
         }
 
         if($search->getStorage()){
-            $query = $query->leftJoin('p.storage', 'storage')
-            ->andWhere('storage.name LIKE :storage')
-                ->setParameter('storage', '%'.$search->getStorage().'%');
+            $query = $query->andWhere('p.storage = :storage')
+                ->setParameter('storage', $search->getStorage()->getId());
         }
 
         if($search->getTrashCan()){
-            $query = $query->leftJoin('p.trashCan', 'trashCan')
-            ->andWhere('trashCan.name LIKE :trashCan')
-                ->setParameter('trashCan', '%'.$search->getTrashCan().'%');
+            $query = $query
+            ->andWhere('p.trashCan = :trashCan')
+                ->setParameter('trashCan', $search->getTrashCan()->getId());
         }
 
         if($search->getTrie()){

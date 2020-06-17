@@ -19,14 +19,14 @@ class ProductSearch {
     /**
      * Undocumented variable
      *
-     * @var string|null
+     * @var Storage|null
      */
     private $storage;
 
     /**
      * Undocumented variable
      *
-     * @var string|null
+     * @var TrashCan|null
      */
     private $trashCan;
 
@@ -90,54 +90,6 @@ class ProductSearch {
         return $this;
     }
 
-    /**
-     * Get undocumented variable
-     *
-     * @return  string|null
-     */ 
-    public function getStorage()
-    {
-        return $this->storage;
-    }
-
-    /**
-     * Set undocumented variable
-     *
-     * @param  string|null  $storage  Undocumented variable
-     *
-     * @return  self
-     */ 
-    public function setStorage($storage)
-    {
-        $this->storage = $storage;
-
-        return $this;
-    }
-
-    /**
-     * Get undocumented variable
-     *
-     * @return  string|null
-     */ 
-    public function getTrashCan()
-    {
-        return $this->trashCan;
-    }
-
-    /**
-     * Set undocumented variable
-     *
-     * @param  string|null  $trashCan  Undocumented variable
-     *
-     * @return  self
-     */ 
-    public function setTrashCan($trashCan)
-    {
-        $this->trashCan = $trashCan;
-
-        return $this;
-    }
-
 
     /**
      * Get undocumented variable
@@ -159,6 +111,54 @@ class ProductSearch {
     public function setTrie($trie)
     {
         $this->trie = $trie;
+
+        return $this;
+    }
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  Storage|null
+     */ 
+    public function getStorage()
+    {
+        return $this->storage;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  Storage|null  $storage  Undocumented variable
+     *
+     * @return  self
+     */ 
+    public function setStorage($storage)
+    {
+        $this->storage = $storage;
+
+        return $this;
+    }
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  TrashCan|null
+     */ 
+    public function getTrashCan()
+    {
+        return $this->trashCan;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  TrashCan|null  $trashCan  Undocumented variable
+     *
+     * @return  self
+     */ 
+    public function setTrashCan($trashCan)
+    {
+        $this->trashCan = $trashCan;
 
         return $this;
     }

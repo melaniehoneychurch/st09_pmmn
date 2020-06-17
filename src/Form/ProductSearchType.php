@@ -3,8 +3,11 @@
 namespace App\Form;
 
 use App\Entity\ProductSearch;
+use App\Entity\Storage;
+use App\Entity\TrashCan;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
@@ -29,14 +32,20 @@ class ProductSearchType extends AbstractType
                     'placeholder' => 'Numero cas'
                 ]
             ])
-            ->add('storage', SearchType::class, [
+            ->add('storage', EntityType::class, [
+                'class' => Storage::class,
+                'choice_label' => 'name',
+
                 'required' => false,
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Stockage'
                 ]
             ])
-            ->add('trashCan', SearchType::class, [
+            ->add('trashCan', EntityType::class, [
+                'class' => TrashCan::class,
+                'choice_label' => 'name',
+
                 'required' => false,
                 'label' => false,
                 'attr' => [
