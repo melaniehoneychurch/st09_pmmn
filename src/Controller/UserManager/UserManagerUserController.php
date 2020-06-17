@@ -63,7 +63,7 @@ class UserManagerUserController extends AbstractController{
             10
         );
 
-        return $this->render('admin/users/index.html.twig', [
+        return $this->render('usermanager/users/index.html.twig', [
             'users' => $users,
             'form' => $form->createView(),
         ]);
