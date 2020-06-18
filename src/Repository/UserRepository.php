@@ -48,10 +48,10 @@ class UserRepository extends ServiceEntityRepository
                     $query = $query->orderBy('u.username', 'DESC');
                 break;
                 case 2:
-                    $query = $query->orderBy('u.updated_at', 'ASC');
+                    $query = $query->orderBy('u.updated_at', 'DESC');
                 break;
                 case 3:
-                    $query = $query->orderBy('u.updated_at', 'DESC');
+                    $query = $query->orderBy('u.updated_at', 'ASC');
                 break;
                 
 

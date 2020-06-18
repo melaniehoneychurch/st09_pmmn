@@ -11,23 +11,19 @@
 	{% else %}
 		<a href="" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm disabled"><i class="fas fa-times fa-sm text-white-50"></i> Pas de fiche de sécurité</a>
 	{%endif%}
-	<a href="" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="printDiv('summarySheet')"><i class="fas fa-print fa-sm text-white-50"></i> Imprimer la fiche de sécurité résumé</a>
-	<a href="" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="printDiv('qrCode')"><i class="fas fa-print fa-sm text-white-50"></i> Imprimer le qr du produit</a>
+	<a  href="" class="printSummary mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i> Imprimer la fiche de sécurité résumé</a>
+	<a href="" class="printQrCode mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i> Imprimer le qr du produit</a>
 
 	{% include "/product/summarySheet.html.twig" %}
 	
 {% endblock %}
 
 {% block javascripts %}
-<script>
-function printDiv(divName) {
-	var printContents = document.getElementById(divName).innerHTML;    
-   	var originalContents = document.body.innerHTML;      
-   	document.body.innerHTML = printContents;     
-   	window.print();     
-   	document.body.innerHTML = originalContents;
-}
-</script>
+{{ parent() }}
+
+{{ encore_entry_script_tags('printDiv') }}
+
+
 {% endblock %}
 
 
