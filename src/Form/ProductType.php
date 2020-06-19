@@ -29,6 +29,7 @@ class ProductType extends AbstractType
             ])
             ->add('colorName', ChoiceType::class, [
                 'choices' => Product::COLOR,
+                'required' => false,
             ])
             ->add('frenchName')
             ->add('englishName')
@@ -50,20 +51,24 @@ class ProductType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
+                'required' => false,
             ])
             ->add('storage', EntityType::class,[
                 'class' => Storage::class,
                 'choice_label' => 'name',
+                'required' => false,
             ])
             ->add('trashCan', EntityType::class,[
                 'class' => TrashCan::class,
                 'choice_label' => 'name',
+                'required' => false,
             ])
             ->add('hazardStatements', EntityType::class,[
                 'class' => HazardStatement::class,
                 'choice_label' => 'code',
                 'multiple' => true,
                 'expanded' => true,
+                'required' => false,
             ])
             
         ;
