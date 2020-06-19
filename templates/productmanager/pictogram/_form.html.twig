@@ -15,7 +15,9 @@
 
             <!-- Card Body - search options -->
             <div class="card-body">
-                {{ form_row(form.imageFile) }}
+                {{ form_row(form.imageFile, {'attr': {'onchange': "document.getElementById('imageFile').src = window.URL.createObjectURL(this.files[0])"}}) }}
+                <img id="imageFile" alt="pictogramme" width="100" height="100" />
+
                 {{ form_row(form.type) }}
                 {{ form_row(form.name) }}
             </div>
