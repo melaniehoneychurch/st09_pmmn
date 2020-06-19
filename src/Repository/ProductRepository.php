@@ -63,10 +63,10 @@ class ProductRepository extends ServiceEntityRepository
                     $query = $query->orderBy('p.frenchName', 'DESC');
                 break;
                 case 2:
-                    $query = $query->orderBy('p.updated_at', 'ASC');
+                    $query = $query->orderBy('p.updated_at', 'DESC');
                 break;
                 case 3:
-                    $query = $query->orderBy('p.updated_at', 'DESC');
+                    $query = $query->orderBy('p.updated_at', 'ASC');
                 break;
                 
 

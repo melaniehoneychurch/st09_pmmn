@@ -15,8 +15,13 @@
 
             <!-- Card Body - search options -->
             <div class="card-body">
-                {{ form_row(form.securityFormFile) }}
-                {{ form_row(form.formulaImageFile) }}
+                {{ form_row(form.securityFormFile, {'attr': {'onchange': "document.getElementById('securityFormFile').src = window.URL.createObjectURL(this.files[0])"}}) }}
+                <img id="securityFormFile" alt="fiche de securite" width="100" height="100" />
+
+                {{ form_row(form.formulaImageFile, {'attr': {'onchange': "document.getElementById('formulaImage').src = window.URL.createObjectURL(this.files[0])"}}) }}
+                <img id="formulaImage" alt="image de la formule" width="100" height="100" />
+
+
                 {{ form_row(form.colorName) }}
                 {{ form_row(form.frenchName) }}
                 {{ form_row(form.englishName) }}
@@ -50,3 +55,5 @@
 </div>
 
 {{ form_end(form) }}
+
+

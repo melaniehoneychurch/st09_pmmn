@@ -159,23 +159,25 @@ class Product
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Pictogram", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $pictograms;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Storage")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $storage;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TrashCan")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $trashCan;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\HazardStatement", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $hazardStatements;
 

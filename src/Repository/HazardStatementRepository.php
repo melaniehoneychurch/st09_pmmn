@@ -40,10 +40,10 @@ class HazardStatementRepository extends ServiceEntityRepository
                     $query = $query->orderBy('h.code', 'DESC');
                 break;
                 case 2:
-                    $query = $query->orderBy('h.updated_at', 'ASC');
+                    $query = $query->orderBy('h.updated_at', 'DESC');
                 break;
                 case 3:
-                    $query = $query->orderBy('h.updated_at', 'DESC');
+                    $query = $query->orderBy('h.updated_at', 'ASC');
                 break;
                 
 
