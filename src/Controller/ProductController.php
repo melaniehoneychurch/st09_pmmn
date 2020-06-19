@@ -94,32 +94,6 @@ class ProductController extends AbstractController
 
     }
 
-    /**
-     * @Route("/products/{slug}-{id}/download", name="product.show.download", requirements={"slug": "[a-zA-Z0-9\-]*"})
-     *
-     * @param Product $product
-     * @param string $slug
-     * @return Response
-     */
-    public function downloadSummarySheet(Product $product, string $slug): Response
-    {
-        if($product->getSlug() !== $slug){
-            return $this->redirectToRoute('product.show', [
-                'id' => $product->getId(),
-                'slug' => $product->getSlug()
-            ], 301);
-        }
-
-        return $this->render('product/summarySheetToPDF.html.twig', [
-            'product' => $product,
-            'dangerPictograms' => $product->getDangerPictograms(),
-            'obligationPictograms' => $product->getObligationPictograms(),
-            'update' => $product->getUpdatedAt()->format('d/m/Y'),
-        ]);
-
-
-    }
-
 
 
 }

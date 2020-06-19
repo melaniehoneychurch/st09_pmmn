@@ -168,14 +168,23 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        
+
+                        <!-- Nav Item - qr code scan -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('scan') }}" role="button" >
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Scan</span>
+                                <i class="fas fa-qrcode"></i>
+                            </a>
+                        </li>
 
                         {# connected #}
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
                             {# TODO : path vers lien détail compte avec modif de mdp #}
                             <!-- Nav Item - User Information -->
-                            <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" role="button">
                                     <span class="mr-2 d-lg-inline text-gray-600 small">{{ app.user.name }} {{ app.user.familyname }}</span>
                                     <i class="fas fa-user"></i>
                                 </a>
@@ -184,8 +193,8 @@
                             <div class="topbar-divider d-none d-sm-block"></div>
 
                             <!-- Nav Item - logout -->
-                            <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link dropdown-toggle" href="{{ path('logout') }}" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('logout') }}" role="button">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">Se déconnecter</span>
                                     <i class="fas fa-sign-out-alt"></i>
                                 </a>
@@ -195,8 +204,8 @@
                         {% else %}
 
                             <!-- Nav Item - logout -->
-                            <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link dropdown-toggle" href="{{ path('login') }}" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('login') }}" role="button">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">Se connecter</span>
                                     <i class="fas fa-sign-in-alt"></i>
                                 </a>
@@ -238,7 +247,6 @@
 
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
-
     {% endblock %}
 
     {# theme sb-admin-2 #}
