@@ -17,4 +17,10 @@
 
 /.idea/
 
+##> symfony/webpack-encore-bundle ###
 /node_modules/
+/public/build/
+npm-debig.log
+yarn-error.log
+###< symfony/webpack-encore-bridge ###
+
