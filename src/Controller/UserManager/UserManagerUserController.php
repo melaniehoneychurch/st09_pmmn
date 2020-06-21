@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Security;
 
 class UserManagerUserController extends AbstractController{
 
@@ -35,24 +36,37 @@ class UserManagerUserController extends AbstractController{
     private $encoder;
 
     /**
+     * @var Security
+     */
+    private $security;
+
+    /**
      * UserManagerUserController constructor.
      * @param UserRepository $repository
      * @param EntityManagerInterface $em
      * @param UserPasswordEncoderInterface $encoder
+     * @param Security $security
      */
-    public function __construct(UserRepository $repository, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder)
+    public function __construct(UserRepository $repository, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder, Security $security)
     {
         $this->repository = $repository;
         $this->em = $em;
         $this->encoder = $encoder;
+        $this->security = $security;
     }
 
     /**
      * @Route("/usermanager/users", name="usermanager.user.index")
+     * @param PaginatorInterface $paginatorInterface
+     * @param Request $request
      * @return Response
      */
     public function index(PaginatorInterface $paginatorInterface, Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
+
         $search = new UserSearch();
         $form = $this->createForm(UserSearchType::class, $search);
         $form->handleRequest($request);
@@ -76,6 +90,10 @@ class UserManagerUserController extends AbstractController{
      */
     public function new(Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
+
         $user = new User();
         $form = $this->createForm(UserManagerUserType::class, $user);
         $form->handleRequest($request);
@@ -102,6 +120,10 @@ class UserManagerUserController extends AbstractController{
      */
     public function edit(User $user, Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
+
         $form = $this->createForm(UserManagerUserType::class, $user);
         $form->handleRequest($request);
 
@@ -121,10 +143,14 @@ class UserManagerUserController extends AbstractController{
     /**
      * @Route("/usermanager/cancel/users", name="usermanager.user.cancel")
      *
+     * @param Request $request
      * @return RedirectResponse
      */
     public function cancel(Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
 
         $this->addFlash('warning', 'Utilisateur non enregistré');
 

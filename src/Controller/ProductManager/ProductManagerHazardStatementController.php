@@ -5,15 +5,16 @@ namespace App\Controller\ProductManager;
 use App\Entity\HazardStatement;
 use App\Entity\HazardStatementSearch;
 use App\Form\HazardStatementSearchType;
+use App\Form\HazardStatementType;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\HazardStatementRepository;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-
-
+use Symfony\Component\Security\Core\Security;
 
 
 class ProductManagerHazardStatementController extends AbstractController{
@@ -28,19 +29,37 @@ class ProductManagerHazardStatementController extends AbstractController{
      */
     private $em;
 
-    public function __construct(HazardStatementRepository $hazardStatementRep, EntityManagerInterface $em)
+    /**
+     * @var Security
+     */
+    private $security;
+
+    /**
+     * ProductManagerHazardStatementController constructor.
+     * @param HazardStatementRepository $hazardStatementRep
+     * @param EntityManagerInterface $em
+     * @param Security $security
+     */
+    public function __construct(HazardStatementRepository $hazardStatementRep, EntityManagerInterface $em, Security $security)
     {
         $this->hazardStatementRep = $hazardStatementRep;
         $this->em = $em;
+        $this->security = $security;
     }
 
     /**
      * @Route("/productmanager/hazardStatement", name="productmanager.hazardStatement.index")
      *
-     * @return HttpFoundationResponse
+     * @param PaginatorInterface $paginatorInterface
+     * @param Request $request
+     * @return Response
      */
     public function index(PaginatorInterface $paginatorInterface, Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
+
         $search = new HazardStatementSearch();
         $form = $this->createForm(HazardStatementSearchType::class, $search);
         $form->handleRequest($request);
@@ -62,10 +81,14 @@ class ProductManagerHazardStatementController extends AbstractController{
      * @Route("/productmanager/hazardStatement/create", name="productmanager.hazardStatement.new")
      *
      * @param Request $request
-     * @return RedirectResponse|HttpFoundationResponse
+     * @return RedirectResponse|Response
      */
     public function new(Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
+
         $hazardStatement = new HazardStatement();
 
         $form = $this->createForm(HazardStatementType::class, $hazardStatement);
@@ -89,10 +112,13 @@ class ProductManagerHazardStatementController extends AbstractController{
      *
      * @param HazardStatement $hazardStatement
      * @param Request $request
-     * @return RedirectResponse|HttpFoundationResponse
+     * @return RedirectResponse|Response
      */
     public function edit(HazardStatement $hazardStatement, Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
 
         $form = $this->createForm(HazardStatementType::class, $hazardStatement);
         $form->handleRequest($request);
@@ -120,6 +146,9 @@ class ProductManagerHazardStatementController extends AbstractController{
      */
     public function delete(HazardStatement $hazardStatement, Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
 
         if ($this->isCsrfTokenValid('delete' . $hazardStatement->getId(), $request->get('_token'))) {
             $this->em->remove($hazardStatement);
@@ -132,10 +161,14 @@ class ProductManagerHazardStatementController extends AbstractController{
     /**
      * @Route("/productmanager/cancel/hazardStatement", name="productmanager.hazardStatement.cancel")
      *
+     * @param Request $request
      * @return RedirectResponse
      */
     public function cancel(Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
 
         $this->addFlash('warning', 'Mention de danger non enregistré');
 

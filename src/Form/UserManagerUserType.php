@@ -19,6 +19,7 @@ class UserManagerUserType extends AbstractType
             ->add('familyName')
             ->add('emailAddress')
             ->add('phone')
+            ->add('activate')
             
         ;
     }

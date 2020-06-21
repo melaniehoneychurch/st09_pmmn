@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Security;
 
 
 class ProductManagerStorageController extends AbstractController{
@@ -26,19 +27,37 @@ class ProductManagerStorageController extends AbstractController{
      */
     private $em;
 
-    public function __construct(StorageRepository $storageRep, EntityManagerInterface $em)
+    /**
+     * @var Security
+     */
+    private $security;
+
+    /**
+     * ProductManagerStorageController constructor.
+     * @param StorageRepository $storageRep
+     * @param EntityManagerInterface $em
+     * @param Security $security
+     */
+    public function __construct(StorageRepository $storageRep, EntityManagerInterface $em, Security $security)
     {
         $this->storageRep = $storageRep;
         $this->em = $em;
+        $this->security = $security;
     }
 
     /**
      * @Route("/productmanager/storage", name="productmanager.storage.index")
      *
+     * @param PaginatorInterface $paginatorInterface
+     * @param Request $request
      * @return Response
      */
     public function index(PaginatorInterface $paginatorInterface, Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
+
         $storages = $paginatorInterface->paginate(
             $this->storageRep->findAllOrderQuery(),
             $request->query->getInt('page', 1),
@@ -59,6 +78,10 @@ class ProductManagerStorageController extends AbstractController{
      */
     public function new(Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
+
         $storage = new Storage();
 
         $form = $this->createForm(StorageType::class, $storage);
@@ -86,6 +109,9 @@ class ProductManagerStorageController extends AbstractController{
      */
     public function edit(Storage $storage, Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
 
         $form = $this->createForm(StorageType::class, $storage);
         $form->handleRequest($request);
@@ -113,6 +139,9 @@ class ProductManagerStorageController extends AbstractController{
      */
     public function delete(Storage $storage, Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
 
         if ($this->isCsrfTokenValid('delete' . $storage->getId(), $request->get('_token'))) {
             $this->em->remove($storage);
@@ -125,10 +154,14 @@ class ProductManagerStorageController extends AbstractController{
     /**
      * @Route("/productmanager/cancel/storage", name="productmanager.storage.cancel")
      *
+     * @param Request $request
      * @return RedirectResponse
      */
     public function cancel(Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
 
         $this->addFlash('warning', 'Stockage non enregistré');
 

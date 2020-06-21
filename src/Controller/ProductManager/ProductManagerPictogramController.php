@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Security;
 
 
 class ProductManagerPictogramController extends AbstractController{
@@ -26,19 +27,37 @@ class ProductManagerPictogramController extends AbstractController{
      */
     private $em;
 
-    public function __construct(PictogramRepository $pictogramRep, EntityManagerInterface $em)
+    /**
+     * @var Security
+     */
+    private $security;
+
+    /**
+     * ProductManagerPictogramController constructor.
+     * @param PictogramRepository $pictogramRep
+     * @param EntityManagerInterface $em
+     * @param Security $security
+     */
+    public function __construct(PictogramRepository $pictogramRep, EntityManagerInterface $em, Security $security)
     {
         $this->pictogramRep = $pictogramRep;
         $this->em = $em;
+        $this->security = $security;
     }
 
     /**
      * @Route("/productmanager/pictogram", name="productmanager.pictogram.index")
      *
+     * @param PaginatorInterface $paginatorInterface
+     * @param Request $request
      * @return Response
      */
     public function index(PaginatorInterface $paginatorInterface, Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
+
         $pictograms = $paginatorInterface->paginate(
             $this->pictogramRep->findAllOrderQuery(),
             $request->query->getInt('page', 1),
@@ -59,6 +78,10 @@ class ProductManagerPictogramController extends AbstractController{
      */
     public function new(Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
+
         $pictogram = new Pictogram();
 
         $form = $this->createForm(PictogramType::class, $pictogram);
@@ -87,6 +110,9 @@ class ProductManagerPictogramController extends AbstractController{
      */
     public function edit(Pictogram $pictogram, Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
 
         $form = $this->createForm(PictogramType::class, $pictogram);
         $form->handleRequest($request);
@@ -116,6 +142,9 @@ class ProductManagerPictogramController extends AbstractController{
      */
     public function delete(Pictogram $pictogram, Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
 
         if ($this->isCsrfTokenValid('delete' . $pictogram->getId(), $request->get('_token'))) {
             $this->em->remove($pictogram);
@@ -128,10 +157,14 @@ class ProductManagerPictogramController extends AbstractController{
     /**
      * @Route("/productmanager/cancel/pictogram", name="productmanager.pictogram.cancel")
      *
+     * @param Request $request
      * @return RedirectResponse
      */
     public function cancel(Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
 
         $this->addFlash('warning', 'Pictogramme non enregistré');
 

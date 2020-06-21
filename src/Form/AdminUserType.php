@@ -26,6 +26,7 @@ class AdminUserType extends AbstractType
             ->add('familyName')
             ->add('emailAddress')
             ->add('phone')
+            ->add('activate')
         ;
     }
 

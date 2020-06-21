@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Security;
 
 
 class ProductManagerProductController extends AbstractController{
@@ -28,19 +29,37 @@ class ProductManagerProductController extends AbstractController{
      */
     private $em;
 
-    public function __construct(ProductRepository $productRep, EntityManagerInterface $em)
+    /**
+     * @var Security
+     */
+    private $security;
+
+    /**
+     * ProductManagerProductController constructor.
+     * @param ProductRepository $productRep
+     * @param EntityManagerInterface $em
+     * @param Security $security
+     */
+    public function __construct(ProductRepository $productRep, EntityManagerInterface $em, Security $security)
     {
         $this->productRep = $productRep;
         $this->em = $em;
+        $this->security = $security;
     }
 
     /**
      * @Route("/productmanager/product", name="productmanager.product.index")
      *
+     * @param PaginatorInterface $paginatorInterface
+     * @param Request $request
      * @return Response
      */
     public function index(PaginatorInterface $paginatorInterface, Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
+
         $search = new ProductSearch();
         $form = $this->createForm(ProductSearchType::class, $search);
         $form->handleRequest($request);
@@ -65,6 +84,10 @@ class ProductManagerProductController extends AbstractController{
      */
     public function new(Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
+
         $product = new Product();
 
         $form = $this->createForm(productType::class, $product);
@@ -92,6 +115,9 @@ class ProductManagerProductController extends AbstractController{
      */
     public function edit(Product $product, Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
 
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
@@ -121,6 +147,9 @@ class ProductManagerProductController extends AbstractController{
      */
     public function delete(Product $product, Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
 
         if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))) {
             $this->em->remove($product);
@@ -133,10 +162,14 @@ class ProductManagerProductController extends AbstractController{
     /**
      * @Route("/productmanager/cancel/product", name="productmanager.product.cancel")
      *
+     * @param Request $request
      * @return RedirectResponse
      */
     public function cancel(Request $request)
     {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
 
         $this->addFlash('warning', 'produit non enregistré');
 

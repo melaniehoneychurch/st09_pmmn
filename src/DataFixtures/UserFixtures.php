@@ -30,6 +30,7 @@ class UserFixtures extends Fixture
             ->setFamilyName('testFamilyName')
             ->setEmailAddress('test@email.com')
             ->setPhone('0612345678')
+            ->setActivate(true)
         ;
         $manager->persist($user);
 
@@ -41,6 +42,7 @@ class UserFixtures extends Fixture
             ->setFamilyName('adminFamilyName')
             ->setEmailAddress('admin@email.com')
             ->setPhone('0612345678')
+            ->setActivate(true)
             ->addRole('ROLE_ADMIN')
         ;
         $manager->persist($user2);

@@ -83,6 +83,11 @@ class User implements UserInterface, \Serializable
      */
     private $updated_at;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $activate;
+
     public function __construct()
     {
         array_push($this->roles, 'ROLE_USER');
@@ -266,6 +271,18 @@ class User implements UserInterface, \Serializable
     public function setUpdated_at($updated_at)
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getActivate(): ?bool
+    {
+        return $this->activate;
+    }
+
+    public function setActivate(bool $activate): self
+    {
+        $this->activate = $activate;
 
         return $this;
     }

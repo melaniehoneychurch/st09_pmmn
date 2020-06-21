@@ -42,7 +42,7 @@
             </li>
 
             {# ACCOUNT MANAGER #}
-            {% if is_granted('ROLE_ACCOUNT_MANAGER') %}
+            {% if is_granted('ROLE_ACCOUNT_MANAGER') and app.user.activate %}
 
                 <!-- Divider -->
                 <hr class="sidebar-divider">
@@ -65,7 +65,7 @@
             {% endif %}
 
             {# PRODUCT MANAGER #}
-            {% if is_granted('ROLE_PRODUCT_MANAGER')%}
+            {% if is_granted('ROLE_PRODUCT_MANAGER') and app.user.activate %}
 
                 <!-- Divider -->
                 <hr class="sidebar-divider">

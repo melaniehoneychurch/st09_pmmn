@@ -57,6 +57,7 @@
 						<thead>
 						<tr>
 							<th>Utilisateur</th>
+							<th>Activation</th>
 							<th>Actions</th>
 						</tr>
 						</thead>
@@ -65,6 +66,7 @@
 						{% for user in users %}
 							<tr>
 								<td>{{ user.username }} : {{ user.rolesString }}</td>
+								<td>{% if user.activate %} Activé {% else %} Désactivé {% endif %}</td>
 								<td>
 									<a href="{{ path('admin.user.edit', {id: user.id}) }}" class="btn btn-secondary">Editer</a>
 									<form method="post" action="{{ path('admin.user.delete', {id: user.id}) }}" style="display: inline-block" onsubmit="return confirm('Etes vous certains de vouloir supprimer un utilisateur ?')">
