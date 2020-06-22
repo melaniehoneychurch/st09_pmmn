@@ -34,7 +34,8 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Products list -->
-            <li class="nav-item {% if app.request.get('_route') == 'home' %} active {% endif %}">
+            <li class="nav-item {% if app.request.get('_route') == 'product.index'
+            or app.request.get('_route') == 'product.show'%} active {% endif %}">
                 <a class="nav-link" href="{{ path('home') }}">
                     <i class="fas fa-vial"></i>
                     <span>Liste produits</span>
@@ -177,10 +178,9 @@
                         {# connected #}
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
-                            {# TODO : path vers lien détail compte avec modif de mdp #}
                             <!-- Nav Item - User Information -->
                             <li class="nav-item">
-                                <a class="nav-link" href="#" role="button">
+                                <a class="nav-link" href="{{ path('user.show') }}" role="button">
                                     <span class="mr-2 d-lg-inline text-gray-600 small">{{ app.user.name }} {{ app.user.familyname }}</span>
                                     <i class="fas fa-user"></i>
                                 </a>

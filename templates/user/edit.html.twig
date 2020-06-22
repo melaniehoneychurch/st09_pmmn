@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title 'Editer mot de passe utilisateur' %}
+{% block title 'Editer informations' %}
 
 {% block body %}
 
@@ -15,15 +15,21 @@
 			<div class="card shadow mb-4">
 				<!-- Card Header -->
 				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-					<h6 class="m-0 font-weight-bold text-primary">Modifier mot de passe</h6>
+					<h6 class="m-0 font-weight-bold text-primary">Modifier Informations personnelles</h6>
 				</div>
 
 				<!-- Card Body - search options -->
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-6">
-							{{ form_row(form.password) }}
-						</div>
+						<div class="col-md-6">{{ form_row(form.username) }}</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">{{ form_row(form.name) }}</div>
+						<div class="col-md-6">{{ form_row(form.familyName) }}</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">{{ form_row(form.emailAddress) }}</div>
+						<div class="col-md-6">{{ form_row(form.phone) }}</div>
 					</div>
 				</div>
 
@@ -31,7 +37,7 @@
 
 			<div class="text-right">
 				<div style="display:inline-block;"><button class="btn btn-sm btn-primary shadow-sm">{{ button|default('Enregistrer') }}</button></div>
-				<div style="display:inline-block"><a href="{{ path('admin.user.cancel') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Annuler</a></div>
+				<div style="display:inline-block"><a href="{{ path('user.cancel') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Annuler</a></div>
 			</div>
 
 		</div>
