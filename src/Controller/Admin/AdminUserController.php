@@ -3,6 +3,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Entity\UserSearch;
+use App\Form\AdminUserPasswordType;
 use App\Form\AdminUserType;
 use App\Form\UserSearchType;
 use App\Repository\UserRepository;
@@ -49,6 +50,8 @@ class AdminUserController extends AbstractController{
 
     /**
      * @Route("/admin/users", name="admin.user.index")
+     * @param PaginatorInterface $paginatorInterface
+     * @param Request $request
      * @return Response
      */
     public function index(PaginatorInterface $paginatorInterface, Request $request)
@@ -112,6 +115,30 @@ class AdminUserController extends AbstractController{
         }
 
         return $this->render('admin/users/edit.html.twig',[
+            'user' => $user,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/admin/users/{id}/password", name="admin.user.editpassword", methods="GET|POST")
+     * @param User $user
+     * @param Request $request
+     * @return Response
+     */
+    public function editPassword(User $user, Request $request)
+    {
+        $form = $this->createForm(AdminUserPasswordType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $user->setPassword($this->encoder->encodePassword($user, $user->getPassword()));
+            $this->em->flush();
+            $this->addFlash('success', 'Mot de passe modifié avec succès');
+            return $this->redirectToRoute('admin.user.index');
+        }
+
+        return $this->render('admin/users/edit_password.html.twig',[
             'user' => $user,
             'form' => $form->createView()
         ]);
