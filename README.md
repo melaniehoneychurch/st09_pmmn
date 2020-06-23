@@ -1,4 +1,4 @@
-# Manuel suivi projet L2N
+# Manuel installation projet L2N
 
 ## 1 - Installation des outils
 
