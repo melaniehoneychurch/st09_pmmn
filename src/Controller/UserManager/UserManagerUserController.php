@@ -56,6 +56,8 @@ class UserManagerUserController extends AbstractController{
     }
 
     /**
+     * Display the users manager
+     * 
      * @Route("/usermanager/users", name="usermanager.user.index")
      * @param PaginatorInterface $paginatorInterface
      * @param Request $request
@@ -63,14 +65,17 @@ class UserManagerUserController extends AbstractController{
      */
     public function index(PaginatorInterface $paginatorInterface, Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        // generate a search form for users
         $search = new UserSearch();
         $form = $this->createForm(UserSearchType::class, $search);
         $form->handleRequest($request);
 
+        // generate a paging interface for users
         $users = $paginatorInterface->paginate(
             $this->repository->findSearchedQuery($search),
             $request->query->getInt('page', 1),
@@ -78,26 +83,31 @@ class UserManagerUserController extends AbstractController{
         );
 
         return $this->render('usermanager/users/index.html.twig', [
-            'users' => $users,
-            'form' => $form->createView(),
+            'users' => $users, // users list
+            'form' => $form->createView(), // generate form
         ]);
     }
 
     /**
+     * Display new user form
+     * 
      * @Route("/usermanager/users/create", name="usermanager.user.new")
      * @param Request $request
      * @return RedirectResponse|Response
      */
     public function new(Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        // generate a form to create a new user
         $user = new User();
         $form = $this->createForm(UserManagerUserType::class, $user);
         $form->handleRequest($request);
 
+        // analyse the form response and if the form is valid them the user is created
         if ($form->isSubmitted() && $form->isValid()){
             $user->setPassword($this->encoder->encodePassword($user, $user->getPassword()));
             $this->em->persist($user);
@@ -107,12 +117,14 @@ class UserManagerUserController extends AbstractController{
         }
 
         return $this->render('usermanager/users/new.html.twig',[
-            'user' => $user,
-            'form' => $form->createView()
+            'user' => $user, // empty user object
+            'form' => $form->createView() // user creation form
         ]);
     }
 
     /**
+     * Display edit user form
+     * 
      * @Route("/usermanager/users/{id}", name="usermanager.user.edit", methods="GET|POST")
      * @param User $user
      * @param Request $request
@@ -120,13 +132,16 @@ class UserManagerUserController extends AbstractController{
      */
     public function edit(User $user, Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        // generate a form to modify user information
         $form = $this->createForm(UserManagerUserType::class, $user);
         $form->handleRequest($request);
 
+        // analyse the form response and if the form is valid them the user is updated
         if ($form->isSubmitted() && $form->isValid()){
             $this->em->flush();
             $this->addFlash('success', 'Utilisateur modifié avec succès');
@@ -135,12 +150,14 @@ class UserManagerUserController extends AbstractController{
         }
 
         return $this->render('usermanager/users/edit.html.twig',[
-            'user' => $user,
-            'form' => $form->createView()
+            'user' => $user, // targeted user
+            'form' => $form->createView() // edit form
         ]);
     }
 
     /**
+     * Cancel an action in form
+     * 
      * @Route("/usermanager/cancel/users", name="usermanager.user.cancel")
      *
      * @param Request $request
@@ -148,6 +165,7 @@ class UserManagerUserController extends AbstractController{
      */
     public function cancel(Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }

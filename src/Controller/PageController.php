@@ -11,6 +11,8 @@ class PageController extends AbstractController
 {
     
     /**
+     * Display qr scan page
+     * 
      * @Route("/scan", name="scan")
      * 
      * @return HttpFoundationResponse

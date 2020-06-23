@@ -26,31 +26,35 @@ class ProductController extends AbstractController
     }
 
     /**
+     * Display the product list
+     * 
      * @Route("/", name="product.index")
      * 
      * @return HttpFoundationResponse
      */
     public function index(PaginatorInterface $paginatorInterface, Request $request):HttpFoundationResponse
     {
+        // generate a search form
         $search = new ProductSearch();
         $form = $this->createForm(ProductSearchType::class, $search);
         $form->handleRequest($request);
 
+        // generate a paging interface
         $products = $paginatorInterface->paginate(
             $this->productRep->findSearchedQuery($search),
             $request->query->getInt('page', 1),
             10
         );
         
-
-
         return $this->render('product/index.html.twig', [
-            'products' => $products,
-            'form' => $form->createView(),
+            'products' => $products, // products list
+            'form' => $form->createView(), // generate form
             ]);
     } 
 
     /**
+     * Display the targeted product
+     * 
      * @Route("/products/{slug}-{id}", name="product.show", requirements={"slug": "[a-zA-Z0-9\-]*"})
      * @param [type] $slug
      * @param [type] $id
@@ -58,6 +62,7 @@ class ProductController extends AbstractController
      */
     public function show(Product $product, string $slug):Response
     {
+        // slugify product name
         if($product->getSlug() !== $slug){
             return $this->redirectToRoute('product.show', [
                 'id' => $product->getId(),
@@ -65,7 +70,7 @@ class ProductController extends AbstractController
             ], 301);
         }
         return $this->render('product/show.html.twig', [
-            'product' => $product,
+            'product' => $product, // targeted product
             'dangerPictograms' => $product->getDangerPictograms(),
             'obligationPictograms' => $product->getObligationPictograms(),
             'update' => $product->getUpdatedAt()->format('d/m/Y'),
@@ -73,6 +78,8 @@ class ProductController extends AbstractController
     }
 
     /**
+     * Display product security form
+     * 
      * @Route("/products/{slug}-{id}/securityForm", name="product.show.securityForm", requirements={"slug": "[a-zA-Z0-9\-]*"})
      *
      * @param Product $product
@@ -81,6 +88,7 @@ class ProductController extends AbstractController
      */
     public function showSecurityForm(Product $product, string $slug): Response
     {
+        // slugify product name
         if($product->getSlug() !== $slug){
             return $this->redirectToRoute('product.show', [
                 'id' => $product->getId(),
@@ -89,7 +97,7 @@ class ProductController extends AbstractController
         }
 
         return $this->render('product/securityForm.html.twig', [
-            'product' => $product,
+            'product' => $product, // targeted product
         ]);
 
     }

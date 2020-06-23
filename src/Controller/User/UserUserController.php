@@ -62,7 +62,7 @@ class UserUserController extends AbstractController{
     {
         $user = $this->security->getUser();
         return $this->render('user/show.html.twig', [
-            'user' => $user
+            'user' => $user // logged user
         ]);
     }
 
@@ -88,13 +88,13 @@ class UserUserController extends AbstractController{
         }
 
         return $this->render('user/edit.html.twig',[
-            'user' => $user, // user
+            'user' => $user, // logged user
             'form' => $form->createView() // edit form
         ]);
     }
 
     /**
-     * Display 
+     * Display edit passwaord form
      * 
      * @Route("/user/editpassword", name="user.editpassword", methods="GET|POST")
      * @param Request $request
@@ -102,10 +102,12 @@ class UserUserController extends AbstractController{
      */
     public function editPassword(Request $request)
     {
+        // generate a form to modify user password
         $user = $this->security->getUser();
         $form = $this->createForm(UserPasswordType::class, $user);
         $form->handleRequest($request);
 
+        // analyse the form response and if the form is valid them informations are updated
         if ($form->isSubmitted() && $form->isValid()){
             $user->setPassword($this->encoder->encodePassword($user, $user->getPassword()));
             $this->em->flush();
@@ -114,12 +116,14 @@ class UserUserController extends AbstractController{
         }
 
         return $this->render('user/edit_password.html.twig',[
-            'user' => $user,
-            'form' => $form->createView()
+            'user' => $user, // logged user
+            'form' => $form->createView() // edit form
         ]);
     }
 
     /**
+     * Cancel an action in form
+     * 
      * @Route("user/cancel", name="user.cancel")
      *
      * @return RedirectResponse
