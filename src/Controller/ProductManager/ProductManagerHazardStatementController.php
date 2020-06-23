@@ -48,6 +48,8 @@ class ProductManagerHazardStatementController extends AbstractController{
     }
 
     /**
+     * Display the hazard statements manager
+     * 
      * @Route("/productmanager/hazardStatement", name="productmanager.hazardStatement.index")
      *
      * @param PaginatorInterface $paginatorInterface
@@ -56,6 +58,7 @@ class ProductManagerHazardStatementController extends AbstractController{
      */
     public function index(PaginatorInterface $paginatorInterface, Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }

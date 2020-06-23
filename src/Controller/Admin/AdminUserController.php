@@ -49,6 +49,8 @@ class AdminUserController extends AbstractController{
     }
 
     /**
+     * Display the admin users manager
+     * 
      * @Route("/admin/users", name="admin.user.index")
      * @param PaginatorInterface $paginatorInterface
      * @param Request $request
@@ -56,10 +58,13 @@ class AdminUserController extends AbstractController{
      */
     public function index(PaginatorInterface $paginatorInterface, Request $request)
     {
+
+        // generate a search form for users
         $search = new UserSearch();
         $form = $this->createForm(UserSearchType::class, $search);
         $form->handleRequest($request);
 
+        // generate a paging interface for users
         $users = $paginatorInterface->paginate(
             $this->repository->findSearchedQuery($search),
             $request->query->getInt('page', 1),
@@ -67,22 +72,26 @@ class AdminUserController extends AbstractController{
         );
         
         return $this->render('admin/users/index.html.twig', [
-            'users' => $users,
-            'form' => $form->createView(),
+            'users' => $users, // users list
+            'form' => $form->createView(), // generate form
         ]);
     }
 
     /**
+     * Display new user form
+     * 
      * @Route("/admin/users/create", name="admin.user.new")
      * @param Request $request
      * @return RedirectResponse|Response
      */
     public function new(Request $request)
     {
+        // generate a form to create a new user
         $user = new User();
         $form = $this->createForm(AdminUserType::class, $user);
         $form->handleRequest($request);
 
+        // analyse the form response and if the form is valid them the user is created
         if ($form->isSubmitted() && $form->isValid()){
             $user->setPassword($this->encoder->encodePassword($user, $user->getPassword()));
             $this->em->persist($user);
@@ -92,12 +101,14 @@ class AdminUserController extends AbstractController{
         }
 
         return $this->render('admin/users/new.html.twig',[
-            'user' => $user,
-            'form' => $form->createView()
+            'user' => $user, // empty user object
+            'form' => $form->createView() // user creation form
         ]);
     }
 
     /**
+     * Display edit user form
+     * 
      * @Route("/admin/users/{id}", name="admin.user.edit", methods="GET|POST")
      * @param User $user
      * @param Request $request
@@ -105,9 +116,11 @@ class AdminUserController extends AbstractController{
      */
     public function edit(User $user, Request $request)
     {
+        // generate a form to modify user information
         $form = $this->createForm(AdminUserType::class, $user);
         $form->handleRequest($request);
 
+        // analyse the form response and if the form is valid them the user is updated
         if ($form->isSubmitted() && $form->isValid()){
             $this->em->flush();
             $this->addFlash('success', 'Utilisateur modifié avec succès');
@@ -115,12 +128,14 @@ class AdminUserController extends AbstractController{
         }
 
         return $this->render('admin/users/edit.html.twig',[
-            'user' => $user,
-            'form' => $form->createView()
+            'user' => $user, // targeted user
+            'form' => $form->createView() // edit form
         ]);
     }
 
     /**
+     * Display edit password form
+     * 
      * @Route("/admin/users/{id}/password", name="admin.user.editpassword", methods="GET|POST")
      * @param User $user
      * @param Request $request
@@ -128,9 +143,11 @@ class AdminUserController extends AbstractController{
      */
     public function editPassword(User $user, Request $request)
     {
+        // generate a form to modify user password
         $form = $this->createForm(AdminUserPasswordType::class, $user);
         $form->handleRequest($request);
 
+        // analyse the form response and if the form is valid them the user password is updated
         if ($form->isSubmitted() && $form->isValid()){
             $user->setPassword($this->encoder->encodePassword($user, $user->getPassword()));
             $this->em->flush();
@@ -139,12 +156,14 @@ class AdminUserController extends AbstractController{
         }
 
         return $this->render('admin/users/edit_password.html.twig',[
-            'user' => $user,
-            'form' => $form->createView()
+            'user' => $user, // targeted user
+            'form' => $form->createView() // generate form
         ]);
     }
 
     /**
+     * Delete user
+     * 
      * @Route("/admin/users/{id}", name="admin.user.delete", methods="DELETE")
      * @param User $user
      * @param Request $request
@@ -152,6 +171,7 @@ class AdminUserController extends AbstractController{
      */
     public function delete(User $user, Request $request)
     {
+        // analyse the csrf token and if it is valid them the user is deleted
         if($this->isCsrfTokenValid('delete' . $user->getId(),$request->get('_token'))){
             $this->em->remove($user);
             $this->em->flush();
@@ -161,6 +181,8 @@ class AdminUserController extends AbstractController{
     }
 
     /**
+     * Cancel an action in form
+     * 
      * @Route("/admin/cancel/users", name="admin.user.cancel")
      *
      * @return RedirectResponse
