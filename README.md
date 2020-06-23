@@ -74,3 +74,7 @@ suivant :
 
 
 localhost:8000/
+
+Et vous y êtes !
+
+Pour accéder aux différents rapports, il suffit de se rendre dans le dossier /rapports
