@@ -46,6 +46,8 @@ class ProductManagerTrashCanController extends AbstractController{
     }
 
     /**
+     * Display the trashCan manager
+     * 
      * @Route("/productmanager/trashCan", name="productmanager.trashCan.index")
      *
      * @param PaginatorInterface $paginatorInterface
@@ -54,10 +56,12 @@ class ProductManagerTrashCanController extends AbstractController{
      */
     public function index(PaginatorInterface $paginatorInterface, Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        // generate a paging interface
         $trashCans = $paginatorInterface->paginate(
             $this->trashCanRep->findAllOrderQuery(),
             $request->query->getInt('page', 1),
@@ -65,12 +69,14 @@ class ProductManagerTrashCanController extends AbstractController{
         );
         
         return $this->render('productmanager/trashCan/index.html.twig', [
-            'trashCans' => $trashCans,
+            'trashCans' => $trashCans, // trashCan list
             
             ]);
     }
 
     /**
+     * Display creation form
+     * 
      * @Route("/productmanager/trashCan/create", name="productmanager.trashCan.new")
      *
      * @param Request $request
@@ -78,15 +84,17 @@ class ProductManagerTrashCanController extends AbstractController{
      */
     public function new(Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        // generate a creation form
         $trashCan = new TrashCan();
-
         $form = $this->createForm(TrashCanType::class, $trashCan);
         $form->handleRequest($request);
 
+        // analyse the form response and if the form is valid them the object is created
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($trashCan);
             $this->em->flush();
@@ -95,12 +103,14 @@ class ProductManagerTrashCanController extends AbstractController{
         }
 
         return $this->render('productmanager/trashCan/new.html.twig', [
-            'trashCan' => $trashCan,
-            'form' => $form->createView()
-        ]);
+            'trashCan' => $trashCan, // empty object
+            'form' => $form->createView() // creation form
+        ]); 
     }
 
     /**
+     * Display edit form
+     * 
      * @Route("/productmanager/trashCan/{id}", name="productmanager.trashCan.edit", methods="GET|POST")
      *
      * @param TrashCan $trashCan
@@ -109,13 +119,16 @@ class ProductManagerTrashCanController extends AbstractController{
      */
     public function edit(TrashCan $trashCan, Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        // generate a form to modify information
         $form = $this->createForm(TrashCanType::class, $trashCan);
         $form->handleRequest($request);
 
+        // analyse the form response and if the form is valid them informations are updated
         if ($form->isSubmitted() && $form->isValid()) {
             if($form->get('cancel')->isClicked()){
                 $this->addFlash('warning', 'Poubelle non enregistré');
@@ -129,12 +142,14 @@ class ProductManagerTrashCanController extends AbstractController{
         
 
         return $this->render('productmanager/trashCan/edit.html.twig', [
-            'trashCan' => $trashCan,
-            'form' => $form->createView(),
+            'trashCan' => $trashCan, // targeted object
+            'form' => $form->createView(), // edit form
         ]);
     }
 
     /**
+     * Delete option
+     * 
      * @Route("/productmanager/trashCan/{id}", name="productmanager.trashCan.delete", methods="DELETE")
      *
      * @param trashCan $trashCan
@@ -143,6 +158,7 @@ class ProductManagerTrashCanController extends AbstractController{
      */
     public function delete(TrashCan $trashCan, Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
@@ -156,6 +172,8 @@ class ProductManagerTrashCanController extends AbstractController{
     }
 
     /**
+     * Cancel an action in form
+     * 
      * @Route("/productmanager/cancel/trashCan", name="productmanager.trashCan.cancel")
      *
      * @param Request $request
@@ -163,6 +181,7 @@ class ProductManagerTrashCanController extends AbstractController{
      */
     public function cancel(Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }

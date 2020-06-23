@@ -46,6 +46,8 @@ class ProductManagerStorageController extends AbstractController{
     }
 
     /**
+     * Display the storage manager
+     * 
      * @Route("/productmanager/storage", name="productmanager.storage.index")
      *
      * @param PaginatorInterface $paginatorInterface
@@ -54,10 +56,12 @@ class ProductManagerStorageController extends AbstractController{
      */
     public function index(PaginatorInterface $paginatorInterface, Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        // generate a paging interface
         $storages = $paginatorInterface->paginate(
             $this->storageRep->findAllOrderQuery(),
             $request->query->getInt('page', 1),
@@ -65,12 +69,14 @@ class ProductManagerStorageController extends AbstractController{
         );
         
         return $this->render('productmanager/storage/index.html.twig', [
-            'storages' => $storages,
+            'storages' => $storages, // pictograms list
             
             ]);
     }
 
     /**
+     * Display creation form
+     * 
      * @Route("/productmanager/storage/create", name="productmanager.storage.new")
      *
      * @param Request $request
@@ -78,15 +84,17 @@ class ProductManagerStorageController extends AbstractController{
      */
     public function new(Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        // generate a creation form
         $storage = new Storage();
-
         $form = $this->createForm(StorageType::class, $storage);
         $form->handleRequest($request);
 
+        // analyse the form response and if the form is valid them the object is created
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($storage);
             $this->em->flush();
@@ -95,12 +103,14 @@ class ProductManagerStorageController extends AbstractController{
         }
 
         return $this->render('productmanager/storage/new.html.twig', [
-            'storage' => $storage,
-            'form' => $form->createView()
+            'storage' => $storage, // empty object
+            'form' => $form->createView() // creation form
         ]);
     }
 
     /**
+     * Display edit form
+     * 
      * @Route("/productmanager/storage/{id}", name="productmanager.storage.edit", methods="GET|POST")
      *
      * @param Storage $storage
@@ -109,13 +119,16 @@ class ProductManagerStorageController extends AbstractController{
      */
     public function edit(Storage $storage, Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        // generate a form to modify information
         $form = $this->createForm(StorageType::class, $storage);
         $form->handleRequest($request);
 
+        // analyse the form response and if the form is valid them informations are updated
         if ($form->isSubmitted() && $form->isValid()) {
             
             $this->em->flush();
@@ -125,12 +138,14 @@ class ProductManagerStorageController extends AbstractController{
         }
 
         return $this->render('productmanager/storage/edit.html.twig', [
-            'storage' => $storage,
-            'form' => $form->createView(),
+            'storage' => $storage, // targeted object
+            'form' => $form->createView(), // edit form
         ]);
     }
 
     /**
+     * Delete option
+     * 
      * @Route("/productmanager/storage/{id}", name="productmanager.storage.delete", methods="DELETE")
      *
      * @param storage $storage
@@ -139,10 +154,12 @@ class ProductManagerStorageController extends AbstractController{
      */
     public function delete(Storage $storage, Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        // analyse the csrf token and if it is valid them the object is deleted
         if ($this->isCsrfTokenValid('delete' . $storage->getId(), $request->get('_token'))) {
             $this->em->remove($storage);
             $this->em->flush();
@@ -152,6 +169,8 @@ class ProductManagerStorageController extends AbstractController{
     }
 
     /**
+     * Cancel an action in form
+     * 
      * @Route("/productmanager/cancel/storage", name="productmanager.storage.cancel")
      *
      * @param Request $request
@@ -159,6 +178,7 @@ class ProductManagerStorageController extends AbstractController{
      */
     public function cancel(Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }

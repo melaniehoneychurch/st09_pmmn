@@ -53,6 +53,8 @@ class UserUserController extends AbstractController{
     }
 
     /**
+     * Display user informations
+     * 
      * @Route("/user", name="user.show")
      * @return Response
      */
@@ -65,16 +67,20 @@ class UserUserController extends AbstractController{
     }
 
     /**
+     * Edit user information
+     * 
      * @Route("/user/edit", name="user.edit", methods="GET|POST")
      * @param Request $request
      * @return Response
      */
     public function edit(Request $request)
     {
+        // generate a form to modify information
         $user = $this->security->getUser();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
+        // analyse the form response and if the form is valid them informations are updated
         if ($form->isSubmitted() && $form->isValid()){
             $this->em->flush();
             $this->addFlash('success', 'Informations modifiées avec succès');
@@ -82,12 +88,14 @@ class UserUserController extends AbstractController{
         }
 
         return $this->render('user/edit.html.twig',[
-            'user' => $user,
-            'form' => $form->createView()
+            'user' => $user, // user
+            'form' => $form->createView() // edit form
         ]);
     }
 
     /**
+     * Display 
+     * 
      * @Route("/user/editpassword", name="user.editpassword", methods="GET|POST")
      * @param Request $request
      * @return Response

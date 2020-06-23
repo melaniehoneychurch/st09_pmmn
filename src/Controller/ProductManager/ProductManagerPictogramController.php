@@ -46,6 +46,8 @@ class ProductManagerPictogramController extends AbstractController{
     }
 
     /**
+     * Display the pictogram manager
+     * 
      * @Route("/productmanager/pictogram", name="productmanager.pictogram.index")
      *
      * @param PaginatorInterface $paginatorInterface
@@ -54,10 +56,12 @@ class ProductManagerPictogramController extends AbstractController{
      */
     public function index(PaginatorInterface $paginatorInterface, Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        // generate a paging interface
         $pictograms = $paginatorInterface->paginate(
             $this->pictogramRep->findAllOrderQuery(),
             $request->query->getInt('page', 1),
@@ -65,12 +69,14 @@ class ProductManagerPictogramController extends AbstractController{
         );
         
         return $this->render('productmanager/pictogram/index.html.twig', [
-            'pictograms' => $pictograms,
+            'pictograms' => $pictograms, // pictograms list
             
             ]);
     }
 
     /**
+     * Display creation form
+     * 
      * @Route("/productmanager/pictogram/create", name="productmanager.pictogram.new")
      *
      * @param Request $request
@@ -78,16 +84,17 @@ class ProductManagerPictogramController extends AbstractController{
      */
     public function new(Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        // generate a creation form
         $pictogram = new Pictogram();
-
         $form = $this->createForm(PictogramType::class, $pictogram);
         $form->handleRequest($request);
 
-
+        // analyse the form response and if the form is valid them the object is created
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($pictogram);
             $this->em->flush();
@@ -96,12 +103,14 @@ class ProductManagerPictogramController extends AbstractController{
         }
 
         return $this->render('productmanager/pictogram/new.html.twig', [
-            'pictogram' => $pictogram,
-            'form' => $form->createView()
+            'pictogram' => $pictogram, // empty object
+            'form' => $form->createView() // creation form
         ]);
     }
 
     /**
+     * Display edit form
+     * 
      * @Route("/productmanager/pictogram/{id}", name="productmanager.pictogram.edit", methods="GET|POST")
      *
      * @param Pictogram $pictogram
@@ -110,13 +119,16 @@ class ProductManagerPictogramController extends AbstractController{
      */
     public function edit(Pictogram $pictogram, Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        // generate a form to modify information
         $form = $this->createForm(PictogramType::class, $pictogram);
         $form->handleRequest($request);
 
+        // analyse the form response and if the form is valid them informations are updated
         if ($form->isSubmitted() && $form->isValid()) {
             
             $pictogram->setUpdatedAt(new \Datetime());
@@ -128,12 +140,14 @@ class ProductManagerPictogramController extends AbstractController{
         }
 
         return $this->render('productmanager/pictogram/edit.html.twig', [
-            'pictogram' => $pictogram,
-            'form' => $form->createView(),
+            'pictogram' => $pictogram, // targeted object
+            'form' => $form->createView(), // edit form
         ]);
     }
 
     /**
+     * Delete option
+     * 
      * @Route("/productmanager/pictogram/{id}", name="productmanager.pictogram.delete", methods="DELETE")
      *
      * @param pictogram $pictogram
@@ -142,10 +156,12 @@ class ProductManagerPictogramController extends AbstractController{
      */
     public function delete(Pictogram $pictogram, Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        // analyse the csrf token and if it is valid them the object is deleted
         if ($this->isCsrfTokenValid('delete' . $pictogram->getId(), $request->get('_token'))) {
             $this->em->remove($pictogram);
             $this->em->flush();
@@ -155,6 +171,7 @@ class ProductManagerPictogramController extends AbstractController{
     }
 
     /**
+     * Cancel an action in form
      * @Route("/productmanager/cancel/pictogram", name="productmanager.pictogram.cancel")
      *
      * @param Request $request
@@ -162,6 +179,7 @@ class ProductManagerPictogramController extends AbstractController{
      */
     public function cancel(Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }

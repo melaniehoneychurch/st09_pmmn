@@ -63,10 +63,12 @@ class ProductManagerHazardStatementController extends AbstractController{
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        // generate a search form for hazard statements
         $search = new HazardStatementSearch();
         $form = $this->createForm(HazardStatementSearchType::class, $search);
         $form->handleRequest($request);
         
+        // generate a paging interface for hazard statements
         $hazardStatements = $paginatorInterface->paginate(
             $this->hazardStatementRep->findSearchedQuery($search),
             $request->query->getInt('page', 1),
@@ -74,13 +76,15 @@ class ProductManagerHazardStatementController extends AbstractController{
         );
         
         return $this->render('productmanager/hazardStatement/index.html.twig', [
-            'hazardStatements' => $hazardStatements,
-            'form' => $form->createView(),
+            'hazardStatements' => $hazardStatements, // hazard statements list
+            'form' => $form->createView(), // generate form
             ]);
 
     }
 
     /**
+     * Display new hazard statements form
+     * 
      * @Route("/productmanager/hazardStatement/create", name="productmanager.hazardStatement.new")
      *
      * @param Request $request
@@ -88,15 +92,17 @@ class ProductManagerHazardStatementController extends AbstractController{
      */
     public function new(Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
-
+        
+        // generate a form to create a new hazard statements
         $hazardStatement = new HazardStatement();
-
         $form = $this->createForm(HazardStatementType::class, $hazardStatement);
         $form->handleRequest($request);
 
+        // analyse the form response and if the form is valid them the hazard statement is created
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($hazardStatement);
             $this->em->flush();
@@ -105,12 +111,14 @@ class ProductManagerHazardStatementController extends AbstractController{
         }
 
         return $this->render('productmanager/hazardStatement/new.html.twig', [
-            'hazardStatement' => $hazardStatement,
-            'form' => $form->createView()
+            'hazardStatement' => $hazardStatement, // empty object
+            'form' => $form->createView() // creation form
         ]);
     }
 
     /**
+     * Display edit form
+     * 
      * @Route("/productmanager/hazardStatement/{id}", name="productmanager.hazardStatement.edit", methods="GET|POST")
      *
      * @param HazardStatement $hazardStatement
@@ -119,13 +127,16 @@ class ProductManagerHazardStatementController extends AbstractController{
      */
     public function edit(HazardStatement $hazardStatement, Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        // generate a form to modify information
         $form = $this->createForm(HazardStatementType::class, $hazardStatement);
         $form->handleRequest($request);
 
+        // analyse the form response and if the form is valid them informations are updated
         if ($form->isSubmitted() && $form->isValid()) {
             
                 $this->em->flush();
@@ -135,12 +146,14 @@ class ProductManagerHazardStatementController extends AbstractController{
         }
 
         return $this->render('productmanager/hazardStatement/edit.html.twig', [
-            'hazardStatement' => $hazardStatement,
-            'form' => $form->createView(),
+            'hazardStatement' => $hazardStatement, // targeted object
+            'form' => $form->createView(), // edit form
         ]);
     }
 
     /**
+     * Delete option
+     * 
      * @Route("/productmanager/hazardStatement/{id}", name="productmanager.hazardStatement.delete", methods="DELETE")
      *
      * @param hazardStatement $hazardStatement
@@ -149,10 +162,12 @@ class ProductManagerHazardStatementController extends AbstractController{
      */
     public function delete(HazardStatement $hazardStatement, Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        // analyse the csrf token and if it is valid them the object is deleted
         if ($this->isCsrfTokenValid('delete' . $hazardStatement->getId(), $request->get('_token'))) {
             $this->em->remove($hazardStatement);
             $this->em->flush();
@@ -162,6 +177,8 @@ class ProductManagerHazardStatementController extends AbstractController{
     }
 
     /**
+     * Cancel an action in form
+     * 
      * @Route("/productmanager/cancel/hazardStatement", name="productmanager.hazardStatement.cancel")
      *
      * @param Request $request
@@ -169,6 +186,7 @@ class ProductManagerHazardStatementController extends AbstractController{
      */
     public function cancel(Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }

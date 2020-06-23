@@ -48,6 +48,8 @@ class ProductManagerProductController extends AbstractController{
     }
 
     /**
+     * Display the product manager
+     * 
      * @Route("/productmanager/product", name="productmanager.product.index")
      *
      * @param PaginatorInterface $paginatorInterface
@@ -56,14 +58,17 @@ class ProductManagerProductController extends AbstractController{
      */
     public function index(PaginatorInterface $paginatorInterface, Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        // generate a search form for products
         $search = new ProductSearch();
         $form = $this->createForm(ProductSearchType::class, $search);
         $form->handleRequest($request);
-
+        
+        // generate a paging interface
         $products = $paginatorInterface->paginate(
             $this->productRep->findSearchedQuery($search),
             $request->query->getInt('page', 1),
@@ -71,12 +76,14 @@ class ProductManagerProductController extends AbstractController{
         );
         
         return $this->render('productmanager/product/index.html.twig', [
-            'products' => $products,
-            'form' => $form->createView(),
+            'products' => $products, // products list
+            'form' => $form->createView(), // search form
             ]);
     }
 
     /**
+     * Display creation form
+     * 
      * @Route("/productmanager/product/create", name="productmanager.product.new")
      *
      * @param Request $request
@@ -84,15 +91,17 @@ class ProductManagerProductController extends AbstractController{
      */
     public function new(Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        // generate a creation form
         $product = new Product();
-
         $form = $this->createForm(productType::class, $product);
         $form->handleRequest($request);
 
+        // analyse the form response and if the form is valid them the object is created
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($product);
             $this->em->flush();
@@ -101,12 +110,14 @@ class ProductManagerProductController extends AbstractController{
         }
 
         return $this->render('productmanager/product/new.html.twig', [
-            'product' => $product,
-            'form' => $form->createView()
+            'product' => $product, // empty object
+            'form' => $form->createView() // creation form
         ]);
     }
 
     /**
+     * Display edit form
+     * 
      * @Route("/productmanager/product/{id}", name="productmanager.product.edit", methods="GET|POST")
      *
      * @param Product $product
@@ -115,13 +126,16 @@ class ProductManagerProductController extends AbstractController{
      */
     public function edit(Product $product, Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        // generate a form to modify information
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
+        // analyse the form response and if the form is valid them informations are updated
         if ($form->isSubmitted() && $form->isValid()) {
 
             $product->setUpdatedAt(new \Datetime());
@@ -133,12 +147,14 @@ class ProductManagerProductController extends AbstractController{
         }
 
         return $this->render('productmanager/product/edit.html.twig', [
-            'product' => $product,
-            'form' => $form->createView(),
+            'product' => $product, // targeted object
+            'form' => $form->createView(), // edit form
         ]);
     }
 
     /**
+     * Delete option
+     * 
      * @Route("/productmanager/product/{id}", name="productmanager.product.delete", methods="DELETE")
      *
      * @param product $product
@@ -147,10 +163,12 @@ class ProductManagerProductController extends AbstractController{
      */
     public function delete(Product $product, Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        // analyse the csrf token and if it is valid them the object is deleted
         if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))) {
             $this->em->remove($product);
             $this->em->flush();
@@ -160,6 +178,8 @@ class ProductManagerProductController extends AbstractController{
     }
 
     /**
+     * Cancel an action in form
+     * 
      * @Route("/productmanager/cancel/product", name="productmanager.product.cancel")
      *
      * @param Request $request
@@ -167,6 +187,7 @@ class ProductManagerProductController extends AbstractController{
      */
     public function cancel(Request $request)
     {
+        // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
