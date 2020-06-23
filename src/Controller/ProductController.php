@@ -79,7 +79,7 @@ class ProductController extends AbstractController
      * @param string $slug
      * @return Response
      */
-    public function showSeucityForm(Product $product, string $slug): Response
+    public function showSecurityForm(Product $product, string $slug): Response
     {
         if($product->getSlug() !== $slug){
             return $this->redirectToRoute('product.show', [
