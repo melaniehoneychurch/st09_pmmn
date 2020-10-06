@@ -42,6 +42,94 @@
                 </a>
             </li>
 
+            {% if is_granted('ROLE_USER') and (app.user.activate or is_granted('ROLE_ADMIN')) %}
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Recettes
+                </div>
+
+                <!-- Nav Item - new recipe -->
+                <li class="nav-item {% if app.request.get('_route') == 'recipe.index'
+                    or app.request.get('_route') == 'recipe.edit'
+                    or app.request.get('_route') == 'recipe.new' or app.request.get('_route') == 'recipe.perso'%} active {% endif %}">
+                    <a class="nav-link" href="{{ path('recipe.new') }}">
+                        <i class="fas fa-plus"></i>
+                        <span>Créer une nouvelle recette</span>
+                    </a>
+                </li>
+
+                <!-- Nav Item - all recipes -->
+                <li class="nav-item {% if app.request.get('_route') == 'recipe.index'
+                    or app.request.get('_route') == 'recipe.edit'
+                    or app.request.get('_route') == 'recipe.new' or app.request.get('_route') == 'recipe.perso'%} active {% endif %}">
+                    <a class="nav-link" href="{{ path('recipe.index') }}">
+                        <i class="fas fa-book"></i>
+                        <span>Consulter toutes les recettes</span>
+                    </a>
+                </li>
+
+                <!-- Nav Item - my recipes -->
+                <li class="nav-item {% if app.request.get('_route') == 'recipe.index'
+                    or app.request.get('_route') == 'recipe.edit'
+                    or app.request.get('_route') == 'recipe.new' or app.request.get('_route') == 'recipe.perso'%} active {% endif %}">
+                    <a class="nav-link" href="{{ path('recipe.perso') }}">
+                        <i class="fas fa-receipt"></i>
+                        <span>Mes recettes</span>
+                    </a>
+                </li>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Mélanges
+                </div>
+
+                <!-- Nav Item - new mix -->
+                <li class="nav-item {% if app.request.get('_route') == 'mix.index'
+                    or app.request.get('_route') == 'mix.edit'
+                    or app.request.get('_route') == 'mix.new'%} active {% endif %}">
+                    <a class="nav-link" href="{{ path('mix.index') }}">
+                        <i class="fas fa-plus"></i>
+                        <span>Créer un nouveau mélange</span>
+                    </a>
+                </li>
+
+                <!-- Nav Item - all mix -->
+                <li class="nav-item {% if app.request.get('_route') == 'mix.index'
+                    or app.request.get('_route') == 'mix.edit'
+                    or app.request.get('_route') == 'mix.new'%} active {% endif %}">
+                    <a class="nav-link" href="{{ path('mix.index') }}">
+                        <i class="fas fa-vials"></i>
+                        <span>Consulter tous les mélanges</span>
+                    </a>
+                </li>
+
+                <!-- Nav Item - my mixes -->
+                <li class="nav-item {% if app.request.get('_route') == 'mix.index'
+                    or app.request.get('_route') == 'mix.edit'
+                    or app.request.get('_route') == 'mix.new'%} active {% endif %}">
+                    <a class="nav-link" href="{{ path('recipe.index') }}">
+                        <i class="fas fa-vials"></i>
+                        <span>Mes mélanges</span>
+                    </a>
+                </li>
+
+                <!-- Nav Item - manage my mixes -->
+                <li class="nav-item {% if app.request.get('_route') == 'mix.index'
+                    or app.request.get('_route') == 'mix.edit'
+                    or app.request.get('_route') == 'mix.new'%} active {% endif %}">
+                    <a class="nav-link" href="{{ path('recipe.index') }}">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Gérer mes mélanges</span>
+                    </a>
+                </li>
+            {% endif %}
+
             {# ACCOUNT MANAGER #}
             {% if is_granted('ROLE_ACCOUNT_MANAGER') and (app.user.activate or is_granted('ROLE_ADMIN')) %}
 

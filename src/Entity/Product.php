@@ -181,6 +181,11 @@ class Product
      */
     private $hazardStatements;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Ingredients", mappedBy="product", cascade={"persist", "remove"})
+     */
+    private $ingredients;
+
     public function getSlug(): string
     {
         return (new Slugify())->slugify($this->frenchName);
@@ -568,6 +573,23 @@ class Product
     public function setSecurityFormNameFile($securityFormNameFile)
     {
         $this->securityFormNameFile = $securityFormNameFile;
+
+        return $this;
+    }
+
+    public function getIngredients(): ?Ingredients
+    {
+        return $this->ingredients;
+    }
+
+    public function setIngredients(Ingredients $ingredients): self
+    {
+        $this->ingredients = $ingredients;
+
+        // set the owning side of the relation if necessary
+        if ($ingredients->getProduct() !== $this) {
+            $ingredients->setProduct($this);
+        }
 
         return $this;
     }

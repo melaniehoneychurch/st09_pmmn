@@ -94,7 +94,7 @@ class UserUserController extends AbstractController{
     }
 
     /**
-     * Display edit passwaord form
+     * Display edit password form
      * 
      * @Route("/user/editpassword", name="user.editpassword", methods="GET|POST")
      * @param Request $request
