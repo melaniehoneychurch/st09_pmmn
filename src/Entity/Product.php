@@ -36,6 +36,7 @@ class Product
         $this->categories = new ArrayCollection();
         $this->pictograms = new ArrayCollection();
         $this->hazardStatements = new ArrayCollection();
+        $this->ingredients = new ArrayCollection();
     }
    
    
@@ -182,9 +183,10 @@ class Product
     private $hazardStatements;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Ingredients", mappedBy="product", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Ingredient", mappedBy="product")
      */
     private $ingredients;
+
 
     public function getSlug(): string
     {
@@ -577,20 +579,36 @@ class Product
         return $this;
     }
 
-    public function getIngredients(): ?Ingredients
+    /**
+     * @return Collection|Ingredient[]
+     */
+    public function getIngredients(): Collection
     {
         return $this->ingredients;
     }
 
-    public function setIngredients(Ingredients $ingredients): self
+    public function addIngredient(Ingredient $ingredient): self
     {
-        $this->ingredients = $ingredients;
-
-        // set the owning side of the relation if necessary
-        if ($ingredients->getProduct() !== $this) {
-            $ingredients->setProduct($this);
+        if (!$this->ingredients->contains($ingredient)) {
+            $this->ingredients[] = $ingredient;
+            $ingredient->setProduct($this);
         }
 
         return $this;
     }
+
+    public function removeIngredient(Ingredient $ingredient): self
+    {
+        if ($this->ingredients->contains($ingredient)) {
+            $this->ingredients->removeElement($ingredient);
+            // set the owning side to null (unless already changed)
+            if ($ingredient->getProduct() === $this) {
+                $ingredient->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

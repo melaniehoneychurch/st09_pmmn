@@ -1,0 +1,9 @@
+{% extends "base.html.twig" %}
+
+{% block title 'Création recette' %}
+
+{% block body %}
+
+    {{ include('recipe/ingredients/_form.html.twig', {form: ingredientsForm, button: 'Enregistrer la recette'}) }}
+
+{% endblock %}

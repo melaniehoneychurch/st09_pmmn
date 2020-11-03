@@ -2,11 +2,18 @@
 
 namespace App\Controller\User;
 
+use App\Entity\MixImportRecipe;
 use App\Entity\Product;
 use App\Entity\Mix;
+use App\Entity\Recipe;
+use App\Entity\RecipeSearch;
+use App\Form\ImportRecipeType;
+use App\Form\MixImportRecipeType;
+use App\Form\MixType;
 use App\Form\ProductSearchType;
 use App\Entity\MixSearch;
 use App\Form\MixSearchType;
+use App\Form\RecipeSearchType;
 use App\Repository\ProductRepository;
 use App\Repository\MixRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -82,6 +89,110 @@ class UserMixController extends AbstractController{
             'form' => $form->createView(), // search form
         ]);
     }
+
+    /**
+     *
+     * @Route("/mix/mymixes", name="mix.perso")
+     *
+     * @param PaginatorInterface $paginatorInterface
+     * @param Request $request
+     * @return Response
+     */
+    public function perso (PaginatorInterface $paginatorInterface, Request $request)
+    {
+        // check if the user account is activate
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
+
+        // generate a search form for recipe
+        /*   $search = new RecipeSearch();
+           $form = $this->createForm(RecipeSearchType::class, $search);
+           $form->handleRequest($request);*/
+
+        // generate a paging interface
+        $mixes = $paginatorInterface->paginate(
+            $this->mixRep->findByCreator($this->getUser()),
+            $request->query->getInt('page', 1),
+            10
+        );
+
+        return $this->render('mix/perso.html.twig', [
+            'mixes' => $mixes, // mixes list
+        ]);
+    }
+
+    /**
+     * Display the user
+     *
+     * @Route("/mix/add", name="mix.add")
+     *
+     * @param PaginatorInterface $paginatorInterface
+     * @param Request $request
+     * @return Response
+     */
+    public function add(PaginatorInterface $paginatorInterface, Request $request)
+    {
+        // check if the user account is activate
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
+
+        // generate a search form for mix
+        $recipe = new Recipe();
+        $form = $this->createForm(ImportRecipeType::class, $recipe);
+        $form->handleRequest($request);
+
+        // analyse the form response and if the form is valid them the object is created
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->addWithRecipe($recipe, $request);
+        }
+
+
+        return $this->render('mix/add.html.twig', [
+            'form' => $form->createView(), // search form
+        ]);
+    }
+
+    /**
+     * Display the user
+     *
+     * @Route("/mix/mixwithrecipe", name="mix.addWithRecipe")
+     *
+     * @param PaginatorInterface $paginatorInterface
+     * @param Request $request
+     * @return Response
+     */
+    public function addWithRecipe(Recipe $recipe, Request $request)
+    {
+        // check if the user account is activate
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
+
+        // generate a form to modify information
+        $mix = new Mix();
+        $mix->setCreator($this->getUser());
+        $mix->setRecipe($recipe);
+        $mix->setTitle($recipe->getTitle());
+        $form = $this->createForm(MixType::class, $mix);
+        $form->handleRequest($request);
+
+        // analyse the form response and if the form is valid them the object is created
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist($mix);
+            $this->em->flush();
+            $this->addFlash('success', 'Mélange ajouté avec succès');
+            return $this->redirectToRoute('mix.index');
+        }
+
+        return $this->render('mix/addWithRecipe.html.twig', [
+            'mix' => $mix, // empty object
+            'mixForm' => $form->createView() // creation form
+        ]);
+
+    }
+
 
     /**
      * Display creation form
@@ -179,7 +290,7 @@ class UserMixController extends AbstractController{
         return $this->redirectToRoute('mix.index');
     }
 
-   /**
+    /**
      * Cancel an action in form
      *
      * @Route("/productmanager/cancel/product", name="productmanager.product.cancel")

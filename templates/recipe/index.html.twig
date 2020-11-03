@@ -27,9 +27,6 @@
                         <div class="col">
                             {{ form_row(form.title) }}
                         </div>
-                        <div class="col">
-                            {{ form_row(form.concentration) }}
-                        </div>
                     </div>
                     {{ form_widget(form) }}
                     <button type="submit" class="btn-primary btn">Rechercher</button>
@@ -62,13 +59,15 @@
                         <thead>
                         <tr>
                             <th>Titre</th>
+                            <th>Auteur</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for recipe in recipes %}
                             <tr>
-                                <td>{{ recipe.title }}</td>
+                                <td><a href="{{ path('recipe.show', {slug: recipe.slug, id: recipe.id}) }}"><h6>{{ recipe.title }}</h6></a></td>
+                                <td>{{ recipe.author.identity }}</td>
                                 <td>
                                     <a href="{{ path('recipe.edit', {id: recipe.id}) }}" class="btn btn-secondary">Editer</a>
                                     <form method="post" action="{{ path('recipe.delete', {id: recipe.id}) }}" style="display: inline-block">

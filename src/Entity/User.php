@@ -95,11 +95,23 @@ class User implements UserInterface, \Serializable
      */
     private $reports;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Recipe", mappedBy="author")
+     */
+    private $recipes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Mix", mappedBy="creator")
+     */
+    private $mixes;
+
     public function __construct()
     {
         array_push($this->roles, 'ROLE_USER');
         $this->updated_at = new \Datetime();
         $this->reports = new ArrayCollection();
+        $this->recipes = new ArrayCollection();
+        $this->mixes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -224,6 +236,11 @@ class User implements UserInterface, \Serializable
         return $res;
     }
 
+    public function getIdentity() : string
+    {
+        return $this->getName().' '.$this->getFamilyName();
+    }
+
     public function getSalt()
     {
         return null;
@@ -320,6 +337,68 @@ class User implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($report->getUser() === $this) {
                 $report->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Recipe[]
+     */
+    public function getRecipes(): Collection
+    {
+        return $this->recipes;
+    }
+
+    public function addRecipe(Recipe $recipe): self
+    {
+        if (!$this->recipes->contains($recipe)) {
+            $this->recipes[] = $recipe;
+            $recipe->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipe(Recipe $recipe): self
+    {
+        if ($this->recipes->contains($recipe)) {
+            $this->recipes->removeElement($recipe);
+            // set the owning side to null (unless already changed)
+            if ($recipe->getAuthor() === $this) {
+                $recipe->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Mix[]
+     */
+    public function getMixes(): Collection
+    {
+        return $this->mixes;
+    }
+
+    public function addMix(Mix $mix): self
+    {
+        if (!$this->mixes->contains($mix)) {
+            $this->mixes[] = $mix;
+            $mix->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMix(Mix $mix): self
+    {
+        if ($this->mixes->contains($mix)) {
+            $this->mixes->removeElement($mix);
+            // set the owning side to null (unless already changed)
+            if ($mix->getCreator() === $this) {
+                $mix->setCreator(null);
             }
         }
 

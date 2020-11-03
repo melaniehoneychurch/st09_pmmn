@@ -13,9 +13,26 @@ class MixSearch
     /**
      * Undocumented variable
      *
-     * @var float|null
+     * @var User|null
      */
-    private $concentration;
+    private $creator;
+
+    /**
+     * @return User|null
+     */
+    public function getCreator(): ?User
+    {
+        return $this->creator;
+    }
+
+    /**
+     * @param User|null $creator
+     */
+    public function setCreator(?User $creator): void
+    {
+        $this->creator = $creator;
+    }
+
 
 
     /**
@@ -39,22 +56,6 @@ class MixSearch
     public function setTrie(?int $trie): void
     {
         $this->trie = $trie;
-    }
-
-    /**
-     * @return float|null
-     */
-    public function getConcentration(): ?float
-    {
-        return $this->concentration;
-    }
-
-    /**
-     * @param float|null $concentration
-     */
-    public function setConcentration(?float $concentration): void
-    {
-        $this->concentration = $concentration;
     }
 
     /**

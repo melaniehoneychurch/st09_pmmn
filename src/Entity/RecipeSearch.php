@@ -10,13 +10,41 @@ class RecipeSearch
      */
     private $title;
 
-    /**
-     * Undocumented variable
-     *
-     * @var float|null
-     */
-    private $concentration;
+ //   private $author;
 
+    private $confidentiality=true;
+
+    /**
+     * @return mixed
+     */
+  public function getConfidentiality()
+    {
+        return $this->confidentiality;
+    }
+
+    /**
+     * @param mixed $confidentiality
+     */
+ public function setConfidentiality($confidentiality): void
+    {
+        $this->confidentiality = $confidentiality;
+    }
+
+    /**
+     * @return mixed
+     */
+ /*   public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param mixed $author
+     */
+/*    public function setAuthor($author): void
+    {
+        $this->author = $author;
+    }*/
 
     /**
      * Undocumented variable
@@ -24,6 +52,7 @@ class RecipeSearch
      * @var int|null
      */
     private $trie;
+
 
     /**
      * @return int|null
@@ -41,21 +70,6 @@ class RecipeSearch
         $this->trie = $trie;
     }
 
-    /**
-     * @return float|null
-     */
-    public function getConcentration(): ?float
-    {
-        return $this->concentration;
-    }
-
-    /**
-     * @param float|null $concentration
-     */
-    public function setConcentration(?float $concentration): void
-    {
-        $this->concentration = $concentration;
-    }
 
     /**
      * @return string|null

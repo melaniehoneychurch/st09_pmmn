@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\MixSearch;
 use App\Entity\Storage;
 use App\Entity\TrashCan;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -20,18 +21,15 @@ class MixSearchType extends AbstractType
         $builder
             ->add('title', SearchType::class, [
                 'required' => false,
-                'label' => false,
                 'attr' => [
-                    'placeholder' => 'Titre mélange'
+                    'placeholder' => 'Solution de ...'
                 ]
             ])
-            ->add('concentration', SearchType::class, [
-                'required' => false,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Concentration'
-                ]
+            ->add('creator', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'identity',
             ])
+
             /*->add('storage', EntityType::class, [
                 'class' => Storage::class,
                 'choice_label' => 'name',

@@ -2,16 +2,10 @@
 
 namespace App\Entity;
 
-
+use Cocur\Slugify\Slugify;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Cocur\Slugify\Slugify;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\File as Image;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RecipeRepository")
@@ -30,30 +24,31 @@ class Recipe
      */
     private $title;
 
-  /*  /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-  //  private $concentration;
-
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $visibility;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Ingredients", mappedBy="recipe")
-     */
-    private $ingredients;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Mix", mappedBy="recipe", orphanRemoval=true)
+     * @ORM\Column(type="boolean")
+     */
+    private $confidentiality;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Ingredient", mappedBy="recipe")
+     */
+    private $ingredients;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Mix", mappedBy="recipe")
      */
     private $mixes;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="recipes")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $author;
 
     public function __construct()
     {
@@ -78,56 +73,9 @@ class Recipe
         return $this;
     }
 
-/*    public function getConcentration(): ?float
+    public function getSlug(): string
     {
-        return $this->concentration;
-    }
-
-    public function setConcentration(?float $concentration): self
-    {
-        $this->concentration = $concentration;
-
-        return $this;
-    }*/
-
-    public function getVisibility(): ?bool
-    {
-        return $this->visibility;
-    }
-
-    public function setVisibility(bool $visibility): self
-    {
-        $this->visibility = $visibility;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Ingredients[]
-     */
-    public function getIngredients(): Collection
-    {
-        return $this->ingredients;
-    }
-
-    public function addIngredient(Ingredients $ingredient): self
-    {
-        if (!$this->ingredients->contains($ingredient)) {
-            $this->ingredients[] = $ingredient;
-            $ingredient->addRecipe($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIngredient(Ingredients $ingredient): self
-    {
-        if ($this->ingredients->contains($ingredient)) {
-            $this->ingredients->removeElement($ingredient);
-            $ingredient->removeRecipe($this);
-        }
-
-        return $this;
+        return (new Slugify())->slugify($this->title);
     }
 
     public function getDescription(): ?string
@@ -141,6 +89,67 @@ class Recipe
 
         return $this;
     }
+
+    public function getConfidentiality(): ?bool
+    {
+        return $this->confidentiality;
+    }
+
+    public function setConfidentiality(bool $confidentiality): self
+    {
+        $this->confidentiality = $confidentiality;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Ingredient[]
+     */
+    public function getIngredients(): Collection
+    {
+        return $this->ingredients;
+    }
+
+
+    /**
+     * @param Ingredient $ingredient
+     * @return $this
+     */
+    public function addIngredient(Ingredient $ingredient): self
+    {
+        if (!$this->ingredients->contains($ingredient)) {
+            $this->ingredients[] = $ingredient;
+            $ingredient->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIngredient(Ingredient $ingredient): self
+    {
+        if ($this->ingredients->contains($ingredient)) {
+            $this->ingredients->removeElement($ingredient);
+            // set the owning side to null (unless already changed)
+            if ($ingredient->getRecipe() === $this) {
+                $ingredient->setRecipe(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPictograms(){
+        foreach ($this->ingredients as $ingredient)
+        {
+            $products=$ingredient->getProduct();
+            foreach ($products as $product)
+            {
+                $pictograms=$product->getDangerPictograms();
+            }
+        }
+        return $pictograms;
+    }
+
 
     /**
      * @return Collection|Mix[]
@@ -173,34 +182,15 @@ class Recipe
         return $this;
     }
 
-
-    /**
-     * @return Product|null
-     */
-    public function getProducts (): ?Product
+    public function getAuthor(): ?User
     {
-        $ingredient = new Ingredients();
-        return $ingredient->getProduct();
+        return $this->author;
     }
 
-    public function setProducts($products)
+    public function setAuthor(?User $author): self
     {
-        $ingredient = new Ingredients();
-        $ingredient->setProduct($products);
-        return $ingredient;
-    }
+        $this->author = $author;
 
-    public function getQuantity (): ?string
-    {
-        $ingredient = new Ingredients();
-        return $ingredient->getQuantity();
+        return $this;
     }
-
-    public function setQuantity ($quantity)
-    {
-        $ingredient = new Ingredients();
-        $ingredient->setQuantity($quantity);
-        return $ingredient;
-    }
-
 }

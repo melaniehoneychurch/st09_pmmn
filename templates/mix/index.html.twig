@@ -25,12 +25,12 @@
                     {{ form_start(form) }}
                     <div class="form-row">
                         <div class="col">
-                            {{ form_row(form.title) }}
+                            {{ form_row(form.title, { 'label':'Nom du mélange'})  }}
                         </div>
                         <div class="col">
-                            {{ form_row(form.concentration) }}
+                            {{ form_row(form.creator, { 'label':'Créateur'}) }}
                         </div>
-                    </div>
+                   </div>
                     {{ form_widget(form) }}
                     <button type="submit" class="btn-primary btn">Rechercher</button>
                     {{ form_end(form) }}
@@ -62,6 +62,7 @@
                         <thead>
                         <tr>
                             <th>Titre</th>
+                            <th>Créateur</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -69,6 +70,7 @@
                         {% for mix in mixes %}
                             <tr>
                                 <td>{{ mix.title }}</td>
+                                <td>{{ mix.creator.identity }}</td>
                                 <td>
                                     <a href="{{ path('mix.edit', {id: mix.id}) }}" class="btn btn-secondary">Editer</a>
                                     <form method="post" action="{{ path('mix.delete', {id: mix.id}) }}" style="display: inline-block">

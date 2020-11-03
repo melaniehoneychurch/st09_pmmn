@@ -1,0 +1,101 @@
+{% extends "base.html.twig" %}
+
+{% block title recipe.title %}
+
+
+{% block body %}
+
+    <div id="recipe" class="container-fluid">
+
+
+        <!-- Area Chart -->
+        <div class="row">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">{{ recipe.title }}</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    {{ recipe.description }}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row mt-2">
+
+            <!-- Area Chart -->
+            <div class="col-xl-5 col-lg-3">
+                <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header  d-flex flex-row align-items-center justify-content-between">
+                    <h6 class=" font-weight-bold text-primary">Ingrédients</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Quantité</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for ingredient in ingredients %}
+                            {% if ingredient.product %}
+                            <tr>
+                                <td>{{ ingredient.product.frenchName }}</td>
+                                <td>{{ ingredient.quantity }}</td>
+                            </tr>
+                        {% endif %}
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Area Chart -->
+        <div class="col-xl-7 col-lg-3">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Pictogramme de danger</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="text-center">
+                        {% for ingredient in ingredients %}
+                        {% if ingredient.product%}
+                        {% for dangerPictogram in ingredient.product.dangerPictograms %}
+                            {% if dangerPictogram.imageName %}
+                                <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 250px; height:auto;" src="{{ vich_uploader_asset(dangerPictogram, 'imageFile') }}" alt="">
+                            {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {{ encore_entry_script_tags('printDiv') }}
+
+
+{% endblock %}
+

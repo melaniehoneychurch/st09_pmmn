@@ -27,15 +27,14 @@ class Report
     private $treatment;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Mix", inversedBy="report")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $mix;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="reports")
      */
     private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Mix", inversedBy="report")
+     */
+    private $mix;
 
     public function getId(): ?int
     {
@@ -66,17 +65,6 @@ class Report
         return $this;
     }
 
-    public function getMix(): ?Mix
-    {
-        return $this->mix;
-    }
-
-    public function setMix(?Mix $mix): self
-    {
-        $this->mix = $mix;
-
-        return $this;
-    }
 
     public function getUser(): ?user
     {
@@ -86,6 +74,18 @@ class Report
     public function setUser(?user $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getMix(): ?Mix
+    {
+        return $this->mix;
+    }
+
+    public function setMix(?Mix $mix): self
+    {
+        $this->mix = $mix;
 
         return $this;
     }

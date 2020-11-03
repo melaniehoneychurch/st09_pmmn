@@ -2,13 +2,13 @@
 
 namespace App\Controller\User;
 
-use App\Entity\Product;
+use App\Entity\Ingredient;
 use App\Entity\Recipe;
+use App\Entity\Product;
+use App\Form\IngredientType;
 use App\Form\RecipeType;
-use App\Form\ProductSearchType;
 use App\Entity\RecipeSearch;
 use App\Form\RecipeSearchType;
-use App\Repository\ProductRepository;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -85,6 +85,31 @@ class UserRecipeController extends AbstractController{
     }
 
     /**
+     * Display the targeted product
+     *
+     * @Route("/recipe/{slug}-{id}", name="recipe.show", requirements={"slug": "[a-zA-Z0-9\-]*"})
+     * @param [type] $slug
+     * @param [type] $id
+     * @return Response
+     */
+    public function show(Recipe $recipe, string $slug):Response
+    {
+
+        // slugify recipe title
+        if($recipe->getSlug() !== $slug){
+            return $this->redirectToRoute('recipe.show', [
+                'id' => $recipe->getId(),
+                'slug' => $recipe->getSlug()
+            ], 301);
+        }
+
+        return $this->render('recipe/show.html.twig', [
+            'recipe' => $recipe, // targeted product
+            'ingredients' => $recipe->getIngredients(),
+        ]);
+    }
+
+    /**
      *
      * @Route("/recipe/myrecipes", name="recipe.perso")
      *
@@ -100,20 +125,20 @@ class UserRecipeController extends AbstractController{
         }
 
         // generate a search form for recipe
-        $search = new RecipeSearch();
+     /*   $search = new RecipeSearch();
         $form = $this->createForm(RecipeSearchType::class, $search);
-        $form->handleRequest($request);
+        $form->handleRequest($request);*/
 
         // generate a paging interface
         $recipes = $paginatorInterface->paginate(
-            $this->recipeRep->findPersoSearchedQuery($search),
+            $this->recipeRep->findByAuthor($this->getUser()),
             $request->query->getInt('page', 1),
             10
         );
 
         return $this->render('recipe/perso.html.twig', [
             'recipes' => $recipes, // recipes list
-            'form' => $form->createView(), // search form
+            //'form' => $form->createView(), // search form
         ]);
     }
 
@@ -134,6 +159,7 @@ class UserRecipeController extends AbstractController{
 
         // generate a creation form
         $recipe = new Recipe();
+        $recipe->setAuthor($this->getUser());
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
@@ -142,12 +168,47 @@ class UserRecipeController extends AbstractController{
             $this->em->persist($recipe);
             $this->em->flush();
             $this->addFlash('success', 'Recette créée avec succès');
-            return $this->redirectToRoute('recipe.index');
+            $param = ['id'=> $recipe->getId()];
+            return $this->redirectToRoute('recipe.ingredients.new', $param);
         }
 
         return $this->render('recipe/new.html.twig', [
             'recipe' => $recipe, // empty object
             'recipeForm' => $form->createView() // creation form
+        ]);
+    }
+
+    /**
+     *
+     *  @Route("/recipe/ingredients/{id}", name="recipe.ingredients.new")
+     *
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function ingredients (Request $request)
+    {
+        // check if the user account is activate
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
+
+        // generate a creation form
+        $ingredient = new Ingredient();
+        $ingredient->setRecipe($this->recipeRep->findOneByID($request->get('id')));
+        $form = $this->createForm(IngredientType::class, $ingredient);
+        $form->handleRequest($request);
+
+        // analyse the form response and if the form is valid them the object is created
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist($ingredient);
+            $this->em->flush();
+            $this->addFlash('success', 'Ingredients ajoutés avec succès');
+            return $this->redirectToRoute('recipe.index');
+        }
+
+        return $this->render('recipe/ingredients/new.html.twig', [
+            'ingredient' => $ingredient, // empty object
+            'ingredientsForm' => $form->createView() // creation form
         ]);
     }
 
@@ -213,7 +274,7 @@ class UserRecipeController extends AbstractController{
         return $this->redirectToRoute('recipe.index');
     }
 
-   /**
+    /**
      * Cancel an action in form
      *
      * @Route("/productmanager/cancel/product", name="productmanager.product.cancel")

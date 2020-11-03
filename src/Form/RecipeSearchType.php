@@ -6,6 +6,7 @@ use App\Entity\RecipeSearch;
 use App\Entity\Storage;
 use App\Entity\TrashCan;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,13 +26,8 @@ class RecipeSearchType extends AbstractType
                     'placeholder' => 'Titre recette'
                 ]
             ])
-            ->add('concentration', SearchType::class, [
-                'required' => false,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Concentration'
-                ]
-            ])
+            ->add('confidentiality', HiddenType::class)
+
             /*->add('storage', EntityType::class, [
                 'class' => Storage::class,
                 'choice_label' => 'name',

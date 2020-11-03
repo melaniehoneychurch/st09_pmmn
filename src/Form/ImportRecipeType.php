@@ -1,27 +1,26 @@
 <?php
 
+
 namespace App\Form;
 
-use App\Entity\Ingredient;
+
 use App\Entity\Recipe;
-use App\Entity\Product;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Form;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
-class RecipeType extends AbstractType
+class ImportRecipeType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('confidentiality')
-            ->add('description')
-        ;
+            ->add('title', EntityType::class,[
+                'class' => Recipe::class,
+                'choice_label' => 'title',
+                'allow_extra_fields' => true
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -30,4 +29,5 @@ class RecipeType extends AbstractType
             'data_class' => Recipe::class,
         ]);
     }
+
 }

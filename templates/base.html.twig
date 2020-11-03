@@ -54,7 +54,9 @@
                 <!-- Nav Item - new recipe -->
                 <li class="nav-item {% if app.request.get('_route') == 'recipe.index'
                     or app.request.get('_route') == 'recipe.edit'
-                    or app.request.get('_route') == 'recipe.new' or app.request.get('_route') == 'recipe.perso'%} active {% endif %}">
+                    or app.request.get('_route') == 'recipe.new'
+                    or app.request.get('_route') == 'recipe.perso'
+                    or app.request.get('_route') == 'recipe.show'%} active {% endif %}">
                     <a class="nav-link" href="{{ path('recipe.new') }}">
                         <i class="fas fa-plus"></i>
                         <span>Créer une nouvelle recette</span>
@@ -64,7 +66,9 @@
                 <!-- Nav Item - all recipes -->
                 <li class="nav-item {% if app.request.get('_route') == 'recipe.index'
                     or app.request.get('_route') == 'recipe.edit'
-                    or app.request.get('_route') == 'recipe.new' or app.request.get('_route') == 'recipe.perso'%} active {% endif %}">
+                    or app.request.get('_route') == 'recipe.new'
+                    or app.request.get('_route') == 'recipe.perso'
+                    or app.request.get('_route') == 'recipe.show'%} active {% endif %}">
                     <a class="nav-link" href="{{ path('recipe.index') }}">
                         <i class="fas fa-book"></i>
                         <span>Consulter toutes les recettes</span>
@@ -74,7 +78,9 @@
                 <!-- Nav Item - my recipes -->
                 <li class="nav-item {% if app.request.get('_route') == 'recipe.index'
                     or app.request.get('_route') == 'recipe.edit'
-                    or app.request.get('_route') == 'recipe.new' or app.request.get('_route') == 'recipe.perso'%} active {% endif %}">
+                    or app.request.get('_route') == 'recipe.new'
+                    or app.request.get('_route') == 'recipe.perso'
+                    or app.request.get('_route') == 'recipe.show'%} active {% endif %}">
                     <a class="nav-link" href="{{ path('recipe.perso') }}">
                         <i class="fas fa-receipt"></i>
                         <span>Mes recettes</span>
@@ -92,8 +98,9 @@
                 <!-- Nav Item - new mix -->
                 <li class="nav-item {% if app.request.get('_route') == 'mix.index'
                     or app.request.get('_route') == 'mix.edit'
-                    or app.request.get('_route') == 'mix.new'%} active {% endif %}">
-                    <a class="nav-link" href="{{ path('mix.index') }}">
+                    or app.request.get('_route') == 'mix.new'
+                    or app.request.get('_route') == 'mix.add'%} active {% endif %}">
+                    <a class="nav-link" href="{{ path('mix.add') }}">
                         <i class="fas fa-plus"></i>
                         <span>Créer un nouveau mélange</span>
                     </a>
@@ -112,8 +119,8 @@
                 <!-- Nav Item - my mixes -->
                 <li class="nav-item {% if app.request.get('_route') == 'mix.index'
                     or app.request.get('_route') == 'mix.edit'
-                    or app.request.get('_route') == 'mix.new'%} active {% endif %}">
-                    <a class="nav-link" href="{{ path('recipe.index') }}">
+                    or app.request.get('_route') == 'mix.new' or app.request.get('_route') == 'mix.perso'%} active {% endif %}">
+                    <a class="nav-link" href="{{ path('mix.perso') }}">
                         <i class="fas fa-vials"></i>
                         <span>Mes mélanges</span>
                     </a>

@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title 'Gérer mes recettes' %}
+{% block title 'Gérer mes mélanges' %}
 
 {% block body %}
 
@@ -17,7 +17,7 @@
 
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Toutes mes recettes</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Tous mes mélanges</h6>
                 </div>
 
                 <!-- Card Body - search options -->
@@ -31,14 +31,14 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for recipe in recipes %}
+                        {% for mix in mixes %}
                             <tr>
-                                <td><a href="{{ path('recipe.show', {slug: recipe.slug, id: recipe.id}) }}"><h6>{{ recipe.title }}</h6></a></td>
+                                <td>{{ mix.title }}</td>
                                 <td>
-                                    <a href="{{ path('recipe.edit', {id: recipe.id}) }}" class="btn btn-secondary">Editer</a>
-                                    <form method="post" action="{{ path('recipe.delete', {id: recipe.id}) }}" style="display: inline-block">
+                                    <a href="{{ path('mix.edit', {id: mix.id}) }}" class="btn btn-secondary">Editer</a>
+                                    <form method="post" action="{{ path('mix.delete', {id: mix.id}) }}" style="display: inline-block">
                                         <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recipe.id) }}">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ mix.id) }}">
                                         <button class="btn btn-danger">Supprimer</button>
                                     </form>
                                 </td>
@@ -50,7 +50,7 @@
 
                     {# display navigation #}
                     <div class="navigation">
-                        {{ knp_pagination_render(recipes) }}
+                        {{ knp_pagination_render(mixes) }}
                     </div>
 
                 </div>
@@ -59,7 +59,7 @@
 
             <div class="text-right">
                 <div style="display:inline-block">
-                    <a href="{{ path('recipe.new') }}" class="btn btn-primary">Créer une nouvelle recette</a>
+                    <a href="{{ path('mix.new') }}" class="btn btn-primary">Créer un nouveau mélange</a>
                 </div>
             </div>
 

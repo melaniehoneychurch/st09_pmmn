@@ -3,10 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Mix;
+use App\Entity\MixImportRecipe;
 use App\Entity\MixSearch;
-use App\Entity\ProductSearch;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -27,15 +27,19 @@ class MixRepository extends ServiceEntityRepository
         $query =  $this->createQueryBuilder('p');
 
         if($search->getTitle()){
-            $query = $query->andWhere('p.title LIKE :title')
+            $query = $query
+                ->andWhere('p.title LIKE :title AND p.confidentiality = true')
                 ->setParameter('title', '%'.$search->getTitle().'%')
             ;
         }
 
-        if($search->getConcentration()){
-            $query = $query->andWhere('p.concentration LIKE :c')
-                ->setParameter('c', '%'.$search->getConcentration().'%');
-        }
+    /*    if($search->getCreator()){
+            $query = $query
+                ->andWhere('IDENTITY(p.creator) LIKE :creator AND p.confidentiality = true')
+                ->setParameter('creator', '%'.$search->getCreator().'%')
+            ;
+        }  */
+
 
         if($search->getTrie()){
             switch($search->getTrie()){
@@ -55,12 +59,38 @@ class MixRepository extends ServiceEntityRepository
 
             }
         }else{
-            $query = $query->orderBy('p.title', 'ASC');
+            $query = $query
+                ->andWhere('p.confidentiality = true')
+                ->orderBy('p.title', 'ASC');
         }
 
 
         return $query->getQuery();
 
+    }
+
+    public function findByRecipe($value): Query
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.title = :val')
+            ->setParameter('val', $value)
+            ->orderBy('r.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findByCreator($value)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.creator = :val')
+            ->setParameter('val', $value)
+            ->orderBy('r.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     // /**
