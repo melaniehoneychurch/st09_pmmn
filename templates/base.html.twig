@@ -7,7 +7,9 @@
 
     <title>{% block title %}TO MODIFY{% endblock %}</title>
 
-
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+    {% endblock %}
 
 </head>
 
