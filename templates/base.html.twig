@@ -334,7 +334,9 @@
     </div>
     <!-- End of Page Wrapper -->
 
-
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
 
     {# theme sb-admin-2 #}
 
