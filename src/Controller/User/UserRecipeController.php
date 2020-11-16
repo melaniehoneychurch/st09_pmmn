@@ -6,6 +6,7 @@ use App\Entity\Ingredient;
 use App\Entity\Recipe;
 use App\Entity\Product;
 use App\Form\IngredientType;
+use App\Form\RecipeCollectionType;
 use App\Form\RecipeType;
 use App\Entity\RecipeSearch;
 use App\Form\RecipeSearchType;
@@ -160,7 +161,7 @@ class UserRecipeController extends AbstractController{
         // generate a creation form
         $recipe = new Recipe();
         $recipe->setAuthor($this->getUser());
-        $form = $this->createForm(RecipeType::class, $recipe);
+        $form = $this->createForm(RecipeCollectionType::class, $recipe);
         $form->handleRequest($request);
 
         // analyse the form response and if the form is valid them the object is created
@@ -168,8 +169,7 @@ class UserRecipeController extends AbstractController{
             $this->em->persist($recipe);
             $this->em->flush();
             $this->addFlash('success', 'Recette créée avec succès');
-            $param = ['id'=> $recipe->getId()];
-            return $this->redirectToRoute('recipe.ingredients.new', $param);
+            return $this->redirectToRoute('recipe.perso');
         }
 
         return $this->render('recipe/new.html.twig', [
@@ -178,39 +178,7 @@ class UserRecipeController extends AbstractController{
         ]);
     }
 
-    /**
-     *
-     *  @Route("/recipe/ingredients/{id}", name="recipe.ingredients.new")
-     *
-     * @param Request $request
-     * @return RedirectResponse|Response
-     */
-    public function ingredients (Request $request)
-    {
-        // check if the user account is activate
-        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
-            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
-        }
 
-        // generate a creation form
-        $ingredient = new Ingredient();
-        $ingredient->setRecipe($this->recipeRep->findOneByID($request->get('id')));
-        $form = $this->createForm(IngredientType::class, $ingredient);
-        $form->handleRequest($request);
-
-        // analyse the form response and if the form is valid them the object is created
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->persist($ingredient);
-            $this->em->flush();
-            $this->addFlash('success', 'Ingredients ajoutés avec succès');
-            return $this->redirectToRoute('recipe.index');
-        }
-
-        return $this->render('recipe/ingredients/new.html.twig', [
-            'ingredient' => $ingredient, // empty object
-            'ingredientsForm' => $form->createView() // creation form
-        ]);
-    }
 
     /**
      * Display edit form
@@ -229,7 +197,7 @@ class UserRecipeController extends AbstractController{
         }
 
         // generate a form to modify information
-        $form = $this->createForm(RecipeType::class, $recipe);
+        $form = $this->createForm(RecipeCollectionType::class, $recipe);
         $form->handleRequest($request);
 
         // analyse the form response and if the form is valid them informations are updated
@@ -240,7 +208,7 @@ class UserRecipeController extends AbstractController{
             $this->em->flush();
             $this->addFlash('success', 'recette modifiée avec succès');
 
-            return $this->redirectToRoute('recipe.index');
+            return $this->redirectToRoute('recipe.perso');
         }
 
         return $this->render('recipe/edit.html.twig', [

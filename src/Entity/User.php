@@ -105,6 +105,11 @@ class User implements UserInterface, \Serializable
      */
     private $mixes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Inventory", mappedBy="owner")
+     */
+    private $inventories;
+
     public function __construct()
     {
         array_push($this->roles, 'ROLE_USER');
@@ -112,6 +117,7 @@ class User implements UserInterface, \Serializable
         $this->reports = new ArrayCollection();
         $this->recipes = new ArrayCollection();
         $this->mixes = new ArrayCollection();
+        $this->inventories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -399,6 +405,37 @@ class User implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($mix->getCreator() === $this) {
                 $mix->setCreator(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Inventory[]
+     */
+    public function getInventories(): Collection
+    {
+        return $this->inventories;
+    }
+
+    public function addInventory(Inventory $inventory): self
+    {
+        if (!$this->inventories->contains($inventory)) {
+            $this->inventories[] = $inventory;
+            $inventory->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInventory(Inventory $inventory): self
+    {
+        if ($this->inventories->contains($inventory)) {
+            $this->inventories->removeElement($inventory);
+            // set the owning side to null (unless already changed)
+            if ($inventory->getOwner() === $this) {
+                $inventory->setOwner(null);
             }
         }
 

@@ -10,11 +10,17 @@ import '../css/app.scss';
 import $ from 'jquery'; 
 import 'bootstrap'; 
 //import 'startbootstrap-sb-admin-2/js/sb-admin-2.min.js';   
-import '@fortawesome/fontawesome-free'
+import '@fortawesome/fontawesome-free';
+
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
-// import $ from 'jquery';   
+//import $ from 'jquery';
+//import './addIngredients'
+
+
 
 
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+
+
 

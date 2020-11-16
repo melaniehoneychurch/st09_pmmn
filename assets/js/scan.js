@@ -1,6 +1,8 @@
 import jsQR from 'jsqr';
 import $ from 'jquery';
 
+
+
 var video = document.createElement("video");
 var canvasElement = document.getElementById("canvas");
 var canvas = canvasElement.getContext("2d");

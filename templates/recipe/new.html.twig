@@ -4,6 +4,14 @@
 
 {% block body %}
 
-    {{ include('recipe/_form.html.twig', {form: recipeForm, button: 'Ajouter les ingrédients'}) }}
+    {{ include('recipe/_form.html.twig', {form: recipeForm, button: 'Enregistrer la recette'}) }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {{ encore_entry_script_tags('addIngredients') }}
+
 
 {% endblock %}

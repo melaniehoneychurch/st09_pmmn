@@ -1,0 +1,9 @@
+{% extends "base.html.twig" %}
+
+{% block title "Ajout dans l'inventaire" %}
+
+{% block body %}
+
+    {{ include('inventory/_form.html.twig', {form: inventory_form, button: 'Créer'}) }}
+
+{% endblock %}

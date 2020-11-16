@@ -13,12 +13,28 @@
                 <h6 class="m-0 font-weight-bold text-primary">Créer une recette</h6>
             </div>
 
+
             <!-- Card Body - search options -->
             <div class="card-body">
                 {{ form_row(form.title, {'label':'Titre'}) }}
                 {{ form_row(form.description, {'label':'Description'}) }}
+                {{ form_row(form.confidentiality, {'label':'Recette confidentiel'}) }}
 
-                {{ form_row(form.confidentiality, {'label':'Visible'}) }}
+                <h5>Ingredients</h5>
+                <p/>
+
+                <div class="ingredients-list" data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e('html_attr') }}">
+                    {% for row in form.ingredients %}
+                        <div class="panel panel-warning card border-secondary text-dark mb-3">
+                            <div class="panel-heading card-header">{{ row.vars.value.product.frenchName }}</div>
+                            <div class="panel-body card-body">
+                                {{ form_row(row) }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+
             </div>
 
         </div>

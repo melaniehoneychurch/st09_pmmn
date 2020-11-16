@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,6 +28,16 @@ class Storage
      *
      */
     private $color;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Mix", mappedBy="storage")
+     */
+    private $mixes;
+
+    public function __construct()
+    {
+        $this->mixes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -61,6 +73,37 @@ class Storage
     public function setColor($color)
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Mix[]
+     */
+    public function getMixes(): Collection
+    {
+        return $this->mixes;
+    }
+
+    public function addMix(Mix $mix): self
+    {
+        if (!$this->mixes->contains($mix)) {
+            $this->mixes[] = $mix;
+            $mix->setStorage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMix(Mix $mix): self
+    {
+        if ($this->mixes->contains($mix)) {
+            $this->mixes->removeElement($mix);
+            // set the owning side to null (unless already changed)
+            if ($mix->getStorage() === $this) {
+                $mix->setStorage(null);
+            }
+        }
 
         return $this;
     }

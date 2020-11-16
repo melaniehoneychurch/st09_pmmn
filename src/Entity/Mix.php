@@ -49,6 +49,16 @@ class Mix
      */
     private $creator;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $quantity;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Storage", inversedBy="mixes")
+     */
+    private $storage;
+
     public function __construct()
     {
         $this->report = new ArrayCollection();
@@ -146,6 +156,30 @@ class Mix
     public function setCreator(?User $creator): self
     {
         $this->creator = $creator;
+
+        return $this;
+    }
+
+    public function getQuantity(): ?string
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(?string $quantity): self
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getStorage(): ?Storage
+    {
+        return $this->storage;
+    }
+
+    public function setStorage(?Storage $storage): self
+    {
+        $this->storage = $storage;
 
         return $this;
     }

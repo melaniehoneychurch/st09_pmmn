@@ -19,8 +19,7 @@ class IngredientType extends AbstractType
             ->add('product', EntityType::class,[
                 'class' => Product::class,
                 'choice_label' => 'french_name',
-                'required' => false,
-                'allow_extra_fields' => true,
+                'required' => true,
             ])
             ->add('quantity')
 

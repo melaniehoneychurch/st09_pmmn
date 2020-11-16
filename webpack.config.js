@@ -26,7 +26,7 @@ Encore
     .addEntry('printDiv', './assets/js/printDiv.js')
     .addEntry('scan', './assets/js/scan.js')
 
-    //.addEntry('page1', './assets/js/page1.js')
+    .addEntry('addIngredients', './assets/js/addIngredients.js')
     //.addEntry('page2', './assets/js/page2.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.

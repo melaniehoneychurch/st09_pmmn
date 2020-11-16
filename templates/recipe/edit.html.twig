@@ -7,3 +7,11 @@
     {{ include('recipe/_form.html.twig', {form: form, button: 'Editer'}) }}
 
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {{ encore_entry_script_tags('addIngredients') }}
+
+
+{% endblock %}

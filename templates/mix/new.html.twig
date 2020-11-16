@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{% block title 'Ajouter un mélange' %}
+
+{% block body %}
+
+    {% include 'flashes.html.twig' %}
+
+    {# Import recipe #}
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Area Chart -->
+        <div class="col-xl-12 col-lg-12">
+            <div class="card shadow mb-4">
+
+                <!-- Card Header -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-danger">Informations</h6>
+                </div>
+
+                <!-- Card Body - search options -->
+                <div class="card-body">
+                    <p>Vous êtes sur le point d'ajouter un nouveau mélange. Si vous ne l'avez pas encore fait, pensez à créer
+                        la recette à laquelle votre mélange est associé.</p>
+                    <a href="{{ path('recipe.new') }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-outline-danger shadow-sm">Créer la recette</a>
+                    <p></p>
+                    <p>Vous pouvez aussi créer un mélange sans recette si vous jugez que ça n'est pas nécessaire. Dans ce cas il vous suffit
+                        de ne pas choisir de recette dans l'onglet "recette" ci-dessous.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {{ include('mix/_form.html.twig', {form: form, button: 'Enregistrer le mélange'}) }}
+
+{% endblock %}

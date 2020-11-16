@@ -25,9 +25,11 @@ class MixSearchType extends AbstractType
                     'placeholder' => 'Solution de ...'
                 ]
             ])
-            ->add('creator', EntityType::class, [
+            ->add('creator', EntityType::class,[
                 'class' => User::class,
                 'choice_label' => 'identity',
+                'multiple' => false,
+                'required' => false,
             ])
 
             /*->add('storage', EntityType::class, [

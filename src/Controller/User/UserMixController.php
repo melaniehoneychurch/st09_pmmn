@@ -18,6 +18,7 @@ use App\Repository\ProductRepository;
 use App\Repository\MixRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use PhpParser\Node\Expr\Array_;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -125,82 +126,10 @@ class UserMixController extends AbstractController{
     /**
      * Display the user
      *
-     * @Route("/mix/add", name="mix.add")
-     *
-     * @param PaginatorInterface $paginatorInterface
-     * @param Request $request
-     * @return Response
-     */
-    public function add(PaginatorInterface $paginatorInterface, Request $request)
-    {
-        // check if the user account is activate
-        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
-            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
-        }
-
-        // generate a search form for mix
-        $recipe = new Recipe();
-        $form = $this->createForm(ImportRecipeType::class, $recipe);
-        $form->handleRequest($request);
-
-        // analyse the form response and if the form is valid them the object is created
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->addWithRecipe($recipe, $request);
-        }
-
-
-        return $this->render('mix/add.html.twig', [
-            'form' => $form->createView(), // search form
-        ]);
-    }
-
-    /**
-     * Display the user
-     *
-     * @Route("/mix/mixwithrecipe", name="mix.addWithRecipe")
-     *
-     * @param PaginatorInterface $paginatorInterface
-     * @param Request $request
-     * @return Response
-     */
-    public function addWithRecipe(Recipe $recipe, Request $request)
-    {
-        // check if the user account is activate
-        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
-            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
-        }
-
-        // generate a form to modify information
-        $mix = new Mix();
-        $mix->setCreator($this->getUser());
-        $mix->setRecipe($recipe);
-        $mix->setTitle($recipe->getTitle());
-        $form = $this->createForm(MixType::class, $mix);
-        $form->handleRequest($request);
-
-        // analyse the form response and if the form is valid them the object is created
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->persist($mix);
-            $this->em->flush();
-            $this->addFlash('success', 'Mélange ajouté avec succès');
-            return $this->redirectToRoute('mix.index');
-        }
-
-        return $this->render('mix/addWithRecipe.html.twig', [
-            'mix' => $mix, // empty object
-            'mixForm' => $form->createView() // creation form
-        ]);
-
-    }
-
-
-    /**
-     * Display creation form
-     *
      * @Route("/mix/create", name="mix.new")
      *
      * @param Request $request
-     * @return RedirectResponse|Response
+     * @return Response
      */
     public function new(Request $request)
     {
@@ -209,24 +138,26 @@ class UserMixController extends AbstractController{
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
-        // generate a creation form
-        $mix = new Mix();
-        $form = $this->createForm(MixSearchType::class, $mix);
+        // generate a search form for mix
+        $mix = new Mix();;
+        $form = $this->createForm(MixType::class, $mix);
         $form->handleRequest($request);
 
         // analyse the form response and if the form is valid them the object is created
         if ($form->isSubmitted() && $form->isValid()) {
+            $mix->setCreator($this->getUser());
             $this->em->persist($mix);
             $this->em->flush();
-            $this->addFlash('success', 'Mélange créé avec succès');
+            $this->addFlash('success', 'Mélange ajouté avec succès');
             return $this->redirectToRoute('mix.index');
         }
 
         return $this->render('mix/new.html.twig', [
-            'mix' => $mix, // empty object
-            'form' => $form->createView() // creation form
+            'mix' => $mix, //empty object
+            'form' => $form->createView(), // search form
         ]);
     }
+
 
     /**
      * Display edit form
@@ -245,7 +176,7 @@ class UserMixController extends AbstractController{
         }
 
         // generate a form to modify information
-        $form = $this->createForm(MixSearchType::class, $mix);
+        $form = $this->createForm(MixType::class, $mix);
         $form->handleRequest($request);
 
         // analyse the form response and if the form is valid them informations are updated
@@ -254,9 +185,9 @@ class UserMixController extends AbstractController{
             //$mix->setUpdatedAt(new \Datetime());
 
             $this->em->flush();
-            $this->addFlash('success', 'mélange modifié avec succès');
+            $this->addFlash('success', 'Mélange modifié avec succès');
 
-            return $this->redirectToRoute('mix.index');
+            return $this->redirectToRoute('mix.perso');
         }
 
         return $this->render('mix/edit.html.twig', [

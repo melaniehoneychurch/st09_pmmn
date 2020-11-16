@@ -27,6 +27,8 @@
                         <thead>
                         <tr>
                             <th>Titre</th>
+                            <th>Quantité</th>
+                            <th>Stockage</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -34,7 +36,18 @@
                         {% for mix in mixes %}
                             <tr>
                                 <td>{{ mix.title }}</td>
+                                <td>{{ mix.quantity }}</td>
                                 <td>
+                                    {% if mix.storage %}
+                                        <p style="height: 60px;width: 60px;background-color: {{mix.storage.color}};border-radius: 100%;display: table-cell;text-align: center;vertical-align: middle;">
+                                            {{ mix.storage.name }}
+                                        </p>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if mix.recipe %}
+                                        <a href="{{ path('recipe.show', {slug: mix.recipe.slug, id: mix.recipe.id}) }}" class="btn btn-success">Voir la recette</a>
+                                    {% endif %}
                                     <a href="{{ path('mix.edit', {id: mix.id}) }}" class="btn btn-secondary">Editer</a>
                                     <form method="post" action="{{ path('mix.delete', {id: mix.id}) }}" style="display: inline-block">
                                         <input type="hidden" name="_method" value="DELETE">

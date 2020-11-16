@@ -27,7 +27,7 @@ class RecipeRepository extends ServiceEntityRepository
 
         if($search->getTitle()){
             $query = $query
-                ->andWhere('p.title LIKE :title AND p.confidentiality = true')
+                ->andWhere('p.title LIKE :title AND p.confidentiality = false')
                 ->setParameter('title', '%'.$search->getTitle().'%')
             ;
         }
@@ -63,7 +63,7 @@ class RecipeRepository extends ServiceEntityRepository
             }
         }else{
             $query = $query
-                ->andWhere('p.confidentiality = true')
+                ->andWhere('p.confidentiality = false')
                 ->orderBy('p.title', 'ASC');
         }
 

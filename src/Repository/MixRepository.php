@@ -28,18 +28,18 @@ class MixRepository extends ServiceEntityRepository
 
         if($search->getTitle()){
             $query = $query
-                ->andWhere('p.title LIKE :title AND p.confidentiality = true')
+                ->andWhere('p.title LIKE :title AND p.confidentiality = false')
                 ->setParameter('title', '%'.$search->getTitle().'%')
             ;
         }
 
-    /*    if($search->getCreator()){
-            $query = $query
-                ->andWhere('IDENTITY(p.creator) LIKE :creator AND p.confidentiality = true')
-                ->setParameter('creator', '%'.$search->getCreator().'%')
-            ;
-        }  */
 
+       if($search->getCreator()){
+            $query = $query
+                ->andWhere('p.creator = :creator AND p.confidentiality = false')
+                ->setParameter('creator', $search->getCreator()->getId())
+            ;
+        }
 
         if($search->getTrie()){
             switch($search->getTrie()){
@@ -60,7 +60,7 @@ class MixRepository extends ServiceEntityRepository
             }
         }else{
             $query = $query
-                ->andWhere('p.confidentiality = true')
+                ->andWhere('p.confidentiality = false')
                 ->orderBy('p.title', 'ASC');
         }
 

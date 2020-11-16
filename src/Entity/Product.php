@@ -37,6 +37,7 @@ class Product
         $this->pictograms = new ArrayCollection();
         $this->hazardStatements = new ArrayCollection();
         $this->ingredients = new ArrayCollection();
+        $this->inventories = new ArrayCollection();
     }
    
    
@@ -186,6 +187,11 @@ class Product
      * @ORM\OneToMany(targetEntity="App\Entity\Ingredient", mappedBy="product")
      */
     private $ingredients;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Inventory", mappedBy="product")
+     */
+    private $inventories;
 
 
     public function getSlug(): string
@@ -604,6 +610,37 @@ class Product
             // set the owning side to null (unless already changed)
             if ($ingredient->getProduct() === $this) {
                 $ingredient->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Inventory[]
+     */
+    public function getInventories(): Collection
+    {
+        return $this->inventories;
+    }
+
+    public function addInventory(Inventory $inventory): self
+    {
+        if (!$this->inventories->contains($inventory)) {
+            $this->inventories[] = $inventory;
+            $inventory->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInventory(Inventory $inventory): self
+    {
+        if ($this->inventories->contains($inventory)) {
+            $this->inventories->removeElement($inventory);
+            // set the owning side to null (unless already changed)
+            if ($inventory->getProduct() === $this) {
+                $inventory->setProduct(null);
             }
         }
 
