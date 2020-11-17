@@ -120,7 +120,7 @@
                 <li class="nav-item {% if app.request.get('_route') == 'mix.index'
                     or app.request.get('_route') == 'mix.edit'
                     or app.request.get('_route') == 'mix.new' or app.request.get('_route') == 'mix.perso'%} active {% endif %}">
-                    <a class="nav-link" href="{{ path('mix.perso') }}">
+                    <a class="nav-link" href="{{ path('inventory.mix') }}">
                         <i class="fas fa-vials"></i>
                         <span>Mes mélanges</span>
                     </a>
@@ -130,7 +130,7 @@
                 <li class="nav-item {% if app.request.get('_route') == 'mix.index'
                     or app.request.get('_route') == 'mix.edit' or app.request.get('_route') == 'mix.perso'
                     or app.request.get('_route') == 'mix.new'%} active {% endif %}">
-                    <a class="nav-link" href="{{ path('recipe.index') }}">
+                    <a class="nav-link">
                         <i class="fas fa-exclamation-circle"></i>
                         <span>Gérer mes mélanges</span>
                     </a>

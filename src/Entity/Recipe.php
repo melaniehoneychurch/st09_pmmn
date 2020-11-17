@@ -35,7 +35,7 @@ class Recipe
     private $confidentiality;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Ingredient", mappedBy="recipe", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Ingredient", mappedBy="recipe", cascade={"persist", "remove"})
      */
     private $ingredients;
 

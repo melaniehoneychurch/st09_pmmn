@@ -1,0 +1,84 @@
+{% extends "base.html.twig" %}
+
+{% block title 'Gérer mes mélanges' %}
+
+{% block body %}
+
+    {% include 'flashes.html.twig' %}
+
+
+    {# Table #}
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Area Chart -->
+        <div class="col-xl-12 col-lg-12">
+            <div class="card shadow mb-4">
+
+                <!-- Card Header -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Tous mes mélanges</h6>
+                </div>
+
+                <!-- Card Body - search options -->
+                <div class="card-body">
+
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Titre</th>
+                            <th>Quantité</th>
+                            <th>Stockage</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for inventory in inventories %}
+                            {% if inventory.mix  %}
+                            <tr>
+                                <td>{{ inventory.mix.title }}</td>
+                                <td>{{ inventory.mix.quantity }}</td>
+                                <td>
+                                    {% if inventory.mix.storage %}
+                                        <p style="height: 60px;width: 60px;background-color: {{inventory.mix.storage.color}};border-radius: 100%;display: table-cell;text-align: center;vertical-align: middle;">
+                                            {{ inventory.mix.storage.name }}
+                                        </p>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if inventory.mix.recipe %}
+                                        <a href="{{ path('recipe.show', {slug: inventory.mix.recipe.slug, id: inventory.mix.recipe.id}) }}" class="btn btn-success">Voir la recette</a>
+                                    {% endif %}
+                                    <a href="{{ path('mix.edit', {id: inventory.mix.id}) }}" class="btn btn-secondary">Editer</a>
+                                    <form method="post" action="{{ path('inventory.delete', {id: inventory.id}) }}" style="display: inline-block">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ inventory.id) }}">
+                                        <button class="btn btn-danger">Supprimer</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    {# display navigation #}
+                    <div class="navigation">
+                        {{ knp_pagination_render(inventories) }}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="text-right">
+                <div style="display:inline-block">
+                    <a href="{{ path('mix.new') }}" class="btn btn-primary">Créer un nouveau mélange</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

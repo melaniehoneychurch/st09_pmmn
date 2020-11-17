@@ -27,7 +27,7 @@ class MixType extends AbstractType
             ->add('storage', EntityType::class,[
                 'class' => Storage::class,
                 'choice_label' => 'name',
-                'required' => false,
+                'required' => true,
             ])
             ->add('confidentiality')
         ;

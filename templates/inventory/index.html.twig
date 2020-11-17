@@ -4,6 +4,8 @@
 
 {% block body %}
 
+    {% include 'flashes.html.twig' %}
+
     <h2 class="mb-3">Inventaire</h2>
 
     {# recherche #}
@@ -76,6 +78,11 @@
                                 <td>{{ inventory.dosage }}</td>
                                 <td>{{ inventory.quantity }}</td>
                                 <td>
+                                    {% if inventory.mix %}
+                                        <p style="height: 60px;width: 60px;background-color: {{ inventory.mix.storage.color }};border-radius: 100%;display: table-cell;text-align: center;vertical-align: middle;">
+                                            {{ inventory.mix.storage.name }}
+                                        </p>
+                                    {% endif %}
                                     {% if inventory.product %}
                                     <p style="height: 60px;width: 60px;background-color: {{inventory.product.storage.color}};border-radius: 100%;display: table-cell;text-align: center;vertical-align: middle;">
                                         {{ inventory.product.storage.name }}

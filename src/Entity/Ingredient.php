@@ -18,7 +18,7 @@ class Ingredient
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Recipe", inversedBy="ingredients")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $recipe;
 

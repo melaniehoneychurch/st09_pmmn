@@ -32,17 +32,12 @@ class RecipeRepository extends ServiceEntityRepository
             ;
         }
 
-    /* if($search->getConfidentiality()){
-            $query = $query->andWhere('p.confidentiality LIKE')
-                ->setParameter('confidentiality', '%'.$search->getConfidentiality().'%')
+        if($search->getAuthor()){
+        $query = $query
+           ->andWhere('p.author = :author AND p.confidentiality = false')
+           ->setParameter('author', $search->getAuthor()->getId())
             ;
         }
-
-/*       if($search->getAuthor(){
-            $query = $query->andWhere('p.author LIKE :author')
-                ->setParameter('author', '%'.$search->getAuthor().'%')
-            ;
-        } */
 
         if($search->getTrie()){
             switch($search->getTrie()){

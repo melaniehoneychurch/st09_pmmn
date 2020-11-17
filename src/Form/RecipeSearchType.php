@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\RecipeSearch;
 use App\Entity\Storage;
 use App\Entity\TrashCan;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,8 +24,14 @@ class RecipeSearchType extends AbstractType
                 'required' => false,
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Titre recette'
+                    'placeholder' => 'Acide ...'
                 ]
+            ])
+            ->add('author', EntityType::class,[
+                'class' => User::class,
+                'choice_label' => 'identity',
+                'multiple' => false,
+                'required' => false,
             ])
             ->add('confidentiality', HiddenType::class)
 

@@ -10,8 +10,31 @@ class RecipeSearch
      */
     private $title;
 
- //   private $author;
+    /**
+     * @var User|null
+     */
+    private $author;
 
+    /**
+     * @return User|null
+     */
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param User|null $author
+     */
+    public function setAuthor(?User $author): void
+    {
+        $this->author = $author;
+    }
+
+
+    /**
+     * @var bool
+     */
     private $confidentiality=true;
 
     /**

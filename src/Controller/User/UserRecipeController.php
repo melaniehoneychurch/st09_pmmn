@@ -233,13 +233,18 @@ class UserRecipeController extends AbstractController{
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        if ($recipe->getMixes()->count() !== 0){
+            $this->addFlash('danger', 'Vous ne pouvez pas supprimer cette recette car elle est associée à au moins un mélange.');
+            return $this->redirectToRoute('recipe.perso');
+        }
+
         // analyse the csrf token and if it is valid them the object is deleted
         if ($this->isCsrfTokenValid('delete' . $recipe->getId(), $request->get('_token'))) {
             $this->em->remove($recipe);
             $this->em->flush();
             $this->addFlash('success', 'Recette supprimée avec succès');
         }
-        return $this->redirectToRoute('recipe.index');
+        return $this->redirectToRoute('recipe.perso');
     }
 
     /**

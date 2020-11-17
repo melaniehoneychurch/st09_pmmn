@@ -50,6 +50,31 @@ class InventoryRepository extends ServiceEntityRepository
 
     }
 
+    /**
+    //  * @return Inventory[] Returns an array of Inventory objects
+    //  */
+    public function findByOwner($value)
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.owner = :val')
+            ->setParameter('val', $value)
+            ->orderBy('i.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findOneByMix($value): ?Inventory
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.mix = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+
     // /**
     //  * @return Inventory[] Returns an array of Inventory objects
     //  */

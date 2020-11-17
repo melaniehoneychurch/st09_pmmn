@@ -59,6 +59,7 @@ class Mix
      */
     private $storage;
 
+
     public function __construct()
     {
         $this->report = new ArrayCollection();

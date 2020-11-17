@@ -2,6 +2,7 @@
 
 namespace App\Controller\User;
 
+use App\Entity\Inventory;
 use App\Entity\MixImportRecipe;
 use App\Entity\Product;
 use App\Entity\Mix;
@@ -148,6 +149,21 @@ class UserMixController extends AbstractController{
             $mix->setCreator($this->getUser());
             $this->em->persist($mix);
             $this->em->flush();
+
+            //Ajout du mélange dans l'inventaire
+            $invent = new Inventory();
+            $invent->setTitle($mix->getTitle());
+            if ($mix->getQuantity()){
+                $invent->setQuantity($mix->getQuantity());
+            }
+            $invent->setMix($mix);
+            $invent->setOwner($mix->getCreator());
+            $invent->setQrCode('M'.$mix->getId());
+
+            $this->em->persist($invent);
+            $this->em->flush();
+
+
             $this->addFlash('success', 'Mélange ajouté avec succès');
             return $this->redirectToRoute('mix.index');
         }
@@ -212,13 +228,15 @@ class UserMixController extends AbstractController{
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+
+
         // analyse the csrf token and if it is valid them the object is deleted
         if ($this->isCsrfTokenValid('delete' . $mix->getId(), $request->get('_token'))) {
             $this->em->remove($mix);
             $this->em->flush();
             $this->addFlash('success', 'Mélange supprimé avec succès');
         }
-        return $this->redirectToRoute('mix.index');
+        return $this->redirectToRoute('mix.perso');
     }
 
     /**

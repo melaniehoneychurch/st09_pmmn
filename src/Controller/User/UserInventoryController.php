@@ -4,6 +4,7 @@
 namespace App\Controller\User;
 
 use App\Entity\Inventory;
+use App\Entity\Mix;
 use App\Form\InventoryType;
 use App\Entity\InventorySearch;
 use App\Form\InventorySearchType;
@@ -13,9 +14,9 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 use Symfony\Component\Security\Core\Security;
 
 
@@ -76,6 +77,30 @@ class UserInventoryController extends AbstractController
             'form' => $form->createView(), // generate form
         ]);
     }
+
+    /**
+     * Display the inventory list
+     *
+     * @Route("/inventory/mix", name="inventory.mix")
+     *
+     * @param PaginatorInterface $paginatorInterface
+     * @param Request $request
+     * @return HttpFoundationResponse
+     */
+    public function mix(PaginatorInterface $paginatorInterface, Request $request)
+    {
+         // generate a paging interface
+        $inventories = $paginatorInterface->paginate(
+            $this->inventoryRep->findByOwner($this->getUser()),
+            $request->query->getInt('page', 1),
+            10
+        );
+
+        return $this->render('inventory/mix.html.twig', [
+            'inventories' => $inventories, // inventories list
+        ]);
+    }
+
 
     /**
      * Display creation form
@@ -141,6 +166,5 @@ class UserInventoryController extends AbstractController
         }
         return $this->redirectToRoute('inventory.index');
     }
-
 
 }
