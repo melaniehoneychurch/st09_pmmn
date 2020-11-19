@@ -51,6 +51,12 @@ class Inventory
      */
     private $mix;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Storage", inversedBy="inventories")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $storage;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -136,6 +142,18 @@ class Inventory
     public function setMix(?Mix $mix): self
     {
         $this->mix = $mix;
+
+        return $this;
+    }
+
+    public function getStorage(): ?Storage
+    {
+        return $this->storage;
+    }
+
+    public function setStorage(?Storage $storage): self
+    {
+        $this->storage = $storage;
 
         return $this;
     }

@@ -26,13 +26,18 @@
 
                     {{ form_start(form) }}
                     <div class="form-row">
-                        <div class="col-lg-5">
-                            {{form_row(form.title)}}
+                        <div class="col-lg-7">
+                            {{form_row(form.title, {'label':'Titre'})}}
                         </div>
-                        <div class="col-lg-2">
-                            <button type="submit" class="btn-primary btn">Rechercher</button>
+                        <div class="col-lg-5">
+                            {{ form_row(form.owner, { 'label':'Créateur'}) }}
                         </div>
                     </div>
+                    <div class="form_row">
+                        {{ form_row(form.storage, {'label':'Stockage'}) }}
+                    </div>
+                    {{ form_widget(form) }}
+                    <button type="submit" class="btn-primary btn">Rechercher</button>
                     {{ form_end(form) }}
 
                 </div>
@@ -78,17 +83,9 @@
                                 <td>{{ inventory.dosage }}</td>
                                 <td>{{ inventory.quantity }}</td>
                                 <td>
-                                    {% if inventory.mix %}
-                                        <p style="height: 60px;width: 60px;background-color: {{ inventory.mix.storage.color }};border-radius: 100%;display: table-cell;text-align: center;vertical-align: middle;">
-                                            {{ inventory.mix.storage.name }}
+                                        <p style="height: 60px;width: 60px;background-color: {{ inventory.storage.color }};border-radius: 100%;display: table-cell;text-align: center;vertical-align: middle;">
+                                            {{ inventory.storage.name }}
                                         </p>
-                                    {% endif %}
-                                    {% if inventory.product %}
-                                    <p style="height: 60px;width: 60px;background-color: {{inventory.product.storage.color}};border-radius: 100%;display: table-cell;text-align: center;vertical-align: middle;">
-                                        {{ inventory.product.storage.name }}
-                                    </p>
-                                    {% endif %}
-                                </td>
                                 <td>
                                     {% if inventory.owner %}
                                         {{ inventory.owner.identity }}
@@ -106,6 +103,7 @@
                         {% endfor %}
                         </tbody>
                     </table>
+                    <a href="{{ path('inventory.export') }}" class="btn btn-secondary">Exporter</a>
 
                     {# display navigation #}
                     <div class="navigation">

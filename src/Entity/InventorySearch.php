@@ -19,6 +19,48 @@ class InventorySearch
     private $trie;
 
     /**
+     * @var User|null
+     */
+    private $owner;
+
+    /**
+     * @var Storage|null
+     */
+    private $storage;
+
+    /**
+     * @return Storage|null
+     */
+    public function getStorage(): ?Storage
+    {
+        return $this->storage;
+    }
+
+    /**
+     * @param Storage|null $storage
+     */
+    public function setStorage(?Storage $storage): void
+    {
+        $this->storage = $storage;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    /**
+     * @param User|null $owner
+     */
+    public function setOwner(?User $owner): void
+    {
+        $this->owner = $owner;
+    }
+
+    /**
      * @return string|null
      */
     public function getTitle(): ?string

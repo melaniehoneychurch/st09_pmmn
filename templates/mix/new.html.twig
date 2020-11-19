@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title 'Ajouter un mélange' %}
+{% block title 'Ajouter une solution' %}
 
 {% block body %}
 
@@ -21,11 +21,11 @@
 
                 <!-- Card Body - search options -->
                 <div class="card-body">
-                    <p>Vous êtes sur le point d'ajouter un nouveau mélange. Si vous ne l'avez pas encore fait, pensez à créer
-                        la recette à laquelle votre mélange est associé.</p>
+                    <p>Vous êtes sur le point d'ajouter une nouvelle solution. Si vous ne l'avez pas encore fait, pensez à créer
+                        la recette à laquelle votre solution est associée.</p>
                     <a href="{{ path('recipe.new') }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-outline-danger shadow-sm">Créer la recette</a>
                     <p></p>
-                    <p>Vous pouvez aussi créer un mélange sans recette si vous jugez que ça n'est pas nécessaire. Dans ce cas il vous suffit
+                    <p>Vous pouvez aussi créer une solution sans recette si vous jugez que ça n'est pas nécessaire. Dans ce cas il vous suffit
                         de ne pas choisir de recette dans l'onglet "recette" ci-dessous.</p>
                 </div>
 
@@ -33,6 +33,6 @@
         </div>
     </div>
 
-    {{ include('mix/_form.html.twig', {form: form, button: 'Enregistrer le mélange'}) }}
+    {{ include('mix/_form.html.twig', {form: form, button: 'Enregistrer la solution'}) }}
 
 {% endblock %}

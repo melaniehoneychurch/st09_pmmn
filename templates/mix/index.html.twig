@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title 'Gérer Mélange' %}
+{% block title 'Gérer solution' %}
 
 {% block body %}
 
@@ -9,6 +9,24 @@
     {# Recherche #}
     <!-- Content Row -->
     <div class="row">
+
+        <!-- Area Chart -->
+        <div class="col-xl-12 col-lg-12">
+            <div class="card shadow mb-4">
+
+                <!-- Card Header -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-success">Informations</h6>
+                </div>
+
+                <!-- Card Body - search options -->
+                <div class="card-body">
+                    <p>Les solutions représentent l'instanciation physique d'une recette.
+                        Lorsque vous créez une solution elle sera ajoutée à l'inventaire des produits présents dans le laboratoire.</p>
+                </div>
+
+            </div>
+        </div>
 
         <!-- Area Chart -->
         <div class="col-xl-12 col-lg-12">
@@ -25,7 +43,7 @@
                     {{ form_start(form) }}
                     <div class="form-row">
                         <div class="col">
-                            {{ form_row(form.title, { 'label':'Nom du mélange'})  }}
+                            {{ form_row(form.title, { 'label':'Nom de la solution'})  }}
                         </div>
                         <div class="col">
                             {{ form_row(form.creator, { 'label':'Créateur'}) }}
@@ -103,7 +121,7 @@
 
             <div class="text-right">
                 <div style="display:inline-block">
-                    <a href="{{ path('mix.new') }}" class="btn btn-primary">Créer un nouveau mélange</a>
+                    <a href="{{ path('mix.new') }}" class="btn btn-primary">Créer une nouvelle solution</a>
                 </div>
             </div>
 

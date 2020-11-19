@@ -92,7 +92,7 @@
 
                 <!-- Heading -->
                 <div class="sidebar-heading">
-                    Mélanges
+                    solutions
                 </div>
 
                 <!-- Nav Item - new mix -->
@@ -101,7 +101,7 @@
                     or app.request.get('_route') == 'mix.new'%} active {% endif %}">
                     <a class="nav-link" href="{{ path('mix.new') }}">
                         <i class="fas fa-plus"></i>
-                        <span>Créer un nouveau mélange</span>
+                        <span>Créer une nouvelle solution</span>
                     </a>
                 </li>
 
@@ -112,7 +112,7 @@
                     or app.request.get('_route') == 'mix.perso'%} active {% endif %}">
                     <a class="nav-link" href="{{ path('mix.index') }}">
                         <i class="fas fa-vials"></i>
-                        <span>Consulter tous les mélanges</span>
+                        <span>Consulter toutes les solutions</span>
                     </a>
                 </li>
 
@@ -122,7 +122,7 @@
                     or app.request.get('_route') == 'mix.new' or app.request.get('_route') == 'mix.perso'%} active {% endif %}">
                     <a class="nav-link" href="{{ path('inventory.mix') }}">
                         <i class="fas fa-vials"></i>
-                        <span>Mes mélanges</span>
+                        <span>Mes solutions</span>
                     </a>
                 </li>
 
@@ -132,7 +132,7 @@
                     or app.request.get('_route') == 'mix.new'%} active {% endif %}">
                     <a class="nav-link">
                         <i class="fas fa-exclamation-circle"></i>
-                        <span>Gérer mes mélanges</span>
+                        <span>Gérer mes solutions</span>
                     </a>
                 </li>
             {% endif %}

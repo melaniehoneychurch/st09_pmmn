@@ -24,16 +24,22 @@
 
                     {{ form_start(form) }}
                     <div class="form-row">
-                        <div class="col-lg-5">
+                        <div class="col-lg-6">
                             {{form_row(form.frenchName)}}
                         </div>
-                        <div class="col-lg-5">
+                        <div class="col-lg-6">
                             {{form_row(form.casNumber)}}
                         </div>
-                        <div class="col-lg-2">
-                            <button type="submit" class="btn-primary btn">Rechercher</button>
+                            <div class="col-lg-6">
+                                {{ form_row(form.storage, {'label':'Stockage'})}}
+                            </div>
+                            <div class="col-lg-6">
+                                {{ form_row(form.trashCan, {'label':'Poubelle'}) }}
+
                         </div>
                     </div>
+                    {{ form_widget(form) }}
+                    <button type="submit" class="btn-primary btn">Rechercher</button>
                     {{ form_end(form) }}
 
                 </div>

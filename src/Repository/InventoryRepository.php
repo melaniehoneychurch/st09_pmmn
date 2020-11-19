@@ -31,6 +31,40 @@ class InventoryRepository extends ServiceEntityRepository
             ;
         }
 
+        if($search->getOwner()){
+            $query = $query
+                ->andWhere('p.owner = :owner')
+                ->setParameter('owner', $search->getOwner()->getId())
+            ;
+        }
+
+        /* Requête SQL :
+        SELECT *
+        FROM `inventory` i, `product` p, `mix` m, `storage` s
+        WHERE
+        (i.`product_id`=p.`id` AND p.`storage_id`=s.`id` AND s.`id`=[value])
+        OR
+        (i.`mix_id`=m.`id` AND m.`storage_id`=s.`id` AND s.`id`=[value])
+        */
+
+        /* Requête SQL avec les INNER JOIN :
+        SELECT DISTINCT `inventory`.*
+        FROM `inventory`
+        INNER JOIN `product`
+        INNER JOIN `mix`
+        INNER JOIN `storage`
+        WHERE
+        (
+        (`inventory`.`product_id`=`product`.`id` AND `product`.`storage_id`=`storage`.`id`)
+        OR
+        (`inventory`.`mix_id`=`mix`.`id` AND `mix`.`storage_id`=`storage`.`id`)
+        )
+        AND `storage`.`id`='[value]' */
+
+        if($search->getStorage()){
+            $query = $query->andWhere('p.storage = :storage')
+                ->setParameter('storage', $search->getStorage()->getId());
+        }
 
         if($search->getTrie()){
             switch($search->getTrie()){
@@ -74,6 +108,8 @@ class InventoryRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
             ;
     }
+
+
 
     // /**
     //  * @return Inventory[] Returns an array of Inventory objects

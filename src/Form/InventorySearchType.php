@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\InventorySearch;
+use App\Entity\Storage;
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
@@ -21,6 +24,12 @@ class InventorySearchType extends AbstractType
                     'placeholder' => 'Nom produit'
                 ]
             ])
+            ->add('owner', EntityType::class,[
+                'class' => User::class,
+                'choice_label' => 'identity',
+                'multiple' => false,
+                'required' => false,
+            ])
             ->add('trie', ChoiceType::class, [
                 'choices'  => [
                     'A à Z' => 0,
@@ -31,6 +40,16 @@ class InventorySearchType extends AbstractType
                 ],
                 'required' => true,
                 'label' => false,
+            ])
+            ->add('storage', EntityType::class, [
+                'class' => Storage::class,
+                'choice_label' => 'name',
+
+                'required' => false,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Stockage'
+                ]
             ])
         ;
     }

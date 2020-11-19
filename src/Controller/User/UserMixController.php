@@ -158,6 +158,7 @@ class UserMixController extends AbstractController{
             }
             $invent->setMix($mix);
             $invent->setOwner($mix->getCreator());
+            $invent->setStorage($mix->getStorage());
             $invent->setQrCode('M'.$mix->getId());
 
             $this->em->persist($invent);

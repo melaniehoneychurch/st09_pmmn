@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Inventory;
 use App\Entity\Product;
+use App\Entity\Storage;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -29,6 +30,11 @@ class InventoryType extends AbstractType
                 'choice_label' => 'frenchName',
                 'multiple' => false,
                 'required' => false,
+            ])
+            ->add('storage', EntityType::class,[
+                'class' => Storage::class,
+                'choice_label' => 'name',
+                'required' => true,
             ])
            /* ->add('mix', EntityType::class,[
                 'class' => Mix::class,

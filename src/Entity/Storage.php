@@ -34,9 +34,15 @@ class Storage
      */
     private $mixes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Inventory", mappedBy="storage")
+     */
+    private $inventories;
+
     public function __construct()
     {
         $this->mixes = new ArrayCollection();
+        $this->inventories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -102,6 +108,37 @@ class Storage
             // set the owning side to null (unless already changed)
             if ($mix->getStorage() === $this) {
                 $mix->setStorage(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Inventory[]
+     */
+    public function getInventories(): Collection
+    {
+        return $this->inventories;
+    }
+
+    public function addInventory(Inventory $inventory): self
+    {
+        if (!$this->inventories->contains($inventory)) {
+            $this->inventories[] = $inventory;
+            $inventory->setStorage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInventory(Inventory $inventory): self
+    {
+        if ($this->inventories->contains($inventory)) {
+            $this->inventories->removeElement($inventory);
+            // set the owning side to null (unless already changed)
+            if ($inventory->getStorage() === $this) {
+                $inventory->setStorage(null);
             }
         }
 
