@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Product;
 use App\Entity\Storage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -26,6 +27,26 @@ class StorageRepository extends ServiceEntityRepository
         ->getQuery()
         ;
         
+    }
+
+    /* Requête SQL :
+    SELECT COUNT(`storage`.`id`)
+    FROM `storage`
+    INNER JOIN `product`
+    WHERE `product`.`storage_id`=`storage`.`id`
+    AND `storage`.`id`=[value] */
+
+    public function findProductByStorage(Storage $value)
+    {
+        return $this->createQueryBuilder('s')
+            ->addSelect('COUNT(storage.id)')
+            ->from('App:Storage', 'storage')
+            ->innerJoin('App:Product', 'product', 'product.storage = storage')
+            ->andWhere('storage.id = :value')
+            ->setParameter('value', $value->getId())
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     // /**

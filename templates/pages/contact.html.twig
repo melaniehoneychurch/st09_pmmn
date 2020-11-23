@@ -1,0 +1,66 @@
+{% extends "base.html.twig" %}
+
+{% block title 'contact' %}
+
+{% block body %}
+
+    {% include 'flashes.html.twig' %}
+
+    {# Recherche #}
+<!-- Content Row -->
+<div class="row">
+
+    <!-- Area Chart -->
+    <div class="col-xl-12 col-lg-12">
+        <div class="card shadow mb-4">
+
+            <!-- Card Header -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-success">Informations</h6>
+            </div>
+
+            <!-- Card Body - search options -->
+            <div class="card-body">
+                <p>Vous pouvez utiliser le formulaire ci-dessous pour contacter les administrateurs du site et ainsi leur signaler
+                    si vous rencontrez des problèmes lors de votre navigation.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Area Chart -->
+    <div class="col-xl-12 col-lg-12">
+        <div class="card shadow mb-4">
+
+            <!-- Card Header -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Contact</h6>
+            </div>
+
+            <!-- Card Body - search options -->
+            <div class="card-body">
+
+                {{ form_start(form) }}
+                <div class="form-row">
+                    <div class="col">
+                        {{ form_row(form.firstname, {'label' : 'Prénom'}) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.lastname, { 'label':'Nom'}) }}
+                    </div>
+                </div>
+                {{ form_row(form.email, { 'label':'Email'}) }}
+                {{ form_row(form.objet, { 'label':'Objet'}) }}
+                {{ form_row(form.message, { 'label':'Message'}) }}
+                <button type="submit" class="btn-primary btn">Envoyer</button>
+                {{ form_end(form) }}
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}

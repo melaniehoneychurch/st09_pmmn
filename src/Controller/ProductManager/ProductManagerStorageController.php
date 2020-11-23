@@ -159,6 +159,14 @@ class ProductManagerStorageController extends AbstractController{
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        //$products = $this->storageRep->findProductByStorage($storage);
+
+        //check if the storage is used
+        if ($storage->getInventories()->count() !== 0){
+            $this->addFlash('danger', 'Vous ne pouvez pas supprimer ce stockage car il contient actuellement au moins un produit.');
+            return $this->redirectToRoute('productmanager.storage.index');
+        }
+
         // analyse the csrf token and if it is valid them the object is deleted
         if ($this->isCsrfTokenValid('delete' . $storage->getId(), $request->get('_token'))) {
             $this->em->remove($storage);

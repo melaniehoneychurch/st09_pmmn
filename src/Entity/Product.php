@@ -167,13 +167,13 @@ class Product
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Storage")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, name="storage_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $storage;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TrashCan")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, name="trash_can_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $trashCan;
 

@@ -2,10 +2,8 @@
 
 namespace App\Controller\User;
 
-use App\Entity\Ingredient;
+
 use App\Entity\Recipe;
-use App\Entity\Product;
-use App\Form\IngredientType;
 use App\Form\RecipeCollectionType;
 use App\Form\RecipeType;
 use App\Entity\RecipeSearch;

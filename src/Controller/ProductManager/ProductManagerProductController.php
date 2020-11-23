@@ -168,6 +168,12 @@ class ProductManagerProductController extends AbstractController{
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
+        //check if the product is use in db
+        if ($product->getIngredients()->count() !== 0){
+            $this->addFlash('danger', 'Vous ne pouvez pas supprimer ce produit car il est associé à au moins une recette.');
+            return $this->redirectToRoute('productmanager.product.index');
+        }
+
         // analyse the csrf token and if it is valid them the object is deleted
         if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))) {
             $this->em->remove($product);

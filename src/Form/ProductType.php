@@ -56,12 +56,12 @@ class ProductType extends AbstractType
             ->add('storage', EntityType::class,[
                 'class' => Storage::class,
                 'choice_label' => 'name',
-                'required' => false,
+                'required' => true,
             ])
             ->add('trashCan', EntityType::class,[
                 'class' => TrashCan::class,
                 'choice_label' => 'name',
-                'required' => false,
+                'required' => true,
             ])
             ->add('hazardStatements', EntityType::class,[
                 'class' => HazardStatement::class,
