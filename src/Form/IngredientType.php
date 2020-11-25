@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Ingredient;
 use App\Entity\Product;
 use App\Entity\Recipe;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -18,6 +19,10 @@ class IngredientType extends AbstractType
         $builder
             ->add('product', EntityType::class,[
                 'class' => Product::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.frenchName', 'ASC');
+                },
                 'choice_label' => 'french_name',
                 'required' => true,
             ])

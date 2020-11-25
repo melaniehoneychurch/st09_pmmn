@@ -4,7 +4,6 @@
 namespace App\Controller\User;
 
 use App\Entity\Inventory;
-use App\Entity\Mix;
 use App\Form\InventoryType;
 use App\Entity\InventorySearch;
 use App\Form\InventorySearchType;
@@ -15,7 +14,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Security;
@@ -73,11 +71,76 @@ class UserInventoryController extends AbstractController
             10
         );
 
+        //Appel de la fonction export
+        //$this->exportData();
+
         return $this->render('inventory/index.html.twig', [
             'inventories' => $inventories, // inventories list
             'form' => $form->createView(), // generate form
         ]);
     }
+
+    /**
+     * Display the inventory list
+     *
+     * @Route("/inventory/export", name="inventory.export")
+     *
+     * @return void
+     */
+    public function export()
+    {
+        // check if the user account is activate
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
+
+        //Appel de la fonction export
+        $this->exportData();
+        $this->redirectToRoute('inventory.index');
+    }
+
+
+    /**
+     *
+     * @return void
+     */
+    public function exportData(){
+        $filename = 'export_inventory_'.date('d_m_Y').".csv";
+
+        $inventories = $this->inventoryRep->findAll();
+
+        // file creation
+        $file = fopen($filename,"w");
+        fputs($file, $bom =( chr(0xEF) . chr(0xBB) . chr(0xBF) ));
+        fputcsv($file, array('Nom',
+            'Propriétaire',
+            'Dosage',
+            'Quantité'
+        ), ';');
+
+        foreach($inventories as $inventory){
+            fputcsv($file,array(
+                $inventory->getTitle(),
+                $inventory->getOwner()->getIdentity(),
+                $inventory->getDosage(),
+                $inventory->getQuantity()
+            ),';');
+        }
+
+        fclose($file);
+
+        // download
+        header("Content-Description: File Transfer");
+        header("Content-Disposition: attachment; filename=".$filename);
+        header("Content-Type: application/csv; ");
+
+        readfile($filename);
+
+        // deleting file
+        unlink($filename);
+        exit();
+    }
+
 
     /**
      * Display the mix inventory list
@@ -126,6 +189,7 @@ class UserInventoryController extends AbstractController
             // analyse the form response and if the form is valid them the object is created
             if ($form->isSubmitted() && $form->isValid()) {
                     if ($inventory->getProduct()){
+                        $inventory->setTitle($inventory->getProduct()->getFrenchName());
                         $inventory->setQrCode('P'.$inventory->getProduct()->getId());
                     }
                     elseif ($inventory->getMix()){
@@ -167,107 +231,6 @@ class UserInventoryController extends AbstractController
         }
         return $this->redirectToRoute('inventory.index');
     }
-
-    /**
-     * Export CSV
-     *
-     * @Route ("/inventory/mix", name="inventory.export")
-     *
-     * @return StreamedResponse
-     */
-    public function exportCSV()
-    {
-
-        // check if the user account is activate
-        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
-            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
-        }
-
-        $inventories = $this->inventoryRep->findAll();
-
-        $fileName = 'export_inventory'.date('d_m_Y').".csv";
-        $response = new StreamedResponse();
-
-        $response->setCallback(function () use ($inventories){
-            $handle = fopen('php://memory', 'w+');
-
-            //Nom des colonnes csv
-            fputcsv($handle, array('Nom',
-                'Propriétaire',
-                'Dosage',
-                'Quantité'
-                ), ';');
-
-            //Champs
-            foreach ($inventories as $index => $inventory)
-            {
-                fputcsv($handle, array(
-                    $inventory->getTitle(),
-                    $inventory->getOwner(),
-                    $inventory->getDosage(),
-                    $inventory->getQuantity()
-                ),';');
-            }
-            fclose($handle);
-        });
-
-
-        $response->setStatusCode(200);
-        $response->headers->set('Content-Type', 'text/csv; charset=utf-8', 'application/force-download');
-        $response->headers->set('Content-Disposition','attachment; filename='.$fileName);
-
-        //$response->send();
-
-        /*    $response->headers->set('Content-Type', 'text/csv');
-            $response->headers->set('Content-Disposition', 'attachment; filename="export_from_doctrine_demo.csv"');
-            $response->send(); */
-
-        //return $this->redirectToRoute('mix.index');
-        $this->addFlash('success', "Inventaire exporté");
-        return $response;
-        //return $this->redirectToRoute('inventory.index');
-
-    }
-
-
-    /**
-     * Export CSV
-     *
-     * @Route ("/inventory", name="inventory.exporting")
-     *
-     * @return
-     */
-    public function exportInvent()
-    {
-
-        $filename = 'inventory.csv';
-        $inventories = $this->inventoryRep->findAll();
-        $header = 'Titre - Value';
-        $header_ar = explode(', ', $header);
-
-        // file creation
-        $file = fopen($filename,"w");
-        fputcsv($file,$header_ar);
-        foreach($inventories as $inventory){
-            $array = (array) $inventory->getTitle();
-            fputcsv($file,$array);
-        }
-
-        fclose($file);
-
-        // download
-        header("Content-Description: File Transfer");
-        header("Content-Disposition: attachment; filename=".$filename);
-        header("Content-Type: application/csv; ");
-
-        readfile($filename);
-
-        // deleting file
-        unlink($filename);
-        exit();
-    }
-
-
 
 
 }

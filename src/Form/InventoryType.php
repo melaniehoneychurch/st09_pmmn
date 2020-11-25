@@ -6,6 +6,7 @@ use App\Entity\Inventory;
 use App\Entity\Product;
 use App\Entity\Storage;
 use App\Entity\User;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,7 +17,16 @@ class InventoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
+            ->add('product', EntityType::class,[
+                'class' => Product::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.frenchName', 'ASC');
+                },
+                'choice_label' => 'frenchName',
+                'multiple' => false,
+                'required' => true,
+            ])
             ->add('dosage')
             ->add('quantity')
             ->add('owner', EntityType::class,[
@@ -25,12 +35,6 @@ class InventoryType extends AbstractType
                 'multiple' => false,
                 'required' => false,
                 ])
-            ->add('product', EntityType::class,[
-                'class' => Product::class,
-                'choice_label' => 'frenchName',
-                'multiple' => false,
-                'required' => false,
-            ])
             ->add('storage', EntityType::class,[
                 'class' => Storage::class,
                 'choice_label' => 'name',

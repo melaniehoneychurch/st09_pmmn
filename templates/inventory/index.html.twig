@@ -103,13 +103,32 @@
                         {% endfor %}
                         </tbody>
                     </table>
-                    <a href="{{ path('inventory.export') }}" class="btn btn-secondary">Exporter</a>
+
 
                     {# display navigation #}
                     <div class="navigation">
                         {{ knp_pagination_render(inventories) }}
                     </div>
 
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Area Chart -->
+        <div class="col-xl-12 col-lg-12">
+            <div class="card shadow mb-4">
+
+                <!-- Card Header -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Exportation de l'inventaire</h6>
+                </div>
+
+                <!-- Card Body - search options -->
+                <div class="card-body">
+                    <p>Si vous le souhaitez, vous pouvez exporter l'inventaire dans un fichier CSV.
+                    Vous pourrez ensuite lire facilement votre fichier CSV avec votre tableur habituel.</p>
+                    <a href="{{ path('inventory.export') }}" class="btn btn-outline-primary">Exporter</a>
                 </div>
 
             </div>
