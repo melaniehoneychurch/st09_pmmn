@@ -33,7 +33,7 @@ class InventoryType extends AbstractType
                 'class' => User::class,
                 'choice_label' => 'identity',
                 'multiple' => false,
-                'required' => false,
+                'required' => true,
                 ])
             ->add('storage', EntityType::class,[
                 'class' => Storage::class,

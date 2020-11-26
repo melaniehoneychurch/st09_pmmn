@@ -115,7 +115,8 @@ class UserInventoryController extends AbstractController
         fputcsv($file, array('Nom',
             'Propriétaire',
             'Dosage',
-            'Quantité'
+            'Quantité',
+            'Stockage'
         ), ';');
 
         foreach($inventories as $inventory){
@@ -123,7 +124,8 @@ class UserInventoryController extends AbstractController
                 $inventory->getTitle(),
                 $inventory->getOwner()->getIdentity(),
                 $inventory->getDosage(),
-                $inventory->getQuantity()
+                $inventory->getQuantity(),
+                $inventory->getStorage()->getName()
             ),';');
         }
 

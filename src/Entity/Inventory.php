@@ -38,6 +38,7 @@ class Inventory
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="inventories")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $owner;
 

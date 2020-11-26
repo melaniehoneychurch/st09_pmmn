@@ -27,7 +27,7 @@ class ContactNotification {
     {
         $message = (new \Swift_Message('[Site L2N signalement] '.$contact->getObjet()))
             ->setFrom($contact->getEmail())
-            ->setTo('melanie.scatena@gmail.com')
+            ->setTo('melanie.scatena@utt.fr')
             ->setReplyTo($contact->getEmail())
             ->setBody($this->renderer->render('email/contacts.html.twig', [
                  'contact' => $contact
