@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Mix;
 use App\Entity\Recipe;
 use App\Entity\Storage;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,6 +21,11 @@ class MixType extends AbstractType
             ->add('quantity')
             ->add('recipe', EntityType::class, [
                 'class' => Recipe::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->where('u.confidentiality=false')
+                        ->orderBy('u.title', 'ASC');
+                },
                 'choice_label' => 'title',
                 'multiple' => false,
                 'required' => false,

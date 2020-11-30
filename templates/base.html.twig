@@ -259,7 +259,7 @@
 
             <!-- Nav Item - See inventory -->
             <li class="nav-item {% if app.request.get('_route') == 'inventory.index'
-                or app.request.get('_route') == 'inventory.new'%} active {% endif %}">
+                or app.request.get('_route') == 'inventory.new' or app.request.get('_route') == 'inventory.export'%} active {% endif %}">
                 <a class="nav-link" href="{{ path('inventory.index') }}">
                     <i class="fas fa-boxes"></i>
                     <span>Voir l'inventaire</span>
@@ -268,10 +268,19 @@
 
                 <!-- Nav Item - Add in inventory -->
                 <li class="nav-item {% if app.request.get('_route') == 'inventory.new'
-                    or app.request.get('_route') == 'inventory.index'%} active {% endif %}">
+                    or app.request.get('_route') == 'inventory.index' or app.request.get('_route') == 'inventory.export'%} active {% endif %}">
                     <a class="nav-link" href="{{ path('inventory.new') }}">
                         <i class="fas fa-plus"></i>
                         <span>Ajouter à l'inventaire</span>
+                    </a>
+                </li>
+
+                <!-- Nav Item - Add in inventory -->
+                <li class="nav-item {% if app.request.get('_route') == 'inventory.new'
+                    or app.request.get('_route') == 'inventory.index' or app.request.get('_route') == 'inventory.export'%} active {% endif %}">
+                    <a class="nav-link" href="{{ path('inventory.export') }}">
+                        <i class="fas fa-download"></i>
+                        <span>Exporter l'inventaire</span>
                     </a>
                 </li>
 

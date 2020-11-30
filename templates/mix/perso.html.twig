@@ -48,7 +48,7 @@
                                     {% if mix.recipe %}
                                         <a href="{{ path('recipe.show', {slug: mix.recipe.slug, id: mix.recipe.id}) }}" class="btn btn-success">Voir la recette</a>
                                     {% endif %}
-                                    <a href="{{ path('mix.edit', {id: mix.id}) }}" class="btn btn-secondary">Editer</a>
+                                    <a href="{{ path('inventory.editMix', {id: mix.id}) }}" class="btn btn-secondary">Editer</a>
                                     <form method="post" action="{{ path('mix.delete', {id: mix.id}) }}" style="display: inline-block">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ mix.id) }}">

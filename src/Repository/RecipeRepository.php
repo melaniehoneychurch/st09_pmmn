@@ -84,7 +84,18 @@ class RecipeRepository extends ServiceEntityRepository
             ->andWhere('r.author = :val')
             ->setParameter('val', $value)
             ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+            //->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findForMix($value){
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.author = :val OR r.confidentiality = false')
+            ->setParameter('val', $value)
+            ->orderBy('r.id', 'ASC')
+            //->setMaxResults(10)
             ->getQuery()
             ->getResult()
             ;

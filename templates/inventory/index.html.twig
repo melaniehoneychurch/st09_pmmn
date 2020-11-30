@@ -26,15 +26,19 @@
 
                     {{ form_start(form) }}
                     <div class="form-row">
-                        <div class="col-lg-7">
+                        <div class="col-lg-6">
                             {{form_row(form.title, {'label':'Titre'})}}
                         </div>
-                        <div class="col-lg-5">
+                        <div class="col-lg-6">
                             {{ form_row(form.owner, { 'label':'Créateur'}) }}
                         </div>
-                    </div>
-                    <div class="form_row">
-                        {{ form_row(form.storage, {'label':'Stockage'}) }}
+
+                        <div class="col-lg-6">
+                            {{form_row(form.storage, {'label':'Stockage'})}}
+                        </div>
+                        <div class="col-lg-6">
+                            {{ form_row(form.entrydate, { 'label':'Date de création'}) }}
+                        </div>
                     </div>
                     {{ form_widget(form) }}
                     <button type="submit" class="btn-primary btn">Rechercher</button>
@@ -72,6 +76,7 @@
                             <th>Quantité</th>
                             <th>Stockage</th>
                             <th>Propriétaire</th>
+                            <th>Date d'ajout</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -91,6 +96,7 @@
                                         {{ inventory.owner.identity }}
                                     {% endif %}
                                 </td>
+                                <td>{{ inventory.date }}</td>
                                 <td>
                                     <form method="post" action="{{ path('inventory.delete', {id: inventory.id}) }}" style="display: inline-block">
                                         <input type="hidden" name="_method" value="DELETE">
@@ -110,25 +116,6 @@
                         {{ knp_pagination_render(inventories) }}
                     </div>
 
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Area Chart -->
-        <div class="col-xl-12 col-lg-12">
-            <div class="card shadow mb-4">
-
-                <!-- Card Header -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Exportation de l'inventaire</h6>
-                </div>
-
-                <!-- Card Body - search options -->
-                <div class="card-body">
-                    <p>Si vous le souhaitez, vous pouvez exporter l'inventaire dans un fichier CSV.
-                    Vous pourrez ensuite lire facilement votre fichier CSV avec votre tableur habituel.</p>
-                    <a href="{{ path('inventory.export') }}" class="btn btn-outline-primary">Exporter</a>
                 </div>
 
             </div>

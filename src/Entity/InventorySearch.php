@@ -29,6 +29,31 @@ class InventorySearch
     private $storage;
 
     /**
+     * @var \DateTime|null
+     */
+    private $entrydate;
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getEntrydate(): ?\DateTime
+    {
+        return $this->entrydate;
+    }
+
+    /**
+     * @param \DateTime|null $entrydate
+     * @return InventorySearch
+     */
+    public function setEntrydate(?\DateTime $entrydate): InventorySearch
+    {
+        $this->entrydate = $entrydate;
+        return $this;
+    }
+
+
+
+    /**
      * @return Storage|null
      */
     public function getStorage(): ?Storage

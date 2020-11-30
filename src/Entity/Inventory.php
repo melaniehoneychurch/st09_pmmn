@@ -9,6 +9,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Inventory
 {
+
+    public function __construct()
+    {
+        $this->updated_at = new \Datetime();
+        $this->entry_date = new \DateTime();
+    }
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -57,6 +64,16 @@ class Inventory
      * @ORM\JoinColumn(nullable=false)
      */
     private $storage;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $entry_date;
 
     public function getId(): ?int
     {
@@ -155,6 +172,34 @@ class Inventory
     public function setStorage(?Storage $storage): self
     {
         $this->storage = $storage;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getDate(){
+        return $this->entry_date->format('d/m/Y');
+    }
+
+    public function getEntryDate(): ?\DateTimeInterface
+    {
+        return $this->entry_date;
+    }
+
+    public function setEntryDate(\DateTimeInterface $entry_date): self
+    {
+        $this->entry_date = $entry_date;
 
         return $this;
     }

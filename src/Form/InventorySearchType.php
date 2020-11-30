@@ -8,6 +8,8 @@ use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -50,6 +52,11 @@ class InventorySearchType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Stockage'
                 ]
+            ])
+            ->add('entrydate', DateType::class,[
+                'widget' => 'single_text',
+                'input'  => 'datetime',
+                'required' => false
             ])
         ;
     }

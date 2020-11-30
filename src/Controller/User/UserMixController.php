@@ -140,30 +140,19 @@ class UserMixController extends AbstractController{
         }
 
         // generate a search form for mix
-        $mix = new Mix();;
+        $mix = new Mix();
+        $mix->setCreator($this->getUser());
         $form = $this->createForm(MixType::class, $mix);
         $form->handleRequest($request);
 
         // analyse the form response and if the form is valid them the object is created
         if ($form->isSubmitted() && $form->isValid()) {
-            $mix->setCreator($this->getUser());
+
             $this->em->persist($mix);
             $this->em->flush();
 
             //Ajout du mélange dans l'inventaire
-            $invent = new Inventory();
-            $invent->setTitle($mix->getTitle());
-            if ($mix->getQuantity()){
-                $invent->setQuantity($mix->getQuantity());
-            }
-            $invent->setMix($mix);
-            $invent->setOwner($mix->getCreator());
-            $invent->setStorage($mix->getStorage());
-            $invent->setQrCode('M'.$mix->getId());
-
-            $this->em->persist($invent);
-            $this->em->flush();
-
+            $this->addInvent($mix);
 
             $this->addFlash('success', 'Mélange ajouté avec succès');
             return $this->redirectToRoute('mix.index');
@@ -175,16 +164,27 @@ class UserMixController extends AbstractController{
         ]);
     }
 
+    public function addInvent(Mix $mix){
+        $invent = new Inventory();
+        if ($mix->getConfidentiality()){
+            $invent->setTitle('Solution confidentielle');
+            }
+        else $invent->setTitle($mix->getTitle());
+        if ($mix->getQuantity()){
+            $invent->setQuantity($mix->getQuantity());
+        }
+        $invent->setMix($mix);
+        $invent->setOwner($mix->getCreator());
+        $invent->setStorage($mix->getStorage());
+        $invent->setQrCode('M'.$mix->getId())
+        ;
 
-    /**
-     * Display edit form
-     *
-     * @Route("/mix/{id}", name="mix.edit", methods="GET|POST")
-     *
-     * @param Mix $mix
-     * @param Request $request
-     * @return RedirectResponse|Response
-     */
+        $this->em->persist($invent);
+        $this->em->flush();
+    }
+
+
+
     public function edit(Mix $mix, Request $request)
     {
         // check if the user account is activate
@@ -198,11 +198,12 @@ class UserMixController extends AbstractController{
 
         // analyse the form response and if the form is valid them informations are updated
         if ($form->isSubmitted() && $form->isValid()) {
-
-            //$mix->setUpdatedAt(new \Datetime());
-
+            $mix->setUpdatedAt(new \Datetime());
             $this->em->flush();
             $this->addFlash('success', 'Mélange modifié avec succès');
+
+            //Update dans l'inventaire
+            $this->updateInvent($mix);
 
             return $this->redirectToRoute('mix.perso');
         }
@@ -212,6 +213,8 @@ class UserMixController extends AbstractController{
             'form' => $form->createView(), // edit form
         ]);
     }
+
+
 
     /**
      * Delete option

@@ -83,6 +83,7 @@
                             <th>Créateur</th>
                             <th>Quantité</th>
                             <th>Stockage</th>
+                            <th>Date de création</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -99,6 +100,7 @@
                                         </p>
                                     {% endif %}
                                 </td>
+                                <td>{{ mix.date }}</td>
                                 <td>
                                     {% if mix.recipe %}
                                     <a href="{{ path('recipe.show', {slug: mix.recipe.slug, id: mix.recipe.id}) }}" class="btn btn-success">Voir la recette</a>

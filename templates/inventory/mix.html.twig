@@ -29,6 +29,7 @@
                             <th>Titre</th>
                             <th>Quantité</th>
                             <th>Stockage</th>
+                            <th>Date de création</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -45,11 +46,12 @@
                                         </p>
                                     {% endif %}
                                 </td>
+                                <td>{{ inventory.mix.date }}</td>
                                 <td>
                                     {% if inventory.mix.recipe %}
                                         <a href="{{ path('recipe.show', {slug: inventory.mix.recipe.slug, id: inventory.mix.recipe.id}) }}" class="btn btn-success">Voir la recette</a>
                                     {% endif %}
-                                    <a href="{{ path('mix.edit', {id: inventory.mix.id}) }}" class="btn btn-secondary">Editer</a>
+                                    <a href="{{ path('inventory.edit', {id: inventory.id}) }}" class="btn btn-secondary">Editer</a>
                                     <form method="post" action="{{ path('inventory.delete', {id: inventory.id}) }}" style="display: inline-block">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ inventory.id) }}">

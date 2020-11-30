@@ -93,6 +93,26 @@ class MixRepository extends ServiceEntityRepository
             ;
     }
 
+    /* Requête SQL :
+       SELECT `inventory`.*
+       FROM `mix`
+       INNER JOIN `inventory`
+       WHERE `mix`.`id`=`inventory`.`mix_id`
+       AND `mix`.`id`='4'
+    */
+    public function findInventByMix($mix)
+    {
+        return $this->createQueryBuilder('mix')
+            ->addSelect('invent')
+            ->innerJoin('App:Inventory', 'invent', 'i.mix=mix')
+            ->andWhere('mix=:mix')
+            ->setParameter('mix', $mix->getId())
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+
+    }
+
     // /**
     //  * @return Mix[] Returns an array of Mix objects
     //  */

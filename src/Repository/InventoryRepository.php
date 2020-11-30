@@ -38,6 +38,13 @@ class InventoryRepository extends ServiceEntityRepository
             ;
         }
 
+        if($search->getEntrydate()){
+            $query = $query
+                ->andWhere('p.entry_date >= :date')
+                ->setParameter('date', $search->getEntrydate())
+            ;
+        }
+
         /* Requête SQL :
         SELECT *
         FROM `inventory` i, `product` p, `mix` m, `storage` s

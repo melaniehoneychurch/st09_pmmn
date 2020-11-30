@@ -6,10 +6,67 @@
 
     {% include 'flashes.html.twig' %}
 
-    <h2 class="mb-3">Inventaire</h2>
+    <div class="row">
+        <!-- Area Chart -->
+        <div class="col-xl-12 col-lg-12">
+            <div class="card shadow mb-4">
 
-    <div>
-        <p>Exportation  des données</p>
+                <!-- Card Header -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Exportation de l'inventaire</h6>
+                </div>
+
+                <!-- Card Body - search options -->
+                <div class="card-body">
+                    <p>Si vous le souhaitez, vous pouvez exporter l'inventaire dans un fichier CSV.
+                        Vous pourrez ensuite lire facilement votre fichier CSV avec votre tableur habituel.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {# recherche #}
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Area Chart -->
+        <div class="col-xl-12 col-lg-12">
+            <div class="card shadow mb-4">
+
+                <!-- Card Header -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Recherche</h6>
+                </div>
+
+                <!-- Card Body - search options -->
+                <div class="card-body">
+
+                    {{ form_start(form) }}
+                    <div class="form-row">
+                        <div class="col-lg-6">
+                            {{form_row(form.title, {'label':'Titre'})}}
+                        </div>
+                        <div class="col-lg-6">
+                            {{ form_row(form.owner, { 'label':'Créateur'}) }}
+                        </div>
+
+                        <div class="col-lg-6">
+                            {{form_row(form.storage, {'label':'Stockage'})}}
+                        </div>
+                        <div class="col-lg-6">
+                            {{ form_row(form.entrydate, { 'label':'Date de création'}) }}
+                        </div>
+                    </div>
+                    {{ form_widget(form) }}
+                    <button type="submit" class="btn-primary btn">Exporter</button>
+                    {{ form_end(form) }}
+
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
 {% endblock %}

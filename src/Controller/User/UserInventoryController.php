@@ -4,9 +4,11 @@
 namespace App\Controller\User;
 
 use App\Entity\Inventory;
+use App\Entity\Mix;
 use App\Form\InventoryType;
 use App\Entity\InventorySearch;
 use App\Form\InventorySearchType;
+use App\Form\MixType;
 use App\Repository\InventoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -59,6 +61,11 @@ class UserInventoryController extends AbstractController
      */
     public function index(PaginatorInterface $paginatorInterface, Request $request):HttpFoundationResponse
     {
+        // check if the user account is activate
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
+
         // generate a search form
         $search = new InventorySearch();
         $form = $this->createForm(InventorySearchType::class, $search);
@@ -85,29 +92,47 @@ class UserInventoryController extends AbstractController
      *
      * @Route("/inventory/export", name="inventory.export")
      *
-     * @return void
+     * @param PaginatorInterface $paginatorInterface
+     * @param Request $request
+     * @return HttpFoundationResponse
      */
-    public function export()
+    public function export(PaginatorInterface $paginatorInterface, Request $request):HttpFoundationResponse
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
-        //Appel de la fonction export
-        $this->exportData();
-        $this->redirectToRoute('inventory.index');
+        // generate a search form
+        $search = new InventorySearch();
+        $form = $this->createForm(InventorySearchType::class, $search);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->exportCSV($paginatorInterface->paginate(
+                $this->inventoryRep->findSearchedQuery($search),
+                $request->query->getInt('page', 1),
+                10
+            ));
+            return $this->redirectToRoute('inventory.index');
+        }
+
+
+        return $this->render('inventory/export.html.twig', [
+            'form' => $form->createView(), // generate form
+        ]);
     }
 
 
     /**
      *
+     * @param $inventories
      * @return void
      */
-    public function exportData(){
+    public function exportCSV($inventories){
         $filename = 'export_inventory_'.date('d_m_Y').".csv";
 
-        $inventories = $this->inventoryRep->findAll();
+        //$inventories = $this->inventoryRep->findAll();
 
         // file creation
         $file = fopen($filename,"w");
@@ -167,7 +192,6 @@ class UserInventoryController extends AbstractController
         ]);
     }
 
-
     /**
      * Display creation form
      *
@@ -207,6 +231,64 @@ class UserInventoryController extends AbstractController
             'inventory' => $inventory, // empty object
             'inventory_form' => $form->createView() // creation form
         ]);
+    }
+
+    /**
+     * Diplay the edit mix form
+     *
+     * @Route ("/inventory/{id}", name="inventory.edit", methods="GET|POST")
+     *
+     * @param Inventory $inventory
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function edit (Inventory $inventory, Request $request)
+    {
+        // check if the user account is activate
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
+
+        //Find the matching mix
+        $mix = $inventory->getMix();
+
+        // generate a form to modify information
+        $form = $this->createForm(MixType::class, $mix);
+        $form->handleRequest($request);
+
+        // analyse the form response and if the form is valid then informations are updated
+        if ($form->isSubmitted() && $form->isValid()) {
+            $mix->setUpdatedAt(new \Datetime());
+            $this->em->flush();
+            $this->addFlash('success', 'Mélange modifié avec succès');
+
+            //Update dans l'inventaire
+            $this->updateInvent($inventory, $mix);
+
+            return $this->redirectToRoute('inventory.mix');
+        }
+
+        return $this->render('mix/edit.html.twig', [
+            'mix' => $mix, // targeted object
+            'form' => $form->createView(), // edit form
+        ]);
+    }
+
+    public function updateInvent(Inventory $invent, Mix $mix){
+        if ($mix->getConfidentiality()){
+            $invent->setTitle('Solution confidentielle');
+        }
+        else $invent->setTitle($mix->getTitle());
+        if ($mix->getQuantity()){
+            $invent->setQuantity($mix->getQuantity());
+        }
+        $invent->setMix($mix);
+        $invent->setOwner($mix->getCreator());
+        $invent->setStorage($mix->getStorage());
+        $invent->setUpdatedAt(new \Datetime());
+
+        $this->em->persist($invent);
+        $this->em->flush();
     }
 
     /**
