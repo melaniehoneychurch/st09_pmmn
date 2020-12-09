@@ -47,16 +47,15 @@ function tick() {
       inversionAttempts: "dontInvert",
     });
     if (code) {
-      drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#FF3B58");
-      drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
-      drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF3B58");
-      drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
+      drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#ff3b58");
+      drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#ff3b58");
+      drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, "#ff3b58");
+      drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#ff3b58");
       outputMessage.hidden = true;
       outputData.parentElement.hidden = false;      
       outputData.innerText = code.data;
-
       // redirect to the page
-      window.location.href = code.data;
+      window.location.href = window.location.href + '/' + code.data;
       
     } else {
       outputMessage.hidden = false;

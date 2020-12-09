@@ -90,7 +90,7 @@
                         <tbody>
                         {% for mix in mixes %}
                             <tr>
-                                <td>{{ mix.title }}</td>
+                                <td><a href="{{ path('mix.show', {slug: mix.slug, id: mix.id}) }}"><h6>{{ mix.title }}</h6></a></td>
                                 <td>{{ mix.creator.identity }}</td>
                                 <td>{{ mix.quantity }}</td>
                                 <td>

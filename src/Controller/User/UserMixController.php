@@ -214,6 +214,30 @@ class UserMixController extends AbstractController{
         ]);
     }
 
+    /**
+     * Display the targeted product
+     *
+     * @Route("/mix/{slug}-{id}", name="mix.show", requirements={"slug": "[a-zA-Z0-9\-]*"})
+     * @param [type] $slug
+     * @param [type] $id
+     * @return Response
+     */
+    public function show(Mix $mix, string $slug):Response
+    {
+
+        // slugify mix title
+        if($mix->getSlug() !== $slug){
+            return $this->redirectToRoute('mix.show', [
+                'id' => $mix->getId(),
+                'slug' => $mix->getSlug()
+            ], 301);
+        }
+
+        return $this->render('mix/show.html.twig', [
+            'mix' => $mix, // targeted product,
+        ]);
+    }
+
 
 
     /**

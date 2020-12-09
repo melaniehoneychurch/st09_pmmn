@@ -1,0 +1,47 @@
+<div class="container-fluid">
+
+
+
+    <!-- Content Row -->
+    <div class="row mt-2">
+        <!-- Area Chart -->
+        <div class="col-xl-8 col-lg-3">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">{{ inventory.title }}</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    {% if inventory.mix.confidentiality %}
+                        <p>Il s'agit d'une solution confidentielle, pour votre sécurité vous pouvez connaître
+                        sa date de fabrication ainsi que les dangers qui lui sont associés.
+                        </p>
+                    {% else %}
+                        {{ inventory.mix.description }}
+                    {% endif %}
+                </div>
+                <!-- Card Footer -->
+                <div class="card-footer">
+                    Créée par {{ inventory.owner.identity }} le {{ inventory.date }}
+                </div>
+            </div>
+        </div>
+        <!-- Area Chart -->
+        <div class="col-xl-4 col-lg-3">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Stockage</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div style="background-color: {{inventory.storage.color}};" class="rounded text-center">
+                        {{ inventory.storage.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

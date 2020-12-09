@@ -30,11 +30,13 @@ class PageController extends AbstractController
             ]);
     }
 
+
     /**
      *
      * @Route ("/contact", name="contact")
      *
      * @param Request $request
+     * @param ContactNotification $notification
      * @return HttpFoundationResponse
      */
     public function contact(Request $request, ContactNotification $notification):Response

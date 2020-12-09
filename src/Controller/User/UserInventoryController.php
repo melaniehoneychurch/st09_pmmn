@@ -292,6 +292,24 @@ class UserInventoryController extends AbstractController
     }
 
     /**
+     * Preview a product after scan
+     *
+     * @Route("/scan/{qrcode}", name="inventory.preview")
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function preview(Request $request):Response
+    {
+        $inventory = $this->inventoryRep->findOneBy([
+            'qr_code' => $request->get('qrcode')
+        ]);
+        return $this->render('pages/preview.html.twig',[
+            'inventory' => $inventory,
+        ]);
+    }
+
+    /**
      * Delete option
      *
      * @Route("/inventory/{id}", name="inventory.delete", methods="DELETE")

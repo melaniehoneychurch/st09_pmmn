@@ -1,0 +1,92 @@
+<div class="container-fluid">
+
+    <!-- Content Row -->
+    <div class="row mt-2">
+
+        <div class="col-xl-4 col-lg-3">
+            <div class="card bg-{% if inventory.product.colorName %}{{inventory.product.colorName}}{% else %}primary{%endif%} text-white shadow mb-4">
+                <div class="card-body">
+                    <div class="text-center">
+                        {{ inventory.product.frenchName }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Area Chart -->
+        <div class="col-xl-4 col-lg-3">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Stockage</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div style="background-color: {{inventory.product.storage.color}};" class="rounded text-center">
+                        {{ inventory.product.storage.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Area Chart -->
+        <div class="col-xl-4 col-lg-3">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Poubelle</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div style="background-color: {{inventory.product.trashCan.color}};" class="rounded text-center">
+                        {{ inventory.product.trashCan.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+        <div class="row mt-2">
+            <!-- Area Chart -->
+            <div class="col-xl-6 col-lg-3">
+                <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Pictogramme de danger</h6>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <div class="text-center">
+                            {% for dangerPictogram in inventory.product.dangerPictograms %}
+                                {% if dangerPictogram.imageName %}
+                                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 250px; height:auto;" src="{{ vich_uploader_asset(dangerPictogram, 'imageFile') }}" alt="">
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Area Chart -->
+            <div class="col-xl-6 col-lg-3">
+                <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Pictogramme de recommandation</h6>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <div class="text-center">
+                            {% for obligationPictogram in inventory.product.obligationPictograms %}
+                                {% if obligationPictogram.imageName %}
+                                    <img class="img-fluid px-2 px-sm-4 mt-3 mb-4" style="width: 250px; height:auto;" src="{{ vich_uploader_asset(obligationPictogram, 'imageFile') }}" alt="" >
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+</div>

@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+
+{% block title inventory.title %}
+
+{% block body %}
+
+    <h4>Vous avez scanné :</h4>
+    <p/>
+
+    {% if inventory.product %}
+        {% include "pages/previewProduct.html.twig"%}
+    {% else %}
+        {% include "pages/previewMix.html.twig" %}
+    {% endif %}
+
+    <!-- Area Chart -->
+    <div class="col-xl-12 col-lg-12">
+        <div class="card shadow mb-4">
+
+            <!-- Card Header -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Que souhaitez-vous faire ?</h6>
+            </div>
+
+            <!-- Card Body - search options -->
+            <div class="card-body">
+                <button type="button" class="btn btn-primary"><i class="fas fa-vial"> Utiliser le produit</i></button>
+                <button type="button" class="btn btn-secondary"><i class="fas fa-boxes"> Voir son inventaire</i></button>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {{ encore_entry_script_tags('printDiv') }}
+
+
+{% endblock %}
