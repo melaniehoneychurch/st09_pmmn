@@ -45,6 +45,14 @@ class InventoryRepository extends ServiceEntityRepository
             ;
         }
 
+        if($search->getIncluding()){
+            $value = $search->getIncluding();
+                $query = $query
+                    ->andWhere('p.qr_code LIKE :code')
+                    ->setParameter('code', '%'.$value.'%')
+                ;
+        }
+
         /* Requête SQL :
         SELECT *
         FROM `inventory` i, `product` p, `mix` m, `storage` s

@@ -33,6 +33,26 @@ class InventorySearch
      */
     private $entrydate;
 
+    private $including;
+
+    /**
+     * @return mixed
+     */
+    public function getIncluding()
+    {
+        return $this->including;
+    }
+
+    /**
+     * @param mixed $including
+     * @return InventorySearch
+     */
+    public function setIncluding($including)
+    {
+        $this->including = $including;
+        return $this;
+    }
+
     /**
      * @return \DateTime|null
      */

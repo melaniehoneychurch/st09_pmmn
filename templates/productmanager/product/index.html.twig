@@ -23,16 +23,26 @@
 				<div class="card-body">
 
 					{{ form_start(form) }}
-						<div class="form-row">
-							<div class="col">
-								{{ form_row(form.frenchName) }}
-							</div>
-							<div class="col">
-								{{ form_row(form.casNumber) }}
-							</div>
+					<div class="form-row">
+						<div class="col-lg-6">
+							{{form_row(form.frenchName)}}
 						</div>
-						{{ form_widget(form) }}
-						<button type="submit" class="btn-primary btn">Rechercher</button>
+						<div class="col-lg-6">
+							{{form_row(form.casNumber)}}
+						</div>
+						<div class="col-lg-4">
+							{{ form_row(form.family, {'label':'Famille'}) }}
+						</div>
+						<div class="col-lg-4">
+							{{ form_row(form.storage, {'label':'Stockage'})}}
+						</div>
+						<div class="col-lg-4">
+							{{ form_row(form.trashCan, {'label':'Poubelle'}) }}
+
+						</div>
+					</div>
+					{{ form_widget(form) }}
+					<button type="submit" class="btn-primary btn">Rechercher</button>
 					{{ form_end(form) }}
 
 				</div>
@@ -93,8 +103,14 @@
 			</div>
 
 			<div class="text-right">
-				<div style="display:inline-block">
+				<div>
 					<a href="{{ path('productmanager.product.new') }}" class="btn btn-primary">Créer un nouveau produit</a>
+				</div>
+			</div>
+
+			<div class="text-right">
+				<div class="mt-2">
+					<a href="{{ path('productmanager.family') }}" class="btn btn-outline-primary">Ajouter une nouvelle famille</a>
 				</div>
 			</div>
 

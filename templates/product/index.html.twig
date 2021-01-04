@@ -30,10 +30,13 @@
                         <div class="col-lg-6">
                             {{form_row(form.casNumber)}}
                         </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                {{ form_row(form.family, {'label':'Famille'}) }}
+                            </div>
+                            <div class="col-lg-4">
                                 {{ form_row(form.storage, {'label':'Stockage'})}}
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 {{ form_row(form.trashCan, {'label':'Poubelle'}) }}
 
                         </div>
@@ -70,8 +73,10 @@
                         <thead>
                         <tr>
                             <th>Nom</th>
+                            <th>Familles</th>
                             <th>Stockage</th>
                             <th>Poubelle</th>
+                            <th>En stock</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -79,6 +84,11 @@
                             
                                 <tr>
                                     <td><a href="{{ path('product.show', {slug: product.slug, id: product.id}) }}"><h6>{{ product.frenchName }}</h6></a></td>
+                                    <td>
+                                        {% for family in product.families %}
+                                        <p>{{ family.name }}</p>
+                                        {% endfor %}
+                                    </td>
                                     <td>
                                         {% if product.storage %}
                                         <p style="height: 60px;width: 60px;background-color: {{product.storage.color}};border-radius: 100%;display: table-cell;text-align: center;vertical-align: middle;">
@@ -92,6 +102,13 @@
                                         {{ product.trashCan.name }}
                                         </p>
                                     {% endif%}
+                                    </td>
+                                    <td>
+                                        {% if product.stock %}
+                                            <strong><i class="fas fa-check fa-2x" style="color: green"></i></strong>
+                                        {% elseif not product.nomenclature == 'H20' %}
+                                            <strong><i class="fas fa-times fa-2x" style="color: red"></i></strong>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             

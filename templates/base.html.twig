@@ -248,7 +248,7 @@
 
             {# INVENTORY #}
 
-            {% if is_granted('ROLE_USER') and (app.user.activate or is_granted('ROLE_ADMIN')) %}
+            {% if is_granted('ROLE_INVENTORY_MANAGER') and (app.user.activate or is_granted('ROLE_ADMIN')) %}
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -313,6 +313,9 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
+
+                        {# connected #}
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         
 
                         <!-- Nav Item - qr code scan -->
@@ -323,8 +326,7 @@
                             </a>
                         </li>
 
-                        {# connected #}
-                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
 
                             <!-- Nav Item - User Information -->
                             <li class="nav-item">

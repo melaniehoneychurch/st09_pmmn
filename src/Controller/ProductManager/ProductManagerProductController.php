@@ -2,7 +2,9 @@
 
 namespace App\Controller\ProductManager;
 
+use App\Entity\Family;
 use App\Entity\Product;
+use App\Form\FamilyType;
 use App\Form\ProductType;
 use App\Entity\ProductSearch;
 use App\Form\ProductSearchType;
@@ -112,6 +114,39 @@ class ProductManagerProductController extends AbstractController{
         return $this->render('productmanager/product/new.html.twig', [
             'product' => $product, // empty object
             'form' => $form->createView() // creation form
+        ]);
+    }
+
+    /**
+     * Display the family creation form
+     *
+     * @Route("/productmanager/family", name="productmanager.family")
+     *
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function family(Request $request)
+    {
+        // check if the user account is activate
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
+
+        $family = new Family();
+        $form = $this->createForm(FamilyType::class, $family);
+        $form->handleRequest($request);
+
+        // analyse the form response and if the form is valid them the object is created
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist($family);
+            $this->em->flush();
+            $this->addFlash('success', 'Famille ajoutée avec succès');
+            return $this->redirectToRoute('productmanager.product.index');
+        }
+
+        return $this->render('productmanager/product/family.html.twig', [
+            'family' => $family,
+            'form' => $form->createView()
         ]);
     }
 

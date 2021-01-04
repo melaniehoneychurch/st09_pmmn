@@ -34,6 +34,10 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/usermanager, roles: ROLE_ACCOUNT_MANAGER }
         - { path: ^/productmanager, roles: ROLE_PRODUCT_MANAGER }
+        - { path: ^/scan, roles: ROLE_USER}
+        - { path: ^/mix, roles: ROLE_USER}
+        - { path: ^/recipe, roles: ROLE_USER}
+        - { path: ^/inventory, roles: ROLE_INVENTORY_MANAGER}
 
     encoders:
         App\Entity\User: 
@@ -41,7 +45,8 @@ security:
             cost: 12    
 
     role_hierarchy:
-        ROLE_ADMIN: [ROLE_ACCOUNT_MANAGER, ROLE_REPORT_MANAGER, ROLE_PRODUCT_MANAGER]
+        ROLE_ADMIN: [ROLE_ACCOUNT_MANAGER, ROLE_REPORT_MANAGER, ROLE_PRODUCT_MANAGER, ROLE_INVENTORY_MANAGER]
         ROLE_ACCOUNT_MANAGER : ROLE_USER
         ROLE_REPORT_MANAGER : ROLE_USER
         ROLE_PRODUCT_MANAGER: ROLE_USER
+        ROLE_INVENTORY_MANAGER: ROLE_USER

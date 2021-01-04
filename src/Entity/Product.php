@@ -30,6 +30,7 @@ class Product
         "Rouge" => "danger",
     ];
 
+
     public function __construct()
     {
         $this->updated_at = new \Datetime();
@@ -38,6 +39,8 @@ class Product
         $this->hazardStatements = new ArrayCollection();
         $this->ingredients = new ArrayCollection();
         $this->inventories = new ArrayCollection();
+        $this->families = new ArrayCollection();
+        $this->riskOfUses = new ArrayCollection();
     }
    
    
@@ -193,6 +196,16 @@ class Product
      */
     private $inventories;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Family", inversedBy="products")
+     */
+    private $families;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\RiskOfUse", mappedBy="product")
+     */
+    private $riskOfUses;
+
 
     public function getSlug(): string
     {
@@ -205,7 +218,7 @@ class Product
     }
 
     /**
-     * @param File|null $imageFile
+     * @param File|null $formulaImageFile
      */
     public function setFormulaImageFile(?File $formulaImageFile = null): void
     {
@@ -646,6 +659,74 @@ class Product
 
         return $this;
     }
+
+    /**
+     * @return Collection|Family[]
+     */
+    public function getFamilies(): Collection
+    {
+        return $this->families;
+    }
+
+    public function addFamily(Family $family): self
+    {
+        if (!$this->families->contains($family)) {
+            $this->families[] = $family;
+        }
+
+        return $this;
+    }
+
+    public function removeFamily(Family $family): self
+    {
+        if ($this->families->contains($family)) {
+            $this->families->removeElement($family);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RiskOfUse[]
+     */
+    public function getRiskOfUses(): Collection
+    {
+        return $this->riskOfUses;
+    }
+
+    public function addRiskOfUse(RiskOfUse $riskOfUse): self
+    {
+        if (!$this->riskOfUses->contains($riskOfUse)) {
+            $this->riskOfUses[] = $riskOfUse;
+            $riskOfUse->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRiskOfUse(RiskOfUse $riskOfUse): self
+    {
+        if ($this->riskOfUses->contains($riskOfUse)) {
+            $this->riskOfUses->removeElement($riskOfUse);
+            // set the owning side to null (unless already changed)
+            if ($riskOfUse->getProduct() === $this) {
+                $riskOfUse->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function stock(){
+        if (count($this->inventories) >= 1){
+            return true;
+        }
+        else false;
+    }
+
 
 
 }

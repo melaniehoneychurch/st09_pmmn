@@ -5,11 +5,13 @@ namespace App\Controller\User;
 
 use App\Entity\Inventory;
 use App\Entity\Mix;
+use App\Entity\RiskOfUse;
 use App\Form\InventoryType;
 use App\Entity\InventorySearch;
 use App\Form\InventorySearchType;
 use App\Form\MixType;
 use App\Repository\InventoryRepository;
+use App\Repository\RiskOfUseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -21,6 +23,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Security;
 
 
+/**
+ * Class UserInventoryController
+ * @package App\Controller\User
+ */
 class UserInventoryController extends AbstractController
 {
     /**
@@ -139,7 +145,7 @@ class UserInventoryController extends AbstractController
         fputs($file, $bom =( chr(0xEF) . chr(0xBB) . chr(0xBF) ));
         fputcsv($file, array('Nom',
             'Propriétaire',
-            'Dosage',
+            'Concentration/pureté',
             'Quantité',
             'Stockage'
         ), ';');
@@ -172,7 +178,7 @@ class UserInventoryController extends AbstractController
     /**
      * Display the mix inventory list
      *
-     * @Route("/inventory/mix", name="inventory.mix")
+     * @Route("/mix/mymixes", name="inventory.mix")
      *
      * @param PaginatorInterface $paginatorInterface
      * @param Request $request
@@ -259,6 +265,7 @@ class UserInventoryController extends AbstractController
         // analyse the form response and if the form is valid then informations are updated
         if ($form->isSubmitted() && $form->isValid()) {
             $mix->setUpdatedAt(new \Datetime());
+            $this->em->persist($mix);
             $this->em->flush();
             $this->addFlash('success', 'Mélange modifié avec succès');
 
@@ -304,6 +311,38 @@ class UserInventoryController extends AbstractController
         $inventory = $this->inventoryRep->findOneBy([
             'qr_code' => $request->get('qrcode')
         ]);
+        return $this->render('pages/preview.html.twig',[
+            'inventory' => $inventory,
+        ]);
+    }
+
+    /**
+     * Add the product in the RiskOfUse table for the occupational physician
+     *
+     * @Route("/use/{id}", name="inventory.use")
+     *
+     * @param Inventory $inventory
+     * @return HttpFoundationResponse
+     */
+    public function useItem(Inventory $inventory)
+    {
+        // check if the user account is activate
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
+
+        //Add in RiskOfUse
+        $risk = new RiskOfUse();
+        $risk->setUser($this->getUser());
+        if ($inventory->getProduct()){
+            $risk->setProduct($inventory->getProduct());
+        }
+        else $risk->setMix($inventory->getMix());
+
+        $this->em->persist($risk);
+        $this->em->flush();
+        $this->addFlash('success', 'Le produit a été utilisé.');
+
         return $this->render('pages/preview.html.twig',[
             'inventory' => $inventory,
         ]);

@@ -25,6 +25,7 @@ class ProductRepository extends ServiceEntityRepository
     /**
      * Undocumented function
      *
+     * @param ProductSearch $search
      * @return Query
      */
     public function findSearchedQuery(ProductSearch $search): Query
@@ -41,6 +42,20 @@ class ProductRepository extends ServiceEntityRepository
         if($search->getCasNumber()){
             $query = $query->andWhere('p.casNumber LIKE :cas')
                 ->setParameter('cas', '%'.$search->getCasNumber().'%');
+        }
+
+        //Requête SQL
+        //SELECT `french_name`
+        // FROM `product` INNER JOIN `product_family`
+        // WHERE `product`.`id`=`product_family`.`product_id`
+        // AND `product_family`.`family_id`=[value]
+
+        if($search->getFamily()){
+            $query = $query
+                ->join('p.families', 'families')
+                ->addSelect('families')
+                ->where('families.id = :fam')
+                ->setParameter('fam', $search->getFamily()->getId());
         }
 
         if($search->getStorage()){

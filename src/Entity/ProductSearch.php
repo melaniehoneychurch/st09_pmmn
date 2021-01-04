@@ -3,7 +3,6 @@ namespace App\Entity;
 
 class ProductSearch {
 
-
     /**
      * @var string|null
      */
@@ -37,7 +36,30 @@ class ProductSearch {
      */
     private $trie;
 
-    
+    /**
+     * @var Family|null
+     */
+    private $family;
+
+    /**
+     * @return Family|null
+     */
+    public function getFamily(): ?Family
+    {
+        return $this->family;
+    }
+
+    /**
+     * @param Family|null $family
+     * @return ProductSearch
+     */
+    public function setFamily(?Family $family): ProductSearch
+    {
+        $this->family = $family;
+        return $this;
+    }
+
+
     
     
 

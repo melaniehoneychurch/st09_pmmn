@@ -13,7 +13,7 @@
             </div>
 
 			<!-- Area Chart -->
-            <div class="col-xl-5 col-lg-3">
+            <div class="col-xl-3 col-lg-3">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -32,7 +32,7 @@
             </div>
 
             <!-- Area Chart -->
-            <div class="col-xl-5 col-lg-3">
+            <div class="col-xl-4 col-lg-3">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -52,6 +52,21 @@
               </div>
             </div>
 
+            <!-- Area Chart -->
+            <div class="col-xl-3 col-lg-3">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Familles</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  {% for family in product.families %}
+                  <p>{{ family.name }}</p>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
 
           </div>
 

@@ -70,12 +70,18 @@ class Mix
      */
     private $entry_date;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\RiskOfUse", mappedBy="mix")
+     */
+    private $riskOfUses;
+
 
     public function __construct()
     {
         $this->report = new ArrayCollection();
         $this->updated_at = new \DateTime();
         $this->entry_date = new \DateTime();
+        $this->riskOfUses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -229,5 +235,36 @@ class Mix
     public function getSlug(): string
     {
         return (new Slugify())->slugify($this->title);
+    }
+
+    /**
+     * @return Collection|RiskOfUse[]
+     */
+    public function getRiskOfUses(): Collection
+    {
+        return $this->riskOfUses;
+    }
+
+    public function addRiskOfUse(RiskOfUse $riskOfUse): self
+    {
+        if (!$this->riskOfUses->contains($riskOfUse)) {
+            $this->riskOfUses[] = $riskOfUse;
+            $riskOfUse->setMix($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRiskOfUse(RiskOfUse $riskOfUse): self
+    {
+        if ($this->riskOfUses->contains($riskOfUse)) {
+            $this->riskOfUses->removeElement($riskOfUse);
+            // set the owning side to null (unless already changed)
+            if ($riskOfUse->getMix() === $this) {
+                $riskOfUse->setMix(null);
+            }
+        }
+
+        return $this;
     }
 }

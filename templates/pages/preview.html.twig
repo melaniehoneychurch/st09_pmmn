@@ -4,14 +4,7 @@
 
 {% block body %}
 
-    <h4>Vous avez scanné :</h4>
-    <p/>
-
-    {% if inventory.product %}
-        {% include "pages/previewProduct.html.twig"%}
-    {% else %}
-        {% include "pages/previewMix.html.twig" %}
-    {% endif %}
+    {% include 'flashes.html.twig' %}
 
     <!-- Area Chart -->
     <div class="col-xl-12 col-lg-12">
@@ -19,23 +12,32 @@
 
             <!-- Card Header -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Que souhaitez-vous faire ?</h6>
+                <h5 class="m-0 font-weight text-primary">Vous avez scanné
+                    <strong class="font-weight-bold">{{ inventory.title }}</strong>
+                    , que souhaitez-vous faire ?</h5>
             </div>
 
             <!-- Card Body - search options -->
             <div class="card-body">
-                <button type="button" class="btn btn-primary"><i class="fas fa-vial"> Utiliser le produit</i></button>
+                <a href="{{ path('inventory.use', {id: inventory.id}) }}" class="btn btn-primary"><i class="fas fa-vial"> Utiliser le produit</i></a>
                 <button type="button" class="btn btn-secondary"><i class="fas fa-boxes"> Voir son inventaire</i></button>
             </div>
 
         </div>
     </div>
 
+    {% if inventory.product %}
+        {% include "pages/previewProduct.html.twig"%}
+    {% else %}
+        {% include "pages/previewMix.html.twig" %}
+    {% endif %}
+
+
+
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-
     {{ encore_entry_script_tags('printDiv') }}
 
 

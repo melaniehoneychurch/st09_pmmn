@@ -19,7 +19,9 @@ class User implements UserInterface, \Serializable
         'ROLE_ACCOUNT_MANAGER',
         'ROLE_REPORT_MANAGER',
         'ROLE_PRODUCT_MANAGER',
-        'ROLE_USER'
+        'ROLE_INVENTORY_MANAGER',
+        'ROLE_USER',
+        'ROLE_LABO'
     );
 
     const rolesToNames = array(
@@ -27,7 +29,9 @@ class User implements UserInterface, \Serializable
         'ROLE_ACCOUNT_MANAGER' => 'Gérant des comptes',
         'ROLE_REPORT_MANAGER' => 'Gérant des rapports',
         'ROLE_PRODUCT_MANAGER' => 'Gérant des produits',
-        'ROLE_USER' => 'Utilisateur'
+        'ROLE_INVENTORY_MANAGER' => 'Gérant des inventaires',
+        'ROLE_USER' => 'Utilisateur',
+        'ROLE_LABO' => 'Compte labo L2n'
     );
 
     const namesToRoles = array(
@@ -35,7 +39,9 @@ class User implements UserInterface, \Serializable
         'Gérant des comptes' => 'ROLE_ACCOUNT_MANAGER',
         'Gérant des rapports' => 'ROLE_REPORT_MANAGER',
         'Gérant des produits' => 'ROLE_PRODUCT_MANAGER',
-        'Utilisateur' => 'ROLE_USER'
+        'Gérant des inventaires' => 'ROLE_INVENTORY_MANAGER',
+        'Utilisateur' => 'ROLE_USER',
+        'Compte labo L2n' => 'ROLE_LABO'
     );
 
     /**
@@ -110,6 +116,11 @@ class User implements UserInterface, \Serializable
      */
     private $inventories;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\RiskOfUse", mappedBy="user")
+     */
+    private $riskOfUses;
+
     public function __construct()
     {
         array_push($this->roles, 'ROLE_USER');
@@ -118,6 +129,7 @@ class User implements UserInterface, \Serializable
         $this->recipes = new ArrayCollection();
         $this->mixes = new ArrayCollection();
         $this->inventories = new ArrayCollection();
+        $this->riskOfUses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -436,6 +448,37 @@ class User implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($inventory->getOwner() === $this) {
                 $inventory->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RiskOfUse[]
+     */
+    public function getRiskOfUses(): Collection
+    {
+        return $this->riskOfUses;
+    }
+
+    public function addRiskOfUse(RiskOfUse $riskOfUse): self
+    {
+        if (!$this->riskOfUses->contains($riskOfUse)) {
+            $this->riskOfUses[] = $riskOfUse;
+            $riskOfUse->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRiskOfUse(RiskOfUse $riskOfUse): self
+    {
+        if ($this->riskOfUses->contains($riskOfUse)) {
+            $this->riskOfUses->removeElement($riskOfUse);
+            // set the owning side to null (unless already changed)
+            if ($riskOfUse->getUser() === $this) {
+                $riskOfUse->setUser(null);
             }
         }
 

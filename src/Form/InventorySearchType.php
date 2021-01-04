@@ -58,6 +58,14 @@ class InventorySearchType extends AbstractType
                 'input'  => 'datetime',
                 'required' => false
             ])
+            ->add('including', ChoiceType::class, [
+                'choices'  => [
+                    'Produits et solutions' => null,
+                    'Les produits' => 'p',
+                    'Les solutions' => 'm'
+                ],
+                'label' => 'Inclure dans la recherche :'
+            ])
         ;
     }
 

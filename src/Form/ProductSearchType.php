@@ -2,9 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\Family;
+use App\Entity\Product;
 use App\Entity\ProductSearch;
 use App\Entity\Storage;
 use App\Entity\TrashCan;
+use FontLib\Table\Type\name;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -31,6 +34,11 @@ class ProductSearchType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Numero cas'
                 ]
+            ])
+            ->add('family', EntityType::class, [
+                'class' => Family::class,
+                'choice_label' => 'name',
+                'required' => false,
             ])
             ->add('storage', EntityType::class, [
                 'class' => Storage::class,

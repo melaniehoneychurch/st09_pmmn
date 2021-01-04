@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Family;
 use App\Entity\Product;
 use App\Entity\Storage;
 use App\Entity\TrashCan;
@@ -36,6 +37,13 @@ class ProductType extends AbstractType
             ->add('nomenclature')
             ->add('otherName')
             ->add('casNumber')
+            ->add('families', EntityType::class, [
+                'class' => Family::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true,
+                'required' => false,
+            ])
             ->add('molarMass')
             ->add('density')
             ->add('meltingTemperature')

@@ -72,7 +72,7 @@
                         <thead>
                         <tr>
                             <th>Nom du produit</th>
-                            <th>Dosage</th>
+                            <th>Concentration/pureté</th>
                             <th>Quantité</th>
                             <th>Stockage</th>
                             <th>Propriétaire</th>
@@ -84,7 +84,12 @@
                         {% for inventory in inventories %}
 
                             <tr>
-                                <td>{{ inventory.title }}</td>
+                                <td>
+                                    {{ inventory.title }}
+                                    {% if inventory.mix %}
+                                        <i class="fas fa-flask"></i>
+                                    {% endif %}
+                                </td>
                                 <td>{{ inventory.dosage }}</td>
                                 <td>{{ inventory.quantity }}</td>
                                 <td>
