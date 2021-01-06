@@ -35,6 +35,26 @@ class InventorySearch
 
     private $including;
 
+    private $qr_code;
+
+    /**
+     * @return mixed
+     */
+    public function getQrCode()
+    {
+        return $this->qr_code;
+    }
+
+    /**
+     * @param mixed $qr_code
+     * @return InventorySearch
+     */
+    public function setQrCode($qr_code)
+    {
+        $this->qr_code = $qr_code;
+        return $this;
+    }
+
     /**
      * @return mixed
      */

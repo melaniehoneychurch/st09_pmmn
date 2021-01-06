@@ -26,7 +26,7 @@ class InventoryRepository extends ServiceEntityRepository
         $query =  $this->createQueryBuilder('p');
 
         if($search->getTitle()){
-            $query = $query->andWhere('p.title LIKE :title')
+            $query = $query->andWhere('p.title LIKE :title OR p.qr_code LIKE :title')
                 ->setParameter('title', '%'.$search->getTitle().'%')
             ;
         }
@@ -50,6 +50,13 @@ class InventoryRepository extends ServiceEntityRepository
                 $query = $query
                     ->andWhere('p.qr_code LIKE :code')
                     ->setParameter('code', '%'.$value.'%')
+                ;
+        }
+
+        if($search->getQrCode()){
+            $query = $query
+                ->andWhere('p.qr_code LIKE :code')
+                ->setParameter('code', '%'.$search->getQrCode().'%')
                 ;
         }
 

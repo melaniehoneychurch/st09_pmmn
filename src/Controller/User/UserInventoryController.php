@@ -84,9 +84,6 @@ class UserInventoryController extends AbstractController
             10
         );
 
-        //Appel de la fonction export
-        //$this->exportData();
-
         return $this->render('inventory/index.html.twig', [
             'inventories' => $inventories, // inventories list
             'form' => $form->createView(), // generate form
