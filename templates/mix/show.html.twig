@@ -5,25 +5,134 @@
 
 {% block body %}
 
-    <div class="container-fluid">
-
+    <div class="row mt-2">
 
         <!-- Area Chart -->
-        <div class="row">
+        <div class="col-xl-8 col-lg-12">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">{{ mix.title }}</h6>
+                    <a href="" class="printQrCode mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i> Imprimer le QRcode de la solution</a>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
                     {{ mix.description }}
                 </div>
+                <!-- Card Footer -->
+                <div class="card-footer">
+                    Fabriquée par {{ mix.creator.identity }} le {{ mix.date }}
+                </div>
             </div>
         </div>
 
+        <!-- Area Chart -->
+        <div class="col-xl-4 col-lg-3">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Stockage</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div style="background-color: {{mix.storage.color}};" class="rounded text-center">
+                        {{ mix.storage.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if mix.recipe %}
+        <div class="col-xl-12 col-lg-3">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class=" font-weight-bold text-primary">Cette solution a été créée à partir de la recette :
+                    <i>{{ mix.recipe.title }}</i>
+                    </h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+
+                    <div class="row">
+                    <!-- Area Chart -->
+                    <div class="col-xl-5 col-lg-3">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header  d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 text-primary">Ingrédients</h6>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Produit</th>
+                                        <th>Quantité</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    {% for ingredient in mix.recipe.ingredients %}
+                                        {% if ingredient.product %}
+                                            <tr>
+                                                <td>{{ ingredient.product.frenchName }}</td>
+                                                <td>{{ ingredient.quantity }}</td>
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Area Chart -->
+                    <div class="col-xl-7 col-lg-3">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 text-primary">Pictogramme de danger</h6>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <div class="text-center">
+                                    {% for ingredient in mix.recipe.ingredients %}
+                                        {% if ingredient.product%}
+                                            {% for dangerPictogram in ingredient.product.dangerPictograms %}
+                                                {% if dangerPictogram.imageName %}
+                                                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 250px; height:auto;" src="{{ vich_uploader_asset(dangerPictogram, 'imageFile') }}" alt="">
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- QR Code -->
+        <div id="qrCode" class="row" hidden>
+            <div class="col-xl-4">
+                <img src="{{ qrCode.writeDataUri }}" class="float-left">
+            </div>
+            <div class="col-xl-8">
+                <strong><br/>{{ mix.title }}</strong>
+                <p>{{ mix.creator.identity }}<br/>
+                <i>{{ mix.date }}</i></p>
+            </div>
+        </div>
 
     </div>
+
+
 
 {% endblock %}
 

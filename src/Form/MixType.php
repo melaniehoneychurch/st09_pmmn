@@ -2,17 +2,29 @@
 
 namespace App\Form;
 
+use App\Controller\SecurityController;
+use App\Controller\User\UserMixController;
 use App\Entity\Mix;
 use App\Entity\Recipe;
 use App\Entity\Storage;
+use App\Entity\User;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class MixType extends AbstractType
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -23,7 +35,8 @@ class MixType extends AbstractType
                 'class' => Recipe::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
-                        ->where('u.confidentiality=false')
+                        ->andWhere('u.author=:author')
+                        ->setParameter('author', $this->security->getUser())
                         ->orderBy('u.title', 'ASC');
                 },
                 'choice_label' => 'title',

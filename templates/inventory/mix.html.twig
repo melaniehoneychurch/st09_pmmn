@@ -17,7 +17,7 @@
 
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Tous mes mélanges</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Toutes mes solutions</h6>
                 </div>
 
                 <!-- Card Body - search options -->
@@ -48,11 +48,8 @@
                                 </td>
                                 <td>{{ inventory.mix.date }}</td>
                                 <td>
-                                    {% if inventory.mix.recipe %}
-                                        <a href="{{ path('recipe.show', {slug: inventory.mix.recipe.slug, id: inventory.mix.recipe.id}) }}" class="btn btn-success">Voir la recette</a>
-                                    {% endif %}
                                     <a href="{{ path('inventory.edit', {id: inventory.id}) }}" class="btn btn-secondary">Editer</a>
-                                    <form method="post" action="{{ path('inventory.delete', {id: inventory.id}) }}" style="display: inline-block">
+                                    <form method="post" action="{{ path('mix.delete', {id: inventory.id}) }}" style="display: inline-block">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ inventory.id) }}">
                                         <button class="btn btn-danger">Supprimer</button>
@@ -75,7 +72,7 @@
 
             <div class="text-right">
                 <div style="display:inline-block">
-                    <a href="{{ path('mix.new') }}" class="btn btn-primary">Créer un nouveau mélange</a>
+                    <a href="{{ path('mix.new') }}" class="btn btn-primary">Créer une nouvelle solution</a>
                 </div>
             </div>
 

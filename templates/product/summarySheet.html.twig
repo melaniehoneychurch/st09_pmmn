@@ -288,8 +288,7 @@
           
           <div id="qrCode" class="text-center" hidden>
                     
-            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="{{ qr_code_url( url('product.show', {slug: product.slug, id: product.id}) ) }}" alt="">
-                      
+            <img src="{{ qrCode.writeDataUri }}" />
           </div>
                 
 

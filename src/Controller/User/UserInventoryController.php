@@ -239,7 +239,7 @@ class UserInventoryController extends AbstractController
     /**
      * Diplay the edit mix form
      *
-     * @Route ("/inventory/{id}", name="inventory.edit", methods="GET|POST")
+     * @Route ("/mix/edit/{id}", name="inventory.edit", methods="GET|POST")
      *
      * @param Inventory $inventory
      * @param Request $request
@@ -264,7 +264,7 @@ class UserInventoryController extends AbstractController
             $mix->setUpdatedAt(new \Datetime());
             $this->em->persist($mix);
             $this->em->flush();
-            $this->addFlash('success', 'Mélange modifié avec succès');
+            $this->addFlash('success', 'Solution modifiée avec succès');
 
             //Update dans l'inventaire
             $this->updateInvent($inventory, $mix);
@@ -343,6 +343,31 @@ class UserInventoryController extends AbstractController
         return $this->render('pages/preview.html.twig',[
             'inventory' => $inventory,
         ]);
+    }
+
+    /**
+     * Delete mix option
+     *
+     * @Route("/mix/delete/{id}", name="mix.delete", methods="DELETE")
+     *
+     * @param Inventory $inventory
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function deleteMix(Inventory $inventory, Request $request)
+    {
+        // check if the user account is activate
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
+
+        // analyse the csrf token and if it is valid them the object is deleted
+        if ($this->isCsrfTokenValid('delete' . $inventory->getId(), $request->get('_token'))) {
+            $this->em->remove($inventory);
+            $this->em->flush();
+            $this->addFlash('success', "Solution supprimée avec succès");
+        }
+        return $this->redirectToRoute('inventory.mix');
     }
 
     /**

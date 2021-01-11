@@ -5,11 +5,11 @@
 
 {% block body %}
 
-    <div id="recipe" class="container-fluid">
+    <div id="recipe" class="row mt-2">
 
 
         <!-- Area Chart -->
-        <div class="row">
+        <div class="col-xl-12 col-lg-12">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -19,15 +19,17 @@
                 <div class="card-body">
                     {{ recipe.description }}
                 </div>
+                <!-- Card Footer -->
+                <div class="card-footer">
+                    Rédigée par {{ recipe.author.identity }}
+                </div>
             </div>
         </div>
 
 
-        <div class="row mt-2">
-
-            <!-- Area Chart -->
-            <div class="col-xl-5 col-lg-3">
-                <div class="card shadow mb-4">
+        <!-- Area Chart -->
+        <div class="col-xl-5 col-lg-3">
+            <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header  d-flex flex-row align-items-center justify-content-between">
                     <h6 class=" font-weight-bold text-primary">Ingrédients</h6>
@@ -82,12 +84,10 @@
                 </div>
             </div>
         </div>
-        </div>
-    </div>
 
     </div>
 
-    </div>
+
 
 {% endblock %}
 

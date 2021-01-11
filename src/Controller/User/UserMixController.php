@@ -3,23 +3,14 @@
 namespace App\Controller\User;
 
 use App\Entity\Inventory;
-use App\Entity\MixImportRecipe;
-use App\Entity\Product;
 use App\Entity\Mix;
-use App\Entity\Recipe;
-use App\Entity\RecipeSearch;
-use App\Form\ImportRecipeType;
-use App\Form\MixImportRecipeType;
 use App\Form\MixType;
-use App\Form\ProductSearchType;
 use App\Entity\MixSearch;
 use App\Form\MixSearchType;
-use App\Form\RecipeSearchType;
-use App\Repository\ProductRepository;
 use App\Repository\MixRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Endroid\QrCode\QrCode;
 use Knp\Component\Pager\PaginatorInterface;
-use PhpParser\Node\Expr\Array_;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -154,8 +145,8 @@ class UserMixController extends AbstractController{
             //Ajout du mélange dans l'inventaire
             $this->addInvent($mix);
 
-            $this->addFlash('success', 'Mélange ajouté avec succès');
-            return $this->redirectToRoute('mix.index');
+            $this->addFlash('success', 'Solution créée avec succès');
+            return $this->redirectToRoute('inventory.mix');
         }
 
         return $this->render('mix/new.html.twig', [
@@ -232,9 +223,11 @@ class UserMixController extends AbstractController{
                 'slug' => $mix->getSlug()
             ], 301);
         }
-
+        $qrCode = new QrCode('M'.$mix->getId());
+        $qrCode->setSize(130);
         return $this->render('mix/show.html.twig', [
             'mix' => $mix, // targeted product,
+            'qrCode' => $qrCode,
         ]);
     }
 
@@ -243,7 +236,7 @@ class UserMixController extends AbstractController{
     /**
      * Delete option
      *
-     * @Route("/mix/{id}", name="mix.delete", methods="DELETE")
+     * @Route("/mix/{id}", name="rien.delete", methods="DELETE")
      *
      * @param Mix $mix
      * @param Request $request
@@ -255,8 +248,6 @@ class UserMixController extends AbstractController{
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
-
-
 
         // analyse the csrf token and if it is valid them the object is deleted
         if ($this->isCsrfTokenValid('delete' . $mix->getId(), $request->get('_token'))) {
