@@ -108,6 +108,8 @@
 
             {% endif %}
 
+            {% if is_granted('ROLE_ACCOUNT_MANAGER') or is_granted('ROLE_INVENTORY_MANAGER') or is_granted('ROLE_PRODUCT_MANAGER') and (app.user.activate or is_granted('ROLE_ADMIN')) %}
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -195,6 +197,8 @@
                         </div>
                     </div>
                 </li>
+            {% endif %}
+
             {% endif %}
 
 
