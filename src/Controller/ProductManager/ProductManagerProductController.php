@@ -176,7 +176,7 @@ class ProductManagerProductController extends AbstractController{
             $product->setUpdatedAt(new \Datetime());
             
             $this->em->flush();
-            $this->addFlash('success', 'produit modifié avec succès');
+            $this->addFlash('success', 'Produit modifié avec succès');
             
             return $this->redirectToRoute('productmanager.product.index');
         }
@@ -233,7 +233,7 @@ class ProductManagerProductController extends AbstractController{
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
-        $this->addFlash('warning', 'produit non enregistré');
+        $this->addFlash('warning', "Les modifications n'ont pas été enregistrées");
 
         return $this->redirectToRoute('productmanager.product.index');
     }

@@ -16,26 +16,26 @@
                 <!-- Card Body - search options -->
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">{{ form_row(form.username) }}</div>
+                        <div class="col-md-6">{{ form_row(form.username, {'label':"Nom d'utilisateur"}) }}</div>
                         <div class="col-md-6" {% if app.request.get('_route') == 'admin.user.edit' %}style="display:none;"{% endif %}>
-                            {{ form_row(form.password) }}
+                            {{ form_row(form.password, {'label':"Mot de passe"}) }}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">{{ form_row(form.roles) }}</div>
+                        <div class="col-md-4">{{ form_row(form.roles, {'label':"Sélectionnez les droits accordés à cet utilisateur (vous pourrez les modifier à tout moment) :"}) }}</div>
                         <div class="col-md-8">
                             <div class="row">
-                                <div class="col-md-6">{{ form_row(form.name) }}</div>
-                                <div class="col-md-6">{{ form_row(form.familyName) }}</div>
+                                <div class="col-md-6">{{ form_row(form.name, {'label':"Prénom de l'utilisateur"}) }}</div>
+                                <div class="col-md-6">{{ form_row(form.familyName, {'label':"Nom de l'utilisateur"}) }}</div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">{{ form_row(form.emailAddress) }}</div>
-                                <div class="col-md-6">{{ form_row(form.phone) }}</div>
+                                <div class="col-md-6">{{ form_row(form.emailAddress, {'label':"Adresse email"}) }}</div>
+                                <div class="col-md-6">{{ form_row(form.phone, {'label':"Numéro de téléphone"}) }}</div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">{{ form_row(form.activate) }}</div>
+                        <div class="col-md-4">{{ form_row(form.activate, {'label':"Utilisateur actif"}) }}</div>
                     </div>
                 </div>
 

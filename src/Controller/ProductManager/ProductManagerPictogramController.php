@@ -184,7 +184,7 @@ class ProductManagerPictogramController extends AbstractController{
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
-        $this->addFlash('warning', 'Pictogramme non enregistré');
+        $this->addFlash('warning', "Les modifications n'ont pas été enregistrées");
 
         return $this->redirectToRoute('productmanager.pictogram.index');
     }

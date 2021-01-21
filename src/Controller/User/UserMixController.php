@@ -258,10 +258,11 @@ class UserMixController extends AbstractController{
         return $this->redirectToRoute('mix.perso');
     }
 
+
     /**
      * Cancel an action in form
      *
-     * @Route("/productmanager/cancel/product", name="productmanager.product.cancel")
+     * @Route("/mix/cancel", name="mix.cancel")
      *
      * @param Request $request
      * @return RedirectResponse
@@ -273,8 +274,8 @@ class UserMixController extends AbstractController{
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
-        $this->addFlash('warning', 'mélange non enregistré');
+        $this->addFlash('warning', "Les modifications n'ont pas été enregistrées");
 
-        return $this->redirectToRoute('mix.index');
+        return $this->redirectToRoute('inventory.mix');
     }
 }

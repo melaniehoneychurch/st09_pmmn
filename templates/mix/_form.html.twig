@@ -17,11 +17,11 @@
 
             <!-- Card Body - search options -->
             <div class="card-body">
-                {{ form_row(form.title) }}
-                {{ form_row(form.description) }}
-                {{ form_row(form.quantity) }}
-                {{ form_row(form.recipe) }}
-                {{ form_row(form.storage) }}
+                {{ form_row(form.title, {'label':"Nom de votre solution"}) }}
+                {{ form_row(form.description, {'label':"Description de votre solution"}) }}
+                {{ form_row(form.quantity, {'label':"Quantité produite de votre solution (précisez l'unité)"}) }}
+                {{ form_row(form.recipe, {'label':"Sélectionnez la recette que vous avez utilisé"}) }}
+                {{ form_row(form.storage, {'label':"Indiquez où vous conservez votre solution"}) }}
                 {{ form_row(form.confidentiality, {'label':'Solution confidentielle'}) }}
             </div>
 
@@ -29,7 +29,7 @@
 
         <div class="text-right">
             <div style="display:inline-block"><button class="btn btn-primary">{{ button|default('Enregistrer') }}</button></div>
-            <div style="display:inline-block"><a href="{{ path('productmanager.product.cancel') }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Annuler</a></div>
+            <div style="display:inline-block"><a href="{{ path('mix.cancel') }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Annuler</a></div>
         </div>
 
     </div>

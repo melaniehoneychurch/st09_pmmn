@@ -190,7 +190,7 @@ class AdminUserController extends AbstractController{
     public function cancel(Request $request)
     {
 
-        $this->addFlash('warning', 'Utilisateur non enregistré');
+        $this->addFlash('warning', "Les modifications n'ont pas été enregistrées");
 
         return $this->redirectToRoute('admin.user.index');
     }

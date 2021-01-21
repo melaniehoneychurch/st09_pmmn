@@ -16,8 +16,8 @@
 
             <!-- Card Body - search options -->
             <div class="card-body">
-                {{ form_row(form.title, {'label':'Titre'}) }}
-                {{ form_row(form.description, {'label':'Description'}) }}
+                {{ form_row(form.title, {'label':'Titre de votre recette'}) }}
+                {{ form_row(form.description, {'label':'Description de votre recette'}) }}
                 {{ form_row(form.confidentiality, {'label':'Recette confidentiel'}) }}
 
                 <h5>Ingredients</h5>
@@ -41,7 +41,7 @@
 
         <div class="text-right">
             <div style="display:inline-block"><button class="btn btn-primary">{{ button|default('Enregistrer') }}</button></div>
-            <div style="display:inline-block"><a href="{{ path('productmanager.product.cancel') }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Annuler</a></div>
+            <div style="display:inline-block"><a href="{{ path('recipe.cancel') }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Annuler</a></div>
         </div>
 
     </div>

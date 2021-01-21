@@ -15,18 +15,18 @@
 
             <!-- Card Body - search options -->
             <div class="card-body">
-                {{ form_row(form.product) }}
-                {{ form_row(form.dosage) }}
-                {{ form_row(form.quantity) }}
-                {{ form_row(form.owner) }}
-                {{ form_row(form.storage) }}
+                {{ form_row(form.product, {'label':"Indiquez le produit ajouté"}) }}
+                {{ form_row(form.dosage, {'label':"Indiquez le dosage du produit (précisez l'unité, ex : 10mol/L, 100%)"}) }}
+                {{ form_row(form.quantity, {'label':"Indiquez la quantité du produit (précisez l'unité, ex: 500g, 1L)"}) }}
+                {{ form_row(form.owner, {'label':"Sélectionnez le propriétaire du produit (s'il n'y a pas de propriétaire particulier sélectionnez Laboratory L2n)"}) }}
+                {{ form_row(form.storage, {'label':"Indiquez où sera stocké ce produit"}) }}
             </div>
 
         </div>
 
         <div class="text-right">
             <div style="display:inline-block"><button class="btn btn-primary">{{ button|default('Enregistrer') }}</button></div>
-            <div style="display:inline-block"><a href="{{ path('productmanager.product.cancel') }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Annuler</a></div>
+            <div style="display:inline-block"><a href="{{ path('inventory.cancel') }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Annuler</a></div>
         </div>
 
     </div>

@@ -44,4 +44,56 @@
         </div>
     </div>
 
+    <!-- Content Row -->
+    <div class="row mt-2">
+        <!-- Area Chart -->
+        <div class="col-xl-6 col-lg-3">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Pictogramme de danger</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="text-center">
+                        {% if inventory.mix.recipe and inventory.mix.recipe.ingredients %}
+                        {% for ingredient in inventory.mix.recipe.ingredients %}
+                        {% for dangerPictogram in ingredient.product.dangerPictograms %}
+                            {% if dangerPictogram.imageName %}
+                                <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 250px; height:auto;" src="{{ vich_uploader_asset(dangerPictogram, 'imageFile') }}" alt="">
+                            {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Area Chart -->
+        <div class="col-xl-6 col-lg-3">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Pictogramme de recommandation</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="text-center">
+                        {% if inventory.mix.recipe and inventory.mix.recipe.ingredients %}
+                        {% for ingredient in inventory.mix.recipe.ingredients %}
+                        {% for obligationPictogram in ingredient.product.obligationPictograms %}
+                            {% if obligationPictogram.imageName %}
+                                <img class="img-fluid px-2 px-sm-4 mt-3 mb-4" style="width: 250px; height:auto;" src="{{ vich_uploader_asset(obligationPictogram, 'imageFile') }}" alt="" >
+                            {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </div>

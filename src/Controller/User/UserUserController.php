@@ -130,7 +130,7 @@ class UserUserController extends AbstractController{
      */
     public function cancel()
     {
-        $this->addFlash('warning', 'Modifications non enregistrées');
+        $this->addFlash('warning', "Les modifications n'ont pas été enregistrées");
 
         return $this->redirectToRoute('user.show');
     }

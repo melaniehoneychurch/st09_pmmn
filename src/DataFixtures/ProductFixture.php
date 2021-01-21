@@ -16,11 +16,8 @@ class ProductFixture extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
-        /*$hazard = [
-            ["H201",
-                "H202",
-                "H203",
-                "H204",
+        $hazard = [
+            ["H204",
                 "H205",
                 "H220",
                 "H221",
@@ -93,10 +90,7 @@ class ProductFixture extends Fixture
                 "H412",
                 "H413",
                 "H420"],
-            ["Explosif : danger d'explosion en masse",
-                "Explosif : danger sérieux de projection",
-                "Explosif : danger d'incendie, d'effet de souffle ou de projection",
-                "Danger d'incendie ou de projection",
+            ["Danger d'incendie ou de projection",
                 "Danger d'explosion en masse en cas d'incendie",
                 "Gaz extrêmement inflammable",
                 "Gaz inflammable",
@@ -170,67 +164,14 @@ class ProductFixture extends Fixture
                 "Nuit à la santé publique et à l’environnement en détruisant l’ozone dans la haute atmosphère"]
         ];
 
-        for ($i = 0; $i < 76; $i++){
+        for ($i = 0; $i < 72; $i++){
             $hazardStatement = new HazardStatement();
             $hazardStatement
-                ->setCode($hazard[0][i])
-                ->setText($hazard[1][i])
+                ->setCode($hazard[0][$i])
+                ->setText($hazard[1][$i])
             ;
             $manager->persist($hazardStatement);
         }
-
-        $storage_array = [
-            ["name" => "Placard", "color" => NULL],
-            ["name" => "Placard 2", "color" => NULL],
-            ["name" => "Placard 3", "color" => NULL]
-        ];
-
-        foreach ($storage_array as $key => $value){
-            $storage = new Storage();
-            $storage
-                ->setName($storage_array['name'])
-                ->setColor($storage_array['color'])
-            ;
-            $manager->persist($storage);
-        }
-
-        $pictogram_array = [
-            ['image' => '5f5b7353a8c3a275708385.png', 'date' => '2020-09-11 12:53:39', 'type' => '0', 'name' => 'Dangereux'],
-            ['image' => '5f5b766ad83cf444933527.png', 'date' => '2020-09-11 13:06:50', 'type' => '0', 'name' => 'Inflammable'],
-            ['image' => '5f5b7684d43d1668321340.png', 'date' => '2020-09-11 13:07:16', 'type' => '0', 'name' => 'Gaz sous pression'],
-            ['image' => '5f5b769c1ab36580781715.png', 'date' => '2020-09-11 13:07:39', 'type' => '0', 'name' => 'Polluant'],
-            ['image' => '5f5b76b632951231612470.png', 'date' => '2020-09-11 13:37:20', 'type' => '0', 'name' => 'Cancérogène, mutagène, reprotoxique'],
-            ['image' => '5f5b76d0e29f1235138856.png', 'date' => '2020-09-11 13:08:32', 'type' => '0', 'name' => 'Explosif'],
-            ['image' => '5f5b76e4cda32450242856.png', 'date' => '2020-09-11 13:08:52', 'type' => '0', 'name' => 'Comburant'],
-            ['image' => '5f5b76f805234757271598.png', 'date' => '2020-09-11 13:09:11', 'type' => '0', 'name' => 'Corrosif'],
-            ['image' => '5f5b7707f1aee734032346.png', 'date' => '2020-09-11 13:09:27', 'type' => '0', 'name' => 'Toxique']
-        ];
-
-        foreach ($pictogram_array as $key => $value){
-            $pictogram=new Pictogram();
-            $pictogram
-                ->setImageName($pictogram_array['image'])
-                ->setType($pictogram_array['type'])
-                ->setName($pictogram_array['name'])
-            ;
-            $manager->persist($pictogram);
-        }
-
-        $trashCan_array = [
-            ['name' => 'Mélange chlorés', 'color' => '#20eea2'],
-            ['name' => 'Mélange non chlorés', 'color' =>  '#f0dc56'],
-            ['name' => 'Bases', 'color' =>  '#f31616'],
-            ['name' => 'Acides', 'color' =>  '#15b8ef']
-        ];
-
-        foreach ($trashCan_array as $key => $value){
-            $trashCan = new TrashCan();
-            $trashCan
-                ->setName($trashCan_array['name'])
-                ->setColor($trashCan_array['color'])
-            ;
-            $manager->persist($trashCan);
-        }*/
 
         for($i = 0; $i < 100; $i++){
             $storage = new Storage();
@@ -249,11 +190,11 @@ class ProductFixture extends Fixture
             $manager->persist($pictogram);
 
 
-            $hazardStatement = new HazardStatement();
+        /*    $hazardStatement = new HazardStatement();
             $hazardStatement->setCode($faker->randomLetter().$faker->randomNumber(3, true))
                 ->setText($faker->catchPhrase())
             ;
-            $manager->persist($hazardStatement);
+            $manager->persist($hazardStatement);*/
 
             $product = new Product();
             $product

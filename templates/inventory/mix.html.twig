@@ -37,7 +37,7 @@
                         {% for inventory in inventories %}
                             {% if inventory.mix  %}
                             <tr>
-                                <td><a href="{{ path('mix.show', {slug: inventory.mix.slug, id: inventory.mix.id}) }}"><h6>{{ inventory.mix.title }}</h6></a></td>
+                                <td><a href="{{ path('mix.show', {slug: inventory.mix.slug, id: inventory.mix.id}) }}"><h6>{{ inventory.mix.title }} {% if inventory.mix.confidentiality %} <i class="fas fa-eye-slash"></i> {% endif %} </h6></a></td>
                                 <td>{{ inventory.mix.quantity }}</td>
                                 <td>
                                     {% if inventory.mix.storage %}

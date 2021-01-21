@@ -140,7 +140,7 @@ class ProductManagerHazardStatementController extends AbstractController{
         if ($form->isSubmitted() && $form->isValid()) {
             
                 $this->em->flush();
-                $this->addFlash('success', 'mention de danger modifié avec succès');
+                $this->addFlash('success', 'Mention de danger modifiée avec succès');
             
             return $this->redirectToRoute('productmanager.hazardStatement.index');
         }
@@ -191,7 +191,7 @@ class ProductManagerHazardStatementController extends AbstractController{
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
-        $this->addFlash('warning', 'Mention de danger non enregistré');
+        $this->addFlash('warning', "Les modifications n'ont pas été enregistrées");
 
         return $this->redirectToRoute('productmanager.hazardStatement.index');
     }

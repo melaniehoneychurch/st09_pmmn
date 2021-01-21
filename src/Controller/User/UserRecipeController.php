@@ -248,7 +248,7 @@ class UserRecipeController extends AbstractController{
     /**
      * Cancel an action in form
      *
-     * @Route("/productmanager/cancel/product", name="productmanager.product.cancel")
+     * @Route("/recipe/cancel/", name="recipe.cancel")
      *
      * @param Request $request
      * @return RedirectResponse
@@ -260,7 +260,7 @@ class UserRecipeController extends AbstractController{
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
-        $this->addFlash('warning', 'recette non enregistrée');
+        $this->addFlash('warning', "Les modifications n'ont pas été enregistrées");
 
         return $this->redirectToRoute('recipe.index');
     }

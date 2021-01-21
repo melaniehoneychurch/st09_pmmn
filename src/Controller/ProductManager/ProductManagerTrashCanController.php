@@ -130,16 +130,13 @@ class ProductManagerTrashCanController extends AbstractController{
 
         // analyse the form response and if the form is valid them informations are updated
         if ($form->isSubmitted() && $form->isValid()) {
-            if($form->get('cancel')->isClicked()){
-                $this->addFlash('warning', 'Poubelle non enregistré');
 
-            }else{
             $this->em->flush();
-            $this->addFlash('success', 'Poubelle modifié avec succès');
-            }
+            $this->addFlash('success', 'Poubelle modifiée avec succès');
+
             return $this->redirectToRoute('productmanager.trashCan.index');
         }
-        
+
 
         return $this->render('productmanager/trashCan/edit.html.twig', [
             'trashCan' => $trashCan, // targeted object
@@ -186,7 +183,7 @@ class ProductManagerTrashCanController extends AbstractController{
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
-        $this->addFlash('warning', 'Poubelle non enregistré');
+        $this->addFlash('warning', "Les modifications n'ont pas été enregistrées");
 
         return $this->redirectToRoute('productmanager.trashCan.index');
     }

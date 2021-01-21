@@ -124,19 +124,7 @@
                 </div>
 
             </div>
-            {% if is_granted('ROLE_ACCOUNT_MANAGER') and (app.user.activate or is_granted('ROLE_ADMIN')) %}
-                <div class="text-right">
-                    <div>
-                        <a href="{{ path('productmanager.product.new') }}" class="btn btn-primary">Créer un nouveau produit</a>
-                    </div>
-                </div>
 
-                <div class="text-right">
-                    <div class="mt-2">
-                        <a href="{{ path('productmanager.family') }}" class="btn btn-outline-primary">Ajouter une nouvelle famille</a>
-                    </div>
-                </div>
-            {% endif %}
         </div>
 
     </div>

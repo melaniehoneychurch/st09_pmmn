@@ -15,33 +15,33 @@
 
             <!-- Card Body - search options -->
             <div class="card-body">
-                {{ form_row(form.securityFormFile, {'attr': {'onchange': "document.getElementById('securityFormFile').src = window.URL.createObjectURL(this.files[0])"}}) }}
+                {{ form_row(form.securityFormFile, {'label':"Déposez la fiche de sécurité"}, {'attr': {'onchange': "document.getElementById('securityFormFile').src = window.URL.createObjectURL(this.files[0])"}}) }}
                 <img id="securityFormFile" alt="fiche de securite" width="100" height="100" />
 
-                {{ form_row(form.formulaImageFile, {'attr': {'onchange': "document.getElementById('formulaImage').src = window.URL.createObjectURL(this.files[0])"}}) }}
+                {{ form_row(form.formulaImageFile, {'label':"Déposez une image de la formule"}, {'attr': {'onchange': "document.getElementById('formulaImage').src = window.URL.createObjectURL(this.files[0])"}}) }}
                 <img id="formulaImage" alt="image de la formule" width="100" height="100" />
 
 
-                {{ form_row(form.colorName) }}
-                {{ form_row(form.frenchName) }}
-                {{ form_row(form.englishName) }}
-                {{ form_row(form.nomenclature) }}
-                {{ form_row(form.otherName) }}
-                {{ form_row(form.casNumber) }}
-                {{ form_row(form.families) }}
-                {{ form_row(form.molarMass) }}
-                {{ form_row(form.density) }}
-                {{ form_row(form.meltingTemperature) }}
-                {{ form_row(form.boilingTemperature) }}
-                {{ form_row(form.opticalIndex) }}
-                {{ form_row(form.autoflameTemperature) }}
-                {{ form_row(form.riskOfUse) }}
-                {{ form_row(form.dangerousMixtures) }}
-                {{ form_row(form.frenchCommentary) }}
-                {{ form_row(form.pictograms) }}
-                {{ form_row(form.storage) }}
-                {{ form_row(form.trashCan) }}
-                {{ form_row(form.hazardStatements) }}
+                {{ form_row(form.colorName, {'label':"Code couleur du produit"}) }}
+                {{ form_row(form.frenchName, {'label':"Nom français"}) }}
+                {{ form_row(form.englishName, {'label':"Nom anglais"}) }}
+                {{ form_row(form.nomenclature, {'label':"Nomenclature"}) }}
+                {{ form_row(form.otherName, {'label':"Vous pouvez ajouter un troisième nom du produit dans ce champ"}) }}
+                {{ form_row(form.casNumber, {'label':"Numéro CAS"}) }}
+                {{ form_row(form.families, {'label':"Sélectionnez les familles de ce produit"}) }}
+                {{ form_row(form.molarMass, {'label':"Indiquez sa masse molaire"}) }}
+                {{ form_row(form.density, {'label':"Indiquez sa densité"}) }}
+                {{ form_row(form.meltingTemperature, {'label':"Indiquez sa température de fusion"}) }}
+                {{ form_row(form.boilingTemperature, {'label':"Indiquez sa température d'ébulition"}) }}
+                {{ form_row(form.opticalIndex, {'label':"Indiquez son indice optique"}) }}
+                {{ form_row(form.autoflameTemperature, {'label':"Indiquez le point d'auto-inflammation"}) }}
+                {{ form_row(form.riskOfUse, {'label':"Indiquez les risques liés à l'utilisation de ce produit"}) }}
+                {{ form_row(form.dangerousMixtures, {'label':"Indiquez les mélanges dangereux"}) }}
+                {{ form_row(form.frenchCommentary, {'label':"Commentaires :"}) }}
+                {{ form_row(form.pictograms, {'label':"Sélectionnez les pictogrammes (danger et/ou obligation) associés à ce produit :"}) }}
+                {{ form_row(form.storage, {'label':"Indiquez où se range ce produit"}) }}
+                {{ form_row(form.trashCan, {'label':"Indiquez dans quelle poubelle jeter ce produit"}) }}
+                {{ form_row(form.hazardStatements, {'label':"Sélectionnez les mentions de danger associées à ce produit :"}) }}
             </div>
 
         </div>

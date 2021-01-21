@@ -48,180 +48,155 @@
 
                 <!-- Heading -->
                 <div class="sidebar-heading">
-                    Recettes
+                    Recettes & Solutions
                 </div>
 
-                <!-- Nav Item - new recipe -->
+                <!-- Nav Item - Recipe Collapse menu -->
                 <li class="nav-item {% if app.request.get('_route') == 'recipe.index'
                     or app.request.get('_route') == 'recipe.edit'
                     or app.request.get('_route') == 'recipe.new'
                     or app.request.get('_route') == 'recipe.perso'
                     or app.request.get('_route') == 'recipe.show'%} active {% endif %}">
-                    <a class="nav-link" href="{{ path('recipe.new') }}">
-                        <i class="fas fa-plus"></i>
-                        <span>Créer une nouvelle recette</span>
-                    </a>
-                </li>
-
-                <!-- Nav Item - all recipes -->
-                <li class="nav-item {% if app.request.get('_route') == 'recipe.index'
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <i class="fas fa-book"></i>
+                    <span>Recettes</span>
+                </a>
+                <div id="collapseTwo" class="collapse {% if app.request.get('_route') == 'recipe.index'
                     or app.request.get('_route') == 'recipe.edit'
                     or app.request.get('_route') == 'recipe.new'
                     or app.request.get('_route') == 'recipe.perso'
-                    or app.request.get('_route') == 'recipe.show'%} active {% endif %}">
-                    <a class="nav-link" href="{{ path('recipe.index') }}">
-                        <i class="fas fa-book"></i>
-                        <span>Consulter toutes les recettes</span>
-                    </a>
-                </li>
-
-                <!-- Nav Item - my recipes -->
-                <li class="nav-item {% if app.request.get('_route') == 'recipe.index'
-                    or app.request.get('_route') == 'recipe.edit'
-                    or app.request.get('_route') == 'recipe.new'
-                    or app.request.get('_route') == 'recipe.perso'
-                    or app.request.get('_route') == 'recipe.show'%} active {% endif %}">
-                    <a class="nav-link" href="{{ path('recipe.perso') }}">
-                        <i class="fas fa-receipt"></i>
-                        <span>Mes recettes</span>
-                    </a>
-                </li>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-
-                <!-- Heading -->
-                <div class="sidebar-heading">
-                    solutions
+                    or app.request.get('_route') == 'recipe.show'%} show {% endif %}" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+                        <a class="collapse-item" href="{{ path('recipe.new') }}">
+                        <i class="fas fa-plus"></i> Nouvelle recette</a>
+                        <a class="collapse-item" href="{{ path('recipe.index') }}">
+                        <i class="fas fa-book"></i> Toutes les recettes</a>
+                        <a class="collapse-item" href="{{ path('recipe.perso') }}">
+                        <i class="fas fa-book-open"></i> Mes recettes</a>
+                    </div>
                 </div>
-
-                <!-- Nav Item - new mix -->
-                <li class="nav-item {% if app.request.get('_route') == 'mix.index'
-                    or app.request.get('_route') == 'mix.edit' or app.request.get('_route') == 'mix.perso'
-                    or app.request.get('_route') == 'mix.new'%} active {% endif %}">
-                    <a class="nav-link" href="{{ path('mix.new') }}">
-                        <i class="fas fa-plus"></i>
-                        <span>Créer une nouvelle solution</span>
-                    </a>
                 </li>
 
-                <!-- Nav Item - all mix -->
+                <!-- Nav Item - Mix Collapse menu -->
                 <li class="nav-item {% if app.request.get('_route') == 'mix.index'
                     or app.request.get('_route') == 'mix.edit'
                     or app.request.get('_route') == 'mix.new'
-                    or app.request.get('_route') == 'mix.perso'%} active {% endif %}">
-                    <a class="nav-link" href="{{ path('mix.index') }}">
-                        <i class="fas fa-vials"></i>
-                        <span>Consulter toutes les solutions</span>
-                    </a>
-                </li>
-
-                <!-- Nav Item - my mixes -->
-                <li class="nav-item {% if app.request.get('_route') == 'mix.index'
+                    or app.request.get('_route') == 'mix.perso'
+                    or app.request.get('_route') == 'mix.show'%} active {% endif %}">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="false" aria-controls="collapseUtilities">
+                    <i class="fas fa-flask"></i>
+                    <span>Solutions</span>
+                </a>
+                <div id="collapseUtilities" class="collapse {% if app.request.get('_route') == 'mix.index'
                     or app.request.get('_route') == 'mix.edit'
-                    or app.request.get('_route') == 'mix.new' or app.request.get('_route') == 'mix.perso'%} active {% endif %}">
-                    <a class="nav-link" href="{{ path('inventory.mix') }}">
-                        <i class="fas fa-vials"></i>
-                        <span>Mes solutions</span>
-                    </a>
-                </li>
-
-                <!-- Nav Item - manage my mixes -->
-                <li class="nav-item {% if app.request.get('_route') == 'mix.index'
-                    or app.request.get('_route') == 'mix.edit' or app.request.get('_route') == 'mix.perso'
-                    or app.request.get('_route') == 'mix.new'%} active {% endif %}">
-                    <a class="nav-link">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <span>Gérer mes solutions</span>
-                    </a>
-                </li>
-            {% endif %}
-
-            {# ACCOUNT MANAGER #}
-            {% if is_granted('ROLE_ACCOUNT_MANAGER') and (app.user.activate or is_granted('ROLE_ADMIN')) %}
-
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-
-                <!-- Heading -->
-                <div class="sidebar-heading">
-                    Gestion comptes utilisateurs
+                    or app.request.get('_route') == 'mix.new'
+                    or app.request.get('_route') == 'inventory.mix'
+                    or app.request.get('_route') == 'mix.show'%} show {% endif %}" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style="">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <!-- <h6 class="collapse-header">Custom Utilities:</h6> -->
+                        <a class="collapse-item" href="{{ path('mix.new') }}">
+                        <i class="fas fa-plus"></i> Nouvelle solution</a>
+                        <a class="collapse-item" href="{{ path('mix.index') }}">
+                        <i class="fas fa-vials"></i> Toutes les solutions</a>
+                        <a class="collapse-item" href="{{ path('inventory.mix') }}">
+                        <i class="fas fa-vial"></i> Mes solutions</a>
+                    </div>
                 </div>
-
-                <!-- Nav Item - user list -->
-                <li class="nav-item {% if app.request.get('_route') == 'usermanager.user.index'
-                or app.request.get('_route') == 'usermanager.user.edit'
-                or app.request.get('_route') == 'usermanager.user.new'%} active {% endif %}">
-                    <a class="nav-link" href="{{ path('usermanager.user.index') }}">
-                        <i class="fas fa-users"></i>
-                        <span>Liste utilisateurs</span>
-                    </a>
                 </li>
 
+
             {% endif %}
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Gestion
+            </div>
+
+            <!-- Nav Item - Product Collapse Menu -->
 
             {# PRODUCT MANAGER #}
             {% if is_granted('ROLE_PRODUCT_MANAGER') and (app.user.activate or is_granted('ROLE_ADMIN')) %}
-
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-
-                <!-- Heading -->
-                <div class="sidebar-heading">
-                    Modération produits
-                </div>
-
-                <!-- Nav Item - products list -->
-                <li class="nav-item {% if app.request.get('_route') == 'productmanager.product.index'
+            <li class="nav-item {% if app.request.get('_route') == 'productmanager.product.index'
+                or app.request.get('_route') == 'productmanager.product.edit'
+                or app.request.get('_route') == 'productmanager'
+                or app.request.get('_route') == 'productmanager.product.new'%} active {% endif %}">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <i class="fas fa-edit"></i>
+                    <span>Modération produits</span>
+                </a>
+                <div id="collapsePages" class="collapse {% if app.request.get('_route') == 'productmanager.product.index'
                     or app.request.get('_route') == 'productmanager.product.edit'
-                    or app.request.get('_route') == 'productmanager.product.new'%} active {% endif %}">
-                    <a class="nav-link" href="{{ path('productmanager.product.index') }}">
-                        <i class="fas fa-vial"></i>
-                        <span>Produits</span>
-                    </a>
-                </li>
+                    or app.request.get('_route') == 'productmanager'
+                    or app.request.get('_route') == 'productmanager.product.new'%} show {% endif %}" aria-labelledby="headingPages" data-parent="#accordionSidebar" style="">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Produit :</h6>
+                        <a class="collapse-item" href="{{ path('productmanager.product.index') }}"><i class="fas fa-prescription-bottle"></i> Liste produits</a>
+                        <a class="collapse-item" href="{{ path('productmanager.product.new') }}"><i class="fas fa-plus"></i> Ajouter produit</a>
+                        <a class="collapse-item" href="{{ path('productmanager.family') }}"><i class="fas fa-plus"></i> Ajouter famille</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Pictogramme :</h6>
+                        <a class="collapse-item" href="{{ path('productmanager.pictogram.index') }}"><i class="fas fa-exclamation-triangle"></i> Liste pictogrammes</a>
+                        <a class="collapse-item" href="{{ path('productmanager.pictogram.new') }}"><i class="fas fa-plus"></i> Ajouter pictogramme</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Stockage :</h6>
+                        <a class="collapse-item" href="{{ path('productmanager.storage.index') }}"><i class="fas fa-cubes"></i> Liste stockages</a>
+                        <a class="collapse-item" href="{{ path('productmanager.storage.new') }}"><i class="fas fa-plus"></i> Ajouter stockage</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Poubelle :</h6>
+                        <a class="collapse-item" href="{{ path('productmanager.trashCan.index') }}"><i class="fas fa-trash"></i> Liste poubelles</a>
+                        <a class="collapse-item" href="{{ path('productmanager.trashCan.new') }}"><i class="fas fa-plus"></i> Ajouter poubelle</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">GHS Mention danger :</h6>
+                        <a class="collapse-item" href="{{ path('productmanager.hazardStatement.index') }}"><i class="fas fa-biohazard"></i> Liste GHS</a>
+                        <a class="collapse-item" href="{{ path('productmanager.hazardStatement.new') }}"><i class="fas fa-plus"></i> Ajouter GHS</a>
+                    </div>
+                </div>
+            </li>
+                {% endif %}
 
-                <!-- Nav Item - pictograms list -->
-                <li class="nav-item {% if app.request.get('_route') == 'productmanager.pictogram.index'
-                    or app.request.get('_route') == 'productmanager.pictogram.edit'
-                    or app.request.get('_route') == 'productmanager.pictogram.new'%} active {% endif %}">
-                    <a class="nav-link" href="{{ path('productmanager.pictogram.index') }}">
-                        <i class="fas fa-images"></i>
-                        <span>Pictogrammes</span>
+                {# ACCOUNT MANAGER #}
+                {% if is_granted('ROLE_ACCOUNT_MANAGER') and (app.user.activate or is_granted('ROLE_ADMIN')) %}
+                <li class="nav-item {% if app.request.get('_route') == 'usermanager.user.index'
+                    or app.request.get('_route') == 'usermanager.user.edit'
+                    or app.request.get('_route') == 'usermanager.user.new'%} active {% endif %}">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUsers">
+                        <i class="fas fa-users-cog"></i>
+                        <span>Gestion utilisateurs</span>
                     </a>
+                    <div id="collapseUsers" class="collapse {% if app.request.get('_route') == 'usermanager.user.index'
+                        or app.request.get('_route') == 'usermanager.user.edit'
+                        or app.request.get('_route') == 'usermanager.user.new'%} show {% endif %}" aria-labelledby="headingUsers" data-parent="#accordionSidebar" style="">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="{{ path('usermanager.user.index') }}"><i class="fas fa-users"></i> Liste utilisateurs</a>
+                            <a class="collapse-item" href="{{ path('usermanager.user.new') }}"><i class="fas fa-plus"></i> Nouvel utilisateur</a>
+                        </div>
+                    </div>
                 </li>
+                {% endif %}
 
-                <!-- Nav Item - stock list -->
-                <li class="nav-item {% if app.request.get('_route') == 'productmanager.storage.index'
-                or app.request.get('_route') == 'productmanager.storage.edit'
-                or app.request.get('_route') == 'productmanager.storage.new'%} active {% endif %}">
-                    <a class="nav-link" href="{{ path('productmanager.storage.index') }}">
+            {# INVENTORY #}
+            {% if is_granted('ROLE_INVENTORY_MANAGER') and (app.user.activate or is_granted('ROLE_ADMIN')) %}
+                <li class="nav-item {% if app.request.get('_route') == 'inventory.index'
+                    or app.request.get('_route') == 'inventory.new' or app.request.get('_route') == 'inventory.export'%} active {% endif %}">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInventories" aria-expanded="false" aria-controls="collapseInventories">
                         <i class="fas fa-cubes"></i>
-                        <span>Stockages</span>
+                        <span>Inventaire</span>
                     </a>
+                    <div id="collapseInventories" class="collapse {% if app.request.get('_route') == 'inventory.index'
+                        or app.request.get('_route') == 'inventory.new' or app.request.get('_route') == 'inventory.export'%} show {% endif %}" aria-labelledby="headingInventories" data-parent="#accordionSidebar" style="">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="{{ path('inventory.index') }}"><i class="fas fa-boxes"></i> Voir l'inventaire</a>
+                            <a class="collapse-item" href="{{ path('inventory.new') }}"><i class="fas fa-plus"></i> Ajouter à l'inventaire</a>
+                            <a class="collapse-item" href="{{ path('inventory.export') }}"><i class="fas fa-download"></i> Exporter l'inventaire</a>
+                        </div>
+                    </div>
                 </li>
-
-                <!-- Nav Item - trash list -->
-                <li class="nav-item {% if app.request.get('_route') == 'productmanager.trashCan.index'
-                or app.request.get('_route') == 'productmanager.trashCan.edit'
-                or app.request.get('_route') == 'productmanager.trashCan.new'%} active {% endif %}">
-                    <a class="nav-link" href="{{ path('productmanager.trashCan.index') }}">
-                        <i class="far fa-trash-alt"></i>
-                        <span>Poubelles</span>
-                    </a>
-                </li>
-
-                <!-- Nav Item - GHS Danger -->
-                <li class="nav-item {% if app.request.get('_route') == 'productmanager.hazardStatement.index'
-                or app.request.get('_route') == 'productmanager.hazardStatement.edit'
-                or app.request.get('_route') == 'productmanager.hazardStatement.new'%} active {% endif %}">
-                    <a class="nav-link" href="{{ path('productmanager.hazardStatement.index') }}">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <span>GHS Mention de danger</span>
-                    </a>
-                </li>
-
             {% endif %}
+
 
             {# ADMIN #}
             {% if is_granted('ROLE_ADMIN') %}
@@ -231,57 +206,25 @@
 
                 <!-- Heading -->
                 <div class="sidebar-heading">
-                    Administration
+                    Administrateur
                 </div>
 
-                <!-- Nav Item - products list -->
+                <!-- Nav Item - admin list -->
                 <li class="nav-item {% if app.request.get('_route') == 'admin.user.index'
                     or app.request.get('_route') == 'admin.user.edit'
                     or app.request.get('_route') == 'admin.user.new'%} active {% endif %}">
-                    <a class="nav-link" href="{{ path('admin.user.index') }}">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin" aria-expanded="false" aria-controls="collapseAdmin">
                         <i class="fas fa-users-cog"></i>
-                        <span>Administration utilisateurs</span>
+                        <span>Gestion utilisateurs</span>
                     </a>
-                </li>
-
-            {% endif %}
-
-            {# INVENTORY #}
-
-            {% if is_granted('ROLE_INVENTORY_MANAGER') and (app.user.activate or is_granted('ROLE_ADMIN')) %}
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Inventaire
-            </div>
-
-            <!-- Nav Item - See inventory -->
-            <li class="nav-item {% if app.request.get('_route') == 'inventory.index'
-                or app.request.get('_route') == 'inventory.new' or app.request.get('_route') == 'inventory.export'%} active {% endif %}">
-                <a class="nav-link" href="{{ path('inventory.index') }}">
-                    <i class="fas fa-boxes"></i>
-                    <span>Voir l'inventaire</span>
-                </a>
-            </li>
-
-                <!-- Nav Item - Add in inventory -->
-                <li class="nav-item {% if app.request.get('_route') == 'inventory.new'
-                    or app.request.get('_route') == 'inventory.index' or app.request.get('_route') == 'inventory.export'%} active {% endif %}">
-                    <a class="nav-link" href="{{ path('inventory.new') }}">
-                        <i class="fas fa-plus"></i>
-                        <span>Ajouter à l'inventaire</span>
-                    </a>
-                </li>
-
-                <!-- Nav Item - Add in inventory -->
-                <li class="nav-item {% if app.request.get('_route') == 'inventory.new'
-                    or app.request.get('_route') == 'inventory.index' or app.request.get('_route') == 'inventory.export'%} active {% endif %}">
-                    <a class="nav-link" href="{{ path('inventory.export') }}">
-                        <i class="fas fa-download"></i>
-                        <span>Exporter l'inventaire</span>
-                    </a>
+                    <div id="collapseAdmin" class="collapse {% if app.request.get('_route') == 'admin.user.index'
+                        or app.request.get('_route') == 'admin.user.edit'
+                        or app.request.get('_route') == 'admin.user.new'%} show {% endif %}" aria-labelledby="headingAdmin" data-parent="#accordionSidebar" style="">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="{{ path('admin.user.index') }}"><i class="fas fa-users"></i> Liste utilisateurs</a>
+                            <a class="collapse-item" href="{{ path('admin.user.new') }}"><i class="fas fa-plus"></i> Nouvel utilisateur</a>
+                        </div>
+                    </div>
                 </li>
 
             {% endif %}
@@ -299,7 +242,17 @@
                 </a>
             </li>
 
+            <!-- Divider
+            <hr class="sidebar-divider d-none d-md-block">
+
+             Sidebar Toggler (Sidebar)
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div> -->
+
         </ul>
+
+
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->

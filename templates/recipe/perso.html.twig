@@ -33,7 +33,7 @@
                         <tbody>
                         {% for recipe in recipes %}
                             <tr>
-                                <td><a href="{{ path('recipe.show', {slug: recipe.slug, id: recipe.id}) }}"><h6>{{ recipe.title }}</h6></a></td>
+                                <td><a href="{{ path('recipe.show', {slug: recipe.slug, id: recipe.id}) }}"><h6>{{ recipe.title }} {% if recipe.confidentiality %}<i class="fas fa-eye-slash"></i>{% endif %}</h6></a></td>
                                 <td>
                                     <a href="{{ path('recipe.edit', {id: recipe.id}) }}" class="btn btn-secondary">Editer</a>
                                     <form method="post" action="{{ path('recipe.delete', {id: recipe.id}) }}" style="display: inline-block">

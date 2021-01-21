@@ -1,4 +1,6 @@
 {{ form_start(form) }}
+{{ form_row(form.code, {'label':"Indiquez le code de la mention de danger"}) }}
+{{ form_row(form.text, {'label':"Indiquez l'intitulé de la mention de danger"}) }}
 {{ form_widget(form) }}
 <button class="btn btn-primary">{{ button|default('Enregistrer') }}</button>
 {{ form_end(form) }}

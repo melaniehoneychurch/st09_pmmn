@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -25,8 +26,12 @@ class IngredientType extends AbstractType
                 },
                 'choice_label' => 'french_name',
                 'required' => true,
+                'label' => 'Nom du produit',
             ])
-            ->add('quantity')
+            ->add('quantity', TextType::class, [
+                'label' => "Quantité (précisez l'unité, ex : mg, mL, %)"
+            ])
+
 
         ;
     }

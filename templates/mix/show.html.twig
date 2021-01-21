@@ -12,7 +12,9 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">{{ mix.title }}</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{{ mix.title }}
+                    {% if mix.confidentiality %} (Confidentielle <i class="fas fa-eye-slash"></i>) {% endif %}
+                    </h6>
                     <a href="" class="printQrCode mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i> Imprimer le QRcode de la solution</a>
                 </div>
                 <!-- Card Body -->
@@ -47,9 +49,13 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    {% if mix.recipe.confidentiality %}
+                        <h6 class=" font-weight-bold text-primary">Cette solution a été préparé à partie d'une recette confidentielle</h6>
+                    {% else %}
                     <h6 class=" font-weight-bold text-primary">Cette solution a été créée à partir de la recette :
                     <i>{{ mix.recipe.title }}</i>
                     </h6>
+                    {% endif %}
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -72,7 +78,9 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-
+                                    {% if mix.recipe.confidentiality %}
+                                    <tr align="center"><td colspan="2"><i class="fas fa-low-vision"></i></td></tr>
+                                    {% else %}
                                     {% for ingredient in mix.recipe.ingredients %}
                                         {% if ingredient.product %}
                                             <tr>
@@ -81,7 +89,7 @@
                                             </tr>
                                         {% endif %}
                                     {% endfor %}
-
+                                    {% endif %}
                                     </tbody>
                                 </table>
                             </div>
@@ -124,7 +132,13 @@
                 <img src="{{ qrCode.writeDataUri }}" class="float-left">
             </div>
             <div class="col-xl-8">
-                <strong><br/>{{ mix.title }}</strong>
+                <strong><br/>
+                    {% if mix.confidentiality %}
+                        Solution confidentielle
+                    {% else %}
+                     {{ mix.title }}
+                    {% endif %}
+                </strong>
                 <p>{{ mix.creator.identity }}<br/>
                 <i>{{ mix.date }}</i></p>
             </div>

@@ -206,7 +206,7 @@ class UserInventoryController extends AbstractController
     public function new(Request $request)
     {
         // check if the user account is activate
-        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_INVENTORY_MANAGER')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
 
@@ -395,5 +395,24 @@ class UserInventoryController extends AbstractController
         return $this->redirectToRoute('inventory.index');
     }
 
+    /**
+     * Cancel an action in form
+     *
+     * @Route("/inventory/cancel", name="inventory.cancel")
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function cancel(Request $request)
+    {
+        // check if the user account is activate
+        if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
+        }
+
+        $this->addFlash('warning', "Les modifications n'ont pas été enregistrées");
+
+        return $this->redirectToRoute('inventory.index');
+    }
 
 }
