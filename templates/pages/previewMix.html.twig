@@ -1,6 +1,35 @@
 <div class="container-fluid">
 
+    <!-- Area Chart -->
+    <div class="col-xl-12 col-lg-12">
+        <div class="card shadow mb-4">
 
+            <!-- Card Header -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h5 class="m-0 font-weight text-primary">{% trans %}You have scanned{% endtrans %}
+                    <strong class="font-weight-bold">
+                        {% if inventory.mix.confidentiality and not app.user == inventory.owner %}
+                            {{ inventory.title }}
+                        {% else %}
+                            {{ inventory.mix.title }}
+                        {% endif %}
+                    </strong>
+                    {% trans %}, what do you want to do ?{% endtrans %}</h5>
+            </div>
+
+            <!-- Card Body - search options -->
+            <div class="card-body">
+                <a href="{{ path('inventory.use', {id: inventory.id}) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-vial"></i>{% trans %} Use the solution{% endtrans %}</a>
+                {% if not inventory.mix.confidentiality or app.user == inventory.owner %}
+                    <a href="{{ path('mix.show', {slug: inventory.mix.slug, id: inventory.mix.id}) }}" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm"><i class="fas fa-info-circle"></i>{% trans %} Learn more about this solution{% endtrans %}</a>
+                {% endif %}
+                {% if is_granted('ROLE_INVENTORY_MANAGER') and (app.user.activate or is_granted('ROLE_ADMIN')) %}
+                    <a href="{{ path('inventory.index', {title: inventory.qrCode}) }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-boxes"></i>{% trans %} See in inventory{% endtrans %}</a>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
 
     <!-- Content Row -->
     <div class="row mt-2">
@@ -9,13 +38,19 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">{{ inventory.title }}</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        {% if inventory.mix.confidentiality and not app.user == inventory.owner %}
+                        {{ inventory.title }}
+                        {% else %}
+                        {{ inventory.mix.title }}
+                        {% endif %}
+                    </h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    {% if inventory.mix.confidentiality %}
-                        <p>Il s'agit d'une solution confidentielle, pour votre sécurité vous pouvez connaître
-                        sa date de fabrication ainsi que les dangers qui lui sont associés.
+                    {% if inventory.mix.confidentiality and not app.user == inventory.owner%}
+                        <p>{% trans %}This is a confidential solution, for your own safety you can know
+                                its date of manufacture and the dangers associated with it.{% endtrans %}
                         </p>
                     {% else %}
                         {{ inventory.mix.description }}
@@ -32,7 +67,7 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Stockage</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{% trans %}Storage{% endtrans %}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -51,7 +86,7 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Pictogramme de danger</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{% trans %}Danger pictograms{% endtrans %}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -75,7 +110,7 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Pictogramme de recommandation</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{% trans %}Obligation pictograms{% endtrans %}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">

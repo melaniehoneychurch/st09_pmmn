@@ -17,16 +17,16 @@
             <input type="hidden" name="action" value="users/login">
 
             <div class="form-group">
-                <h3><label for="username">Nom d'utilisateur</label></h3>
+                <h3><label for="username">{% trans %}Username{% endtrans %}</label></h3>
                 <input id="username" type="text" name="_username" class="form-control" value={{ last_username }}>
             </div>
 
             <div class="form-group">
-                <h3><label for="password">Mot de passe</label></h3>
+                <h3><label for="password">{% trans %}Password{% endtrans %}</label></h3>
                 <input id="password" type="password" name="_password" class="form-control">
             </div>
             
-            <button type="submit" class="btn btn-primary">Se connecter</button>
+            <button type="submit" class="btn btn-primary">{% trans %}Login{% endtrans %}</button>
 
         </form>
     </div>

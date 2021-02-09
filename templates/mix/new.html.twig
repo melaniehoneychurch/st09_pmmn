@@ -16,23 +16,22 @@
 
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-danger">Informations</h6>
+                    <h6 class="m-0 font-weight-bold text-danger">{% trans %}Informations{% endtrans %}</h6>
                 </div>
 
                 <!-- Card Body - search options -->
                 <div class="card-body">
-                    <p>Vous êtes sur le point d'ajouter une nouvelle solution. Si vous ne l'avez pas encore fait, pensez à créer
-                        la recette à laquelle votre solution est associée.</p>
-                    <a href="{{ path('recipe.new') }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-outline-danger shadow-sm">Créer la recette</a>
+                    <p>{% trans %}You are about to add a new solution. If you haven't already, consider creating the recipe to which your solution is associated.{% endtrans %}</p>
+                    <a href="{{ path('recipe.new') }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-outline-danger shadow-sm">{% trans %}New recipe{% endtrans %}</a>
                     <p></p>
-                    <p>Vous pouvez aussi créer une solution sans recette si vous jugez que ça n'est pas nécessaire. Dans ce cas il vous suffit
-                        de ne pas choisir de recette dans l'onglet "recette" ci-dessous.</p>
+                    <p>{% trans %}You can also create a solution without a recipe if you feel it is not necessary. In this case you just need not to choose a recipe in the "recipe" tab below.{% endtrans %}</p>
                 </div>
 
             </div>
         </div>
     </div>
 
-    {{ include('mix/_form.html.twig', {form: form, button: 'Enregistrer la solution'}) }}
+    {{ include('mix/_form.html.twig', {form: form, button: 'Save'}) }}
 
 {% endblock %}
+

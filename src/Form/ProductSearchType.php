@@ -23,17 +23,11 @@ class ProductSearchType extends AbstractType
         $builder
             ->add('frenchName', SearchType::class, [
                 'required' => false,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Nom produit'
-                ]
+                'label' => 'Product',
             ])
             ->add('casNumber', SearchType::class, [
                 'required' => false,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Numero cas'
-                ]
+                'label' => 'CAS',
             ])
             ->add('family', EntityType::class, [
                 'class' => Family::class,
@@ -46,9 +40,6 @@ class ProductSearchType extends AbstractType
 
                 'required' => false,
                 'label' => false,
-                'attr' => [
-                    'placeholder' => 'Stockage'
-                ]
             ])
             ->add('trashCan', EntityType::class, [
                 'class' => TrashCan::class,
@@ -56,16 +47,13 @@ class ProductSearchType extends AbstractType
 
                 'required' => false,
                 'label' => false,
-                'attr' => [
-                    'placeholder' => 'Poubelle'
-                ]
             ])
             ->add('trie', ChoiceType::class, [
                 'choices'  => [
-                    'A à Z' => 0,
-                    'Z à A' => 1,
-                    'plus récent' => 2,
-                    'moins récent' =>3
+                    'A → Z' => 0,
+                    'Z → A' => 1,
+                    'newer' => 2,
+                    'older' =>3
 
                 ],
                 'required' => true,

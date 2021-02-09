@@ -16,17 +16,17 @@
 
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-success">Informations</h6>
+                    <h6 class="m-0 font-weight-bold text-success">{% trans %}Informations{% endtrans %}</h6>
                 </div>
 
                 <!-- Card Body - search options -->
                 <div class="card-body">
-                    <p>Il ne faut pas confondre les recettes avec les solutions. Lorsque vous créez une recette vous écrivez
-                        comment réaliser par la suite une solution. Une recette ne correspond pas à un élément physiquement présent
-                        dans le laboratoire.</p>
+                    <p>{% trans %}Recipes should not be confused with solutions. When you create a recipe you write
+                            how to achieve a solution subsequently. A recipe does not correspond to an element physically present
+                            in the lab.{% endtrans %}</p>
                     <p>
-                        Il faut voir les recettes comme un livre de cuisine et les solutions comme les plats que vous préparez en suivant
-                        les explications du livre.
+                        {% trans %}You have to see the recipes as a cookbook and the solutions as the dishes you prepare by following
+                            the explanations of the book.{% endtrans %}
                     </p>
                 </div>
 
@@ -39,7 +39,7 @@
 
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Recherche</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{% trans %}Search{% endtrans %}</h6>
                 </div>
 
                 <!-- Card Body - search options -->
@@ -48,14 +48,14 @@
                     {{ form_start(form) }}
                     <div class="form-row">
                         <div class="col">
-                            {{ form_row(form.title, {'label' : 'Titre de la recette'}) }}
+                            {{ form_row(form.title, {'label' : 'Title'}) }}
                         </div>
                         <div class="col">
-                            {{ form_row(form.author, { 'label':'Auteur'}) }}
+                            {{ form_row(form.author, { 'label':'Author'}) }}
                         </div>
                     </div>
                     {{ form_widget(form) }}
-                    <button type="submit" class="btn-primary btn">Rechercher</button>
+                    <button type="submit" class="btn-primary btn">{% trans %}Search{% endtrans %}</button>
                     {{ form_end(form) }}
 
                 </div>
@@ -75,7 +75,7 @@
 
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Liste</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{% trans %}List{% endtrans %}</h6>
                 </div>
 
                 <!-- Card Body - search options -->
@@ -84,9 +84,9 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>Titre</th>
-                            <th>Auteur</th>
-                            <th>Action</th>
+                            <th>{% trans %}Title{% endtrans %}</th>
+                            <th>{% trans %}Author{% endtrans %}</th>
+                            {% if is_granted('ROLE_ADMIN') %}<th>{% trans %}Action{% endtrans %}</th>{% endif%}
                         </tr>
                         </thead>
                         <tbody>
@@ -94,14 +94,15 @@
                             <tr>
                                 <td><a href="{{ path('recipe.show', {slug: recipe.slug, id: recipe.id}) }}"><h6>{{ recipe.title }}</h6></a></td>
                                 <td>{{ recipe.author.identity }}</td>
+                                {% if is_granted('ROLE_ADMIN') %}
                                 <td>
-                                    <a href="{{ path('recipe.edit', {id: recipe.id}) }}" class="btn btn-secondary">Editer</a>
                                     <form method="post" action="{{ path('recipe.delete', {id: recipe.id}) }}" style="display: inline-block">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recipe.id) }}">
-                                        <button class="btn btn-danger">Supprimer</button>
+                                        <button class="btn btn-danger" onclick="alert('ADMIN : Are you sure you want to delete this recipe?')">{% trans %}Delete{% endtrans %}</button>
                                     </form>
                                 </td>
+                                {% endif %}
                             </tr>
 
                         {% endfor %}
@@ -116,13 +117,6 @@
                 </div>
 
             </div>
-
-            <div class="text-right">
-                <div style="display:inline-block">
-                    <a href="{{ path('recipe.new') }}" class="btn btn-primary">Créer une nouvelle recette</a>
-                </div>
-            </div>
-
         </div>
 
     </div>

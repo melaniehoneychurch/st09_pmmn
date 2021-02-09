@@ -6,7 +6,7 @@
 
     {% include 'flashes.html.twig' %}
 
-    <h2 class="mb-3">Inventaire</h2>
+    <h2 class="mb-3">{% trans %}Inventory{% endtrans %}</h2>
 
     {# recherche #}
     <!-- Content Row -->
@@ -18,7 +18,7 @@
 
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Recherche</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{% trans %}Search{% endtrans %}</h6>
                 </div>
 
                 <!-- Card Body - search options -->
@@ -27,21 +27,21 @@
                     {{ form_start(form) }}
                     <div class="form-row">
                         <div class="col-lg-6">
-                            {{form_row(form.title, {'label':'Nom/QR_Code'})}}
+                            {{form_row(form.title, {'label':'Name/QR_Code'})}}
                         </div>
                         <div class="col-lg-6">
-                            {{ form_row(form.owner, { 'label':'Créateur'}) }}
+                            {{ form_row(form.owner, { 'label':'Creator'}) }}
                         </div>
 
                         <div class="col-lg-6">
-                            {{form_row(form.storage, {'label':'Stockage'})}}
+                            {{form_row(form.storage, {'label':'Storage'})}}
                         </div>
                         <div class="col-lg-6">
-                            {{ form_row(form.entrydate, { 'label':'Date de création'}) }}
+                            {{ form_row(form.entrydate, { 'label':'Creation date'}) }}
                         </div>
                     </div>
                     {{ form_widget(form) }}
-                    <button type="submit" class="btn-primary btn">Rechercher</button>
+                    <button type="submit" class="btn-primary btn">{% trans %}Search{% endtrans %}</button>
                     {{ form_end(form) }}
 
                 </div>
@@ -62,7 +62,7 @@
 
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Liste</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{% trans %}List{% endtrans %}</h6>
                 </div>
 
                 <!-- Card Body - search options -->
@@ -71,13 +71,14 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>Nom du produit</th>
-                            <th>Concentration/pureté</th>
-                            <th>Quantité</th>
-                            <th>Stockage</th>
-                            <th>Propriétaire</th>
-                            <th>Date d'ajout</th>
-                            <th>Action</th>
+                            <th>{% trans %}Product name{% endtrans %}</th>
+                            <th>{% trans %}Concentration/purity{% endtrans %}</th>
+                            <th>{% trans %}Quantity{% endtrans %}</th>
+                            <th>{% trans %}Storage{% endtrans %}</th>
+                            <th>{% trans %}Owner{% endtrans %}</th>
+                            <th>{% trans %}Added{% endtrans %}</th>
+                            <th>{% trans %}Code{% endtrans %}/th>
+                            <th>{% trans %}Action{% endtrans %}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -102,11 +103,12 @@
                                     {% endif %}
                                 </td>
                                 <td>{{ inventory.date }}</td>
+                                <td>{{ inventory.qrCode }}</td>
                                 <td>
                                     <form method="post" action="{{ path('inventory.delete', {id: inventory.id}) }}" style="display: inline-block">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ inventory.id) }}">
-                                        <button class="btn btn-danger">Supprimer</button>
+                                        <button class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
                                     </form>
                                 </td>
                             </tr>

@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 /**
@@ -203,7 +204,7 @@ class UserInventoryController extends AbstractController
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function new(Request $request)
+    public function new(Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_INVENTORY_MANAGER')) {
@@ -226,7 +227,8 @@ class UserInventoryController extends AbstractController
                     }
                 $this->em->persist($inventory);
                 $this->em->flush();
-                $this->addFlash('success', "Produit ajouté à l'inventaire avec succès");
+                $message = $translator->trans('Product successfully added to inventory');
+                $this->addFlash('success', $message);
                 return $this->redirectToRoute('inventory.index');
             }
 
@@ -245,7 +247,7 @@ class UserInventoryController extends AbstractController
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function edit (Inventory $inventory, Request $request)
+    public function edit (Inventory $inventory, Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
@@ -264,7 +266,8 @@ class UserInventoryController extends AbstractController
             $mix->setUpdatedAt(new \Datetime());
             $this->em->persist($mix);
             $this->em->flush();
-            $this->addFlash('success', 'Solution modifiée avec succès');
+            $message = $translator->trans('Solution modified succesfully');
+            $this->addFlash('success', $message);
 
             //Update dans l'inventaire
             $this->updateInvent($inventory, $mix);
@@ -321,7 +324,7 @@ class UserInventoryController extends AbstractController
      * @param Inventory $inventory
      * @return HttpFoundationResponse
      */
-    public function useItem(Inventory $inventory)
+    public function useItem(Inventory $inventory, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
@@ -338,7 +341,8 @@ class UserInventoryController extends AbstractController
 
         $this->em->persist($risk);
         $this->em->flush();
-        $this->addFlash('success', 'Le produit a été utilisé.');
+        $message = $translator->trans('The product has been used');
+        $this->addFlash('success', $message);
 
         return $this->render('pages/preview.html.twig',[
             'inventory' => $inventory,
@@ -354,7 +358,7 @@ class UserInventoryController extends AbstractController
      * @param Request $request
      * @return RedirectResponse
      */
-    public function deleteMix(Inventory $inventory, Request $request)
+    public function deleteMix(Inventory $inventory, Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
@@ -365,7 +369,8 @@ class UserInventoryController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $inventory->getId(), $request->get('_token'))) {
             $this->em->remove($inventory);
             $this->em->flush();
-            $this->addFlash('success', "Solution supprimée avec succès");
+            $message = $translator->trans('Solution deleted succesfully');
+            $this->addFlash('success', $message);
         }
         return $this->redirectToRoute('inventory.mix');
     }
@@ -379,7 +384,7 @@ class UserInventoryController extends AbstractController
      * @param Request $request
      * @return
      */
-    public function delete(Inventory $inventory, Request $request)
+    public function delete(Inventory $inventory, Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
@@ -390,7 +395,8 @@ class UserInventoryController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $inventory->getId(), $request->get('_token'))) {
             $this->em->remove($inventory);
             $this->em->flush();
-            $this->addFlash('success', "Produit supprimé de l'inventaire avec succès");
+            $message = $translator->trans('Product succesfully removed from inventory');
+            $this->addFlash('success', $message);
         }
         return $this->redirectToRoute('inventory.index');
     }
@@ -403,14 +409,14 @@ class UserInventoryController extends AbstractController
      * @param Request $request
      * @return RedirectResponse
      */
-    public function cancel(Request $request)
+    public function cancel(TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
-
-        $this->addFlash('warning', "Les modifications n'ont pas été enregistrées");
+        $message = $translator->trans("Changes have not been saved");
+        $this->addFlash('warning', $message);
 
         return $this->redirectToRoute('inventory.index');
     }

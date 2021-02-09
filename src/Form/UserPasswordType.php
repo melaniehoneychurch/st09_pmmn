@@ -18,7 +18,7 @@ class UserPasswordType extends AbstractType
     {
         $builder
             ->add('password', TextType::class, [
-                    'label' => 'Modifier mot de passe',
+                    'label' => 'Edit my password',
                     'data' => '',
                 ]
             )

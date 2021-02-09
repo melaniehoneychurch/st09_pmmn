@@ -16,7 +16,7 @@
 
 				<!-- Card Header -->
 				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-					<h6 class="m-0 font-weight-bold text-primary">Recherche</h6>
+					<h6 class="m-0 font-weight-bold text-primary">{% trans %}Search{% endtrans %}</h6>
 				</div>
 
 				<!-- Card Body - search options -->
@@ -24,7 +24,7 @@
 
 					{{ form_start(form) }}
 						{{ form_widget(form) }}
-						<button type="submit" class="btn-primary btn">Rechercher</button>
+						<button type="submit" class="btn-primary btn">{% trans %}Search{% endtrans %}</button>
 					{{ form_end(form) }}
 
 				</div>
@@ -45,7 +45,7 @@
 
 				<!-- Card Header -->
 				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-					<h6 class="m-0 font-weight-bold text-primary">Gérer les utilisateurs</h6>
+					<h6 class="m-0 font-weight-bold text-primary">{% trans %}Manage users{% endtrans %}</h6>
 				</div>
 
 				<!-- Card Body - search options -->
@@ -54,9 +54,9 @@
 					<table class="table table-striped">
 						<thead>
 						<tr>
-							<th class="">Utilisateur</th>
-							<th>Activation</th>
-							<th>Actions</th>
+							<th class="">{% trans %}User{% endtrans %}</th>
+							<th>{% trans %}Activation{% endtrans %}</th>
+							<th>{% trans %}Actions{% endtrans %}</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -64,9 +64,9 @@
 						{% for user in users %}
 							<tr>
 								<td>{{ user.username }} : {{ user.rolesString }}</td>
-								<td>{% if user.activate %} Activé {% else %} Désactivé {% endif %}</td>
+								<td>{% if user.activate %} {% trans %}Enable{% endtrans %} {% else %} {% trans %}Disabled{% endtrans %} {% endif %}</td>
 								<td>
-									<a href="{{ path('usermanager.user.edit', {id: user.id}) }}" class="btn btn-secondary">Editer</a>
+									<a href="{{ path('usermanager.user.edit', {id: user.id}) }}" class="btn btn-secondary">{% trans %}Edit{% endtrans %}</a>
 								</td>
 							</tr>
 						{% endfor %}
@@ -76,11 +76,6 @@
 
 				</div>
 
-			</div>
-
-			{# buttons #}
-			<div class="text-right">
-				<a href="{{ path('usermanager.user.new') }}" class="btn btn-primary">Créer un nouvel utilisateur</a>
 			</div>
 
 		</div>

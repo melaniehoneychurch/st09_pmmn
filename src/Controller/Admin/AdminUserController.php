@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AdminUserController extends AbstractController{
 
@@ -84,7 +85,7 @@ class AdminUserController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function new(Request $request)
+    public function new(Request $request, TranslatorInterface $translator)
     {
         // generate a form to create a new user
         $user = new User();
@@ -96,7 +97,8 @@ class AdminUserController extends AbstractController{
             $user->setPassword($this->encoder->encodePassword($user, $user->getPassword()));
             $this->em->persist($user);
             $this->em->flush();
-            $this->addFlash('success', 'Utilisateur créé avec succès');
+            $message = $translator->trans('User created successfully');
+            $this->addFlash('success', $message);
             return $this->redirectToRoute('admin.user.index');
         }
 
@@ -114,7 +116,7 @@ class AdminUserController extends AbstractController{
      * @param Request $request
      * @return Response
      */
-    public function edit(User $user, Request $request)
+    public function edit(User $user, Request $request, TranslatorInterface $translator)
     {
         // generate a form to modify user information
         $form = $this->createForm(AdminUserType::class, $user);
@@ -123,7 +125,8 @@ class AdminUserController extends AbstractController{
         // analyse the form response and if the form is valid them the user is updated
         if ($form->isSubmitted() && $form->isValid()){
             $this->em->flush();
-            $this->addFlash('success', 'Utilisateur modifié avec succès');
+            $message = $translator->trans('User modified succefully');
+            $this->addFlash('success', $message);
             return $this->redirectToRoute('admin.user.index');
         }
 
@@ -141,7 +144,7 @@ class AdminUserController extends AbstractController{
      * @param Request $request
      * @return Response
      */
-    public function editPassword(User $user, Request $request)
+    public function editPassword(User $user, Request $request, TranslatorInterface $translator)
     {
         // generate a form to modify user password
         $form = $this->createForm(AdminUserPasswordType::class, $user);
@@ -151,7 +154,8 @@ class AdminUserController extends AbstractController{
         if ($form->isSubmitted() && $form->isValid()){
             $user->setPassword($this->encoder->encodePassword($user, $user->getPassword()));
             $this->em->flush();
-            $this->addFlash('success', 'Mot de passe modifié avec succès');
+            $message = $translator->trans('Password modified successfully');
+            $this->addFlash('success', $message);
             return $this->redirectToRoute('admin.user.index');
         }
 
@@ -169,28 +173,30 @@ class AdminUserController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse
      */
-    public function delete(User $user, Request $request)
+    public function delete(User $user, Request $request, TranslatorInterface $translator)
     {
         // analyse the csrf token and if it is valid them the user is deleted
         if($this->isCsrfTokenValid('delete' . $user->getId(),$request->get('_token'))){
             $this->em->remove($user);
             $this->em->flush();
-            $this->addFlash('success', 'Utilisateur supprimé avec succès');
+            $message = $translator->trans('User deleted successfully');
+            $this->addFlash('success', $message);
             return $this->redirectToRoute('admin.user.index');
         }
     }
 
     /**
      * Cancel an action in form
-     * 
+     *
      * @Route("/admin/cancel/users", name="admin.user.cancel")
      *
+     * @param TranslatorInterface $translator
      * @return RedirectResponse
      */
-    public function cancel(Request $request)
+    public function cancel(TranslatorInterface $translator)
     {
-
-        $this->addFlash('warning', "Les modifications n'ont pas été enregistrées");
+        $message = $translator->trans('Changes have not been saved');
+        $this->addFlash('warning', $message);
 
         return $this->redirectToRoute('admin.user.index');
     }

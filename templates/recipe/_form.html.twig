@@ -10,17 +10,17 @@
 
             <!-- Card Header -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Créer une recette</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{% trans %}Write a recipe{% endtrans %}</h6>
             </div>
 
 
             <!-- Card Body - search options -->
             <div class="card-body">
-                {{ form_row(form.title, {'label':'Titre de votre recette'}) }}
-                {{ form_row(form.description, {'label':'Description de votre recette'}) }}
-                {{ form_row(form.confidentiality, {'label':'Recette confidentiel'}) }}
+                {{ form_row(form.title, {'label':'Title of your recipe'}) }}
+                {{ form_row(form.description, {'label':'Description of your recipe'}) }}
+                {{ form_row(form.confidentiality, {'label':'Confidential recipe'}) }}
 
-                <h5>Ingredients</h5>
+                <h5>{% trans %}Ingredients{% endtrans %}</h5>
                 <p/>
 
                 <div class="ingredients-list" data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e('html_attr') }}">
@@ -40,8 +40,8 @@
         </div>
 
         <div class="text-right">
-            <div style="display:inline-block"><button class="btn btn-primary">{{ button|default('Enregistrer') }}</button></div>
-            <div style="display:inline-block"><a href="{{ path('recipe.cancel') }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Annuler</a></div>
+            <div style="display:inline-block"><button class="btn btn-primary">{{ button|default('Save') }}</button></div>
+            <div style="display:inline-block"><a href="{{ path('recipe.cancel') }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> {% trans %}Cancel{% endtrans %}</a></div>
         </div>
 
     </div>

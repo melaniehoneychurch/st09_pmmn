@@ -21,9 +21,6 @@ class MixSearchType extends AbstractType
         $builder
             ->add('title', SearchType::class, [
                 'required' => false,
-                'attr' => [
-                    'placeholder' => 'Solution de ...'
-                ]
             ])
             ->add('creator', EntityType::class,[
                 'class' => User::class,
@@ -31,33 +28,12 @@ class MixSearchType extends AbstractType
                 'multiple' => false,
                 'required' => false,
             ])
-
-            /*->add('storage', EntityType::class, [
-                'class' => Storage::class,
-                'choice_label' => 'name',
-
-                'required' => false,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Stockage'
-                ]
-            ])
-            ->add('trashCan', EntityType::class, [
-                'class' => TrashCan::class,
-                'choice_label' => 'name',
-
-                'required' => false,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Poubelle'
-                ]
-            ])*/
             ->add('trie', ChoiceType::class, [
                 'choices'  => [
-                    'A à Z' => 0,
-                    'Z à A' => 1,
-                    'plus récent' => 2,
-                    'moins récent' =>3
+                    'A → Z' => 0,
+                    'Z → A' => 1,
+                    'newer' => 2,
+                    'older' =>3
 
                 ],
                 'required' => true,

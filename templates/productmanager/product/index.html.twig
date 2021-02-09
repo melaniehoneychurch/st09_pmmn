@@ -16,7 +16,7 @@
 
 				<!-- Card Header -->
 				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-					<h6 class="m-0 font-weight-bold text-primary">Recherche</h6>
+					<h6 class="m-0 font-weight-bold text-primary">{% trans %}Search{% endtrans %}</h6>
 				</div>
 
 				<!-- Card Body - search options -->
@@ -31,18 +31,18 @@
 							{{form_row(form.casNumber)}}
 						</div>
 						<div class="col-lg-4">
-							{{ form_row(form.family, {'label':'Famille'}) }}
+							{{ form_row(form.family, {'label':'Family'}) }}
 						</div>
 						<div class="col-lg-4">
-							{{ form_row(form.storage, {'label':'Stockage'})}}
+							{{ form_row(form.storage, {'label':'Storage'})}}
 						</div>
 						<div class="col-lg-4">
-							{{ form_row(form.trashCan, {'label':'Poubelle'}) }}
+							{{ form_row(form.trashCan, {'label':'Bin'}) }}
 
 						</div>
 					</div>
 					{{ form_widget(form) }}
-					<button type="submit" class="btn-primary btn">Rechercher</button>
+					<button type="submit" class="btn-primary btn">{% trans %}Search{% endtrans %}</button>
 					{{ form_end(form) }}
 
 				</div>
@@ -62,7 +62,7 @@
 
 				<!-- Card Header -->
 				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-					<h6 class="m-0 font-weight-bold text-primary">Liste</h6>
+					<h6 class="m-0 font-weight-bold text-primary">{% trans %}List{% endtrans %}</h6>
 				</div>
 
 				<!-- Card Body - search options -->
@@ -71,8 +71,8 @@
 					<table class="table table-striped">
 						<thead>
 						<tr>
-							<th>Titre</th>
-							<th>Action</th>
+							<th>{% trans %}Title{% endtrans %}</th>
+							<th>{% trans %}Actions{% endtrans %}</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -80,11 +80,11 @@
 							<tr>
 								<td>{{ product.frenchName }}</td>
 								<td>
-									<a href="{{ path('productmanager.product.edit', {id: product.id}) }}" class="btn btn-secondary">Editer</a>
+									<a href="{{ path('productmanager.product.edit', {id: product.id}) }}" class="btn btn-secondary">{% trans %}Edit{% endtrans %}</a>
 									<form method="post" action="{{ path('productmanager.product.delete', {id: product.id}) }}" style="display: inline-block">
 										<input type="hidden" name="_method" value="DELETE">
 										<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
-										<button class="btn btn-danger">Supprimer</button>
+										<button class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
 									</form>
 								</td>
 							</tr>
@@ -100,18 +100,6 @@
 
 				</div>
 
-			</div>
-
-			<div class="text-right">
-				<div>
-					<a href="{{ path('productmanager.product.new') }}" class="btn btn-primary">Créer un nouveau produit</a>
-				</div>
-			</div>
-
-			<div class="text-right">
-				<div class="mt-2">
-					<a href="{{ path('productmanager.family') }}" class="btn btn-outline-primary">Ajouter une nouvelle famille</a>
-				</div>
 			</div>
 
 		</div>

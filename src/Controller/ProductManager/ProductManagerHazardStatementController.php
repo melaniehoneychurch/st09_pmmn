@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 class ProductManagerHazardStatementController extends AbstractController{
@@ -90,7 +91,7 @@ class ProductManagerHazardStatementController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function new(Request $request)
+    public function new(Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
@@ -106,7 +107,8 @@ class ProductManagerHazardStatementController extends AbstractController{
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($hazardStatement);
             $this->em->flush();
-            $this->addFlash('success', 'Mention de danger créée avec succès');
+            $message = $translator->trans('Hazard statement created successfully');
+            $this->addFlash('success', $message);
             return $this->redirectToRoute('productmanager.hazardStatement.index');
         }
 
@@ -125,7 +127,7 @@ class ProductManagerHazardStatementController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function edit(HazardStatement $hazardStatement, Request $request)
+    public function edit(HazardStatement $hazardStatement, Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
@@ -140,7 +142,8 @@ class ProductManagerHazardStatementController extends AbstractController{
         if ($form->isSubmitted() && $form->isValid()) {
             
                 $this->em->flush();
-                $this->addFlash('success', 'Mention de danger modifiée avec succès');
+            $message = $translator->trans('Hazard statement modified successfully');
+                $this->addFlash('success', $message);
             
             return $this->redirectToRoute('productmanager.hazardStatement.index');
         }
@@ -160,7 +163,7 @@ class ProductManagerHazardStatementController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse
      */
-    public function delete(HazardStatement $hazardStatement, Request $request)
+    public function delete(HazardStatement $hazardStatement, Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
@@ -171,27 +174,28 @@ class ProductManagerHazardStatementController extends AbstractController{
         if ($this->isCsrfTokenValid('delete' . $hazardStatement->getId(), $request->get('_token'))) {
             $this->em->remove($hazardStatement);
             $this->em->flush();
-            $this->addFlash('success', 'Mention de danger supprimée avec succès');
+            $message = $translator->trans('Hazard statement deleted successfully');
+            $this->addFlash('success', $message);
         }
         return $this->redirectToRoute('productmanager.hazardStatement.index');
     }
 
     /**
      * Cancel an action in form
-     * 
+     *
      * @Route("/productmanager/cancel/hazardStatement", name="productmanager.hazardStatement.cancel")
      *
-     * @param Request $request
+     * @param TranslatorInterface $translator
      * @return RedirectResponse
      */
-    public function cancel(Request $request)
+    public function cancel(TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
-
-        $this->addFlash('warning', "Les modifications n'ont pas été enregistrées");
+        $message = $translator->trans('Changes have not been saved');
+        $this->addFlash('warning', $message);
 
         return $this->redirectToRoute('productmanager.hazardStatement.index');
     }

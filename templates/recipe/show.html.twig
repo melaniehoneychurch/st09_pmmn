@@ -14,7 +14,7 @@
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">{{ recipe.title }}
-                        {% if recipe.confidentiality %} (Confidentielle <i class="fas fa-eye-slash"></i>) {% endif %}
+                        {% if recipe.confidentiality %} ({% trans %}Confidential{% endtrans %} <i class="fas fa-eye-slash"></i>) {% endif %}
                     </h6>
                 </div>
                 <!-- Card Body -->
@@ -23,7 +23,7 @@
                 </div>
                 <!-- Card Footer -->
                 <div class="card-footer">
-                    Rédigée par {{ recipe.author.identity }}
+                    {% trans %}Written by{% endtrans %} {{ recipe.author.identity }}
                 </div>
             </div>
         </div>
@@ -34,15 +34,15 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header  d-flex flex-row align-items-center justify-content-between">
-                    <h6 class=" font-weight-bold text-primary">Ingrédients</h6>
+                    <h6 class=" font-weight-bold text-primary">{% trans %}Ingredients{% endtrans %}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>Produit</th>
-                            <th>Quantité</th>
+                            <th>{% trans %}Product{% endtrans %}</th>
+                            <th>{% trans %}Quantity{% endtrans %}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -68,7 +68,7 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Pictogramme de danger</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{% trans %}Danger pictograms{% endtrans %}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">

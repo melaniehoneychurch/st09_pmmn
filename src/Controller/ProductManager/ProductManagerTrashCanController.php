@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 class ProductManagerTrashCanController extends AbstractController{
@@ -82,7 +83,7 @@ class ProductManagerTrashCanController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function new(Request $request)
+    public function new(Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
@@ -98,7 +99,8 @@ class ProductManagerTrashCanController extends AbstractController{
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($trashCan);
             $this->em->flush();
-            $this->addFlash('success', 'Poubelle créée avec succès');
+            $message = $translator->trans('Trash created successfully');
+            $this->addFlash('success', $message);
             return $this->redirectToRoute('productmanager.trashCan.index');
         }
 
@@ -117,7 +119,7 @@ class ProductManagerTrashCanController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function edit(TrashCan $trashCan, Request $request)
+    public function edit(TrashCan $trashCan, Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
@@ -132,6 +134,7 @@ class ProductManagerTrashCanController extends AbstractController{
         if ($form->isSubmitted() && $form->isValid()) {
 
             $this->em->flush();
+            $message = $translator->trans('Trash modified successfully');
             $this->addFlash('success', 'Poubelle modifiée avec succès');
 
             return $this->redirectToRoute('productmanager.trashCan.index');
@@ -153,7 +156,7 @@ class ProductManagerTrashCanController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse
      */
-    public function delete(TrashCan $trashCan, Request $request)
+    public function delete(TrashCan $trashCan, Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
@@ -163,6 +166,7 @@ class ProductManagerTrashCanController extends AbstractController{
         if ($this->isCsrfTokenValid('delete' . $trashCan->getId(), $request->get('_token'))) {
             $this->em->remove($trashCan);
             $this->em->flush();
+            $message = $translator->trans('Trash deleted successfully');
             $this->addFlash('success', 'Poubelle supprimée avec succès');
         }
         return $this->redirectToRoute('productmanager.trashCan.index');
@@ -176,14 +180,14 @@ class ProductManagerTrashCanController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse
      */
-    public function cancel(Request $request)
+    public function cancel(TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
-
-        $this->addFlash('warning', "Les modifications n'ont pas été enregistrées");
+        $message = $translator->trans('Modification have not been saved');
+        $this->addFlash('warning', $message);
 
         return $this->redirectToRoute('productmanager.trashCan.index');
     }

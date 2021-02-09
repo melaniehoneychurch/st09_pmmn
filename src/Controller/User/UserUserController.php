@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserUserController extends AbstractController{
 
@@ -73,7 +74,7 @@ class UserUserController extends AbstractController{
      * @param Request $request
      * @return Response
      */
-    public function edit(Request $request)
+    public function edit(Request $request, TranslatorInterface $translator)
     {
         // generate a form to modify information
         $user = $this->security->getUser();
@@ -83,7 +84,8 @@ class UserUserController extends AbstractController{
         // analyse the form response and if the form is valid them informations are updated
         if ($form->isSubmitted() && $form->isValid()){
             $this->em->flush();
-            $this->addFlash('success', 'Informations modifiées avec succès');
+            $message = $translator->trans("Informations modified succesfully");
+            $this->addFlash('success', $message);
             return $this->redirectToRoute('user.show');
         }
 
@@ -100,7 +102,7 @@ class UserUserController extends AbstractController{
      * @param Request $request
      * @return Response
      */
-    public function editPassword(Request $request)
+    public function editPassword(Request $request, TranslatorInterface $translator)
     {
         // generate a form to modify user password
         $user = $this->security->getUser();
@@ -111,7 +113,8 @@ class UserUserController extends AbstractController{
         if ($form->isSubmitted() && $form->isValid()){
             $user->setPassword($this->encoder->encodePassword($user, $user->getPassword()));
             $this->em->flush();
-            $this->addFlash('success', 'Mot de passe modifié avec succès');
+            $message = $translator->trans('Password modified succesfully');
+            $this->addFlash('success', $message);
             return $this->redirectToRoute('user.show');
         }
 
@@ -128,9 +131,10 @@ class UserUserController extends AbstractController{
      *
      * @return RedirectResponse
      */
-    public function cancel()
+    public function cancel(TranslatorInterface $translator)
     {
-        $this->addFlash('warning', "Les modifications n'ont pas été enregistrées");
+        $message = $translator->trans('Changes have not been saved');
+        $this->addFlash('warning', $message);
 
         return $this->redirectToRoute('user.show');
     }

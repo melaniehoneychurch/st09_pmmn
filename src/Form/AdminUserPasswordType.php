@@ -18,7 +18,7 @@ class AdminUserPasswordType extends AbstractType
     {
         $builder
             ->add('password', TextType::class, [
-                    'label' => 'Modifier mot de passe',
+                    'label' => 'Edit password',
                     'data' => '',
                 ]
             )

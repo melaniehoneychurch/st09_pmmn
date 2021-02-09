@@ -1,0 +1,863 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="dNTt7d0" resname="User created successfully">
+        <source>User created successfully</source>
+        <target>Utilisateur créé avec succès</target>
+      </trans-unit>
+      <trans-unit id="bj9t2ue" resname="User modified succefully">
+        <source>User modified succefully</source>
+        <target>Utilisateur modifié avec succès</target>
+      </trans-unit>
+      <trans-unit id="J3qPAvK" resname="Password modified successfully">
+        <source>Password modified successfully</source>
+        <target>Mot de passe modifié avec succès</target>
+      </trans-unit>
+      <trans-unit id="CIageFh" resname="User deleted successfully">
+        <source>User deleted successfully</source>
+        <target>Utilisateur supprimé avec succès</target>
+      </trans-unit>
+      <trans-unit id="FbNXAFm" resname="Changes have not been saved">
+        <source>Changes have not been saved</source>
+        <target>Les modifications n'ont pas été enregistrées</target>
+      </trans-unit>
+      <trans-unit id="a6ebhiJ" resname="Hazard statement created successfully">
+        <source>Hazard statement created successfully</source>
+        <target>Mention de danger créé avec succès</target>
+      </trans-unit>
+      <trans-unit id="dMz4dQr" resname="Hazard statement modified successfully">
+        <source>Hazard statement modified successfully</source>
+        <target>Mention de danger modifié avec succès</target>
+      </trans-unit>
+      <trans-unit id="Z8ivZsw" resname="Hazard statement deleted successfully">
+        <source>Hazard statement deleted successfully</source>
+        <target>Mention de danger supprimé avec succès</target>
+      </trans-unit>
+      <trans-unit id="kke2EYm" resname="Pictogram created successfully">
+        <source>Pictogram created successfully</source>
+        <target>Pictogramme créé avec succès</target>
+      </trans-unit>
+      <trans-unit id="ChYnpwn" resname="Pictogram modified successfully">
+        <source>Pictogram modified successfully</source>
+        <target>Pictogramme modifié avec succès</target>
+      </trans-unit>
+      <trans-unit id="habp5w1" resname="Product created successfully">
+        <source>Product created successfully</source>
+        <target>Product créé avec succès</target>
+      </trans-unit>
+      <trans-unit id="7LN3Oox" resname="Family created successfully">
+        <source>Family created successfully</source>
+        <target>Famille créée avec succès</target>
+      </trans-unit>
+      <trans-unit id="S3iKCtF" resname="Product modified successfully">
+        <source>Product modified successfully</source>
+        <target>Produit modifié avec succès</target>
+      </trans-unit>
+      <trans-unit id="JjU8d5k" resname="Product deleted successfully">
+        <source>Product deleted successfully</source>
+        <target>Produit supprimé avec succès</target>
+      </trans-unit>
+      <trans-unit id="X53TtO2" resname="Storage created successfully">
+        <source>Storage created successfully</source>
+        <target>Stockage créée avec succès</target>
+      </trans-unit>
+      <trans-unit id="MFgIVRS" resname="Storage modified successfully">
+        <source>Storage modified successfully</source>
+        <target>Stockage modifié avec succès</target>
+      </trans-unit>
+      <trans-unit id="Z_dV0PC" resname="You cannot delete this storage because it currently contains at least one product.">
+        <source>You cannot delete this storage because it currently contains at least one product.</source>
+        <target>Vous ne pouvez pas supprimé ce stockage car il contient actuellement au moins un produit.</target>
+      </trans-unit>
+      <trans-unit id="JUy1409" resname="Storage deleted successfully">
+        <source>Storage deleted successfully</source>
+        <target>Stockage supprimé avec succès</target>
+      </trans-unit>
+      <trans-unit id=".tZ8QkW" resname="Trash created successfully">
+        <source>Trash created successfully</source>
+        <target>Poubelle créée avec succès</target>
+      </trans-unit>
+      <trans-unit id="vZcYUH1" resname="Trash modified successfully">
+        <source>Trash modified successfully</source>
+        <target>Poubelle modifié avec succès</target>
+      </trans-unit>
+      <trans-unit id="AVfqVp9" resname="Trash deleted successfully">
+        <source>Trash deleted successfully</source>
+        <target>Poubelle supprimée avec succès</target>
+      </trans-unit>
+      <trans-unit id="SJx8Fqp" resname="Modification have not been saved">
+        <source>Modification have not been saved</source>
+        <target>Les modifications n'ont pas été enregistrées</target>
+      </trans-unit>
+      <trans-unit id="FmRadpn" resname="User modified successfully">
+        <source>User modified successfully</source>
+        <target>Utilisateur modifié avec succès</target>
+      </trans-unit>
+      <trans-unit id="IUbdhzX" resname="Product successfully added to inventory">
+        <source>Product successfully added to inventory</source>
+        <target>Produit ajouté à l'inventaire avec succès</target>
+      </trans-unit>
+      <trans-unit id="BHyN4Aq" resname="Solution modified succesfully">
+        <source>Solution modified succesfully</source>
+        <target>Solution modifiée avec succès</target>
+      </trans-unit>
+      <trans-unit id="lUHHfCG" resname="The product has been used">
+        <source>The product has been used</source>
+        <target>Le produit a été utilisé</target>
+      </trans-unit>
+      <trans-unit id="fMZtUZy" resname="Solution deleted succesfully">
+        <source>Solution deleted succesfully</source>
+        <target>Solution supprimée avec succès</target>
+      </trans-unit>
+      <trans-unit id="mwkhKE_" resname="Product succesfully removed from inventory">
+        <source>Product succesfully removed from inventory</source>
+        <target>Produit supprimé de l'inventaire avec succès</target>
+      </trans-unit>
+      <trans-unit id="GsJczBs" resname="Solution created succesfully">
+        <source>Solution created succesfully</source>
+        <target>Solution créée avec succès</target>
+      </trans-unit>
+      <trans-unit id="6H5KqNY" resname="Solution modified succefully">
+        <source>Solution modified succefully</source>
+        <target>Solution modifiée avec succès</target>
+      </trans-unit>
+      <trans-unit id="boKzqkK" resname="Recipe created succesfully">
+        <source>Recipe created succesfully</source>
+        <target>Recette créée avec succès</target>
+      </trans-unit>
+      <trans-unit id="cmxIf0z" resname="Recipe modified succesfully">
+        <source>Recipe modified succesfully</source>
+        <target>Recette modifiée avec succès</target>
+      </trans-unit>
+      <trans-unit id="nEvgP4Y" resname="Recipe deleted succefully">
+        <source>Recipe deleted succefully</source>
+        <target>Recette supprimée avec succès</target>
+      </trans-unit>
+      <trans-unit id="uKuikvP" resname="Informations modified succesfully">
+        <source>Informations modified succesfully</source>
+        <target>Informations modifiées avec succès</target>
+      </trans-unit>
+      <trans-unit id="zf2ErYJ" resname="Password modified succesfully">
+        <source>Password modified succesfully</source>
+        <target>Mot de passe modifié avec succès</target>
+      </trans-unit>
+      <trans-unit id="TTbtqfm" resname="Your message has been sent">
+        <source>Your message has been sent</source>
+        <target>Votre message a été envoyé</target>
+      </trans-unit>
+      <trans-unit id="UfDrDwQ" resname="Modify password">
+        <source>Modify password</source>
+        <target>Modifier mot de passe</target>
+      </trans-unit>
+      <trans-unit id="GXZu1sy" resname="Cancel">
+        <source>Cancel</source>
+        <target>Annuler</target>
+      </trans-unit>
+      <trans-unit id="tDhjwNc" resname="Gérer les utilisateurs">
+        <source>Gérer les utilisateurs</source>
+        <target>Gérer les utilisateurs</target>
+      </trans-unit>
+      <trans-unit id="ScJmuqq" resname="Search">
+        <source>Search</source>
+        <target>Rechercher</target>
+      </trans-unit>
+      <trans-unit id="byAvVKe" resname="List">
+        <source>List</source>
+        <target>Liste</target>
+      </trans-unit>
+      <trans-unit id="tRLZfny" resname="User">
+        <source>User</source>
+        <target>Utilisateur</target>
+      </trans-unit>
+      <trans-unit id="XZOdQAg" resname="Activation">
+        <source>Activation</source>
+        <target>Activation</target>
+      </trans-unit>
+      <trans-unit id=".4BZ3Gd" resname="Actions">
+        <source>Actions</source>
+        <target>Actions</target>
+      </trans-unit>
+      <trans-unit id="fns6AVO" resname="Activated">
+        <source>Activated</source>
+        <target>Activaté</target>
+      </trans-unit>
+      <trans-unit id="AutMwy0" resname="Inactivated">
+        <source>Inactivated</source>
+        <target>Désactivé</target>
+      </trans-unit>
+      <trans-unit id="RkxP.QG" resname="Edit">
+        <source>Edit</source>
+        <target>Editer</target>
+      </trans-unit>
+      <trans-unit id="OGSYScd" resname="a user">
+        <source>a user</source>
+        <target>un utilisateur</target>
+      </trans-unit>
+      <trans-unit id="jK01QXs" resname="Laboratory L2N">
+        <source>Laboratory L2N</source>
+        <target>Laboratoire L2N</target>
+      </trans-unit>
+      <trans-unit id="zCSq8sL" resname="Product list">
+        <source>Product list</source>
+        <target>Liste produits</target>
+      </trans-unit>
+      <trans-unit id="RpCCl3n" resname="Recipes &amp; Solutions">
+        <source>Recipes &amp; Solutions</source>
+        <target><![CDATA[Recettes & Solutions]]></target>
+      </trans-unit>
+      <trans-unit id="1mQoLmL" resname="Recipes">
+        <source>Recipes</source>
+        <target>Recettes</target>
+      </trans-unit>
+      <trans-unit id="5Eh__Aq" resname="New recipe">
+        <source>New recipe</source>
+        <target>Nouvelle recette</target>
+      </trans-unit>
+      <trans-unit id="x7sys9V" resname="All recipes">
+        <source>All recipes</source>
+        <target>Toutes les recettes</target>
+      </trans-unit>
+      <trans-unit id="GVxL87C" resname="My recipes">
+        <source>My recipes</source>
+        <target>Mes recettes</target>
+      </trans-unit>
+      <trans-unit id="kA.hL6o" resname="Solutions">
+        <source>Solutions</source>
+        <target>Solutions</target>
+      </trans-unit>
+      <trans-unit id="Bbk7uOZ" resname="New solution">
+        <source>New solution</source>
+        <target>Nouvelle solution</target>
+      </trans-unit>
+      <trans-unit id="2.C6l8J" resname="All solutions">
+        <source>All solutions</source>
+        <target>Toutes les solutions</target>
+      </trans-unit>
+      <trans-unit id="WSsORgL" resname="My solutions">
+        <source>My solutions</source>
+        <target>Mes solutions</target>
+      </trans-unit>
+      <trans-unit id="5RJIdzu" resname="Management">
+        <source>Management</source>
+        <target>Gestion</target>
+      </trans-unit>
+      <trans-unit id="AsuHIGi" resname="Product moderation">
+        <source>Product moderation</source>
+        <target>Modération produits</target>
+      </trans-unit>
+      <trans-unit id="0thd0Zq" resname="Products list">
+        <source>Products list</source>
+        <target>Liste produits</target>
+      </trans-unit>
+      <trans-unit id="ROFMjSF" resname="New product">
+        <source>New product</source>
+        <target>Ajouter produit</target>
+      </trans-unit>
+      <trans-unit id="shfmRps" resname="New family">
+        <source>New family</source>
+        <target>Ajouter famille</target>
+      </trans-unit>
+      <trans-unit id="YRYEucq" resname="Pictograms list">
+        <source>Pictograms list</source>
+        <target>Liste pictogrammes</target>
+      </trans-unit>
+      <trans-unit id="VCWCT2R" resname="New pictogram">
+        <source>New pictogram</source>
+        <target>Ajouter pictogramme</target>
+      </trans-unit>
+      <trans-unit id="GrkbOQi" resname="Storages list">
+        <source>Storages list</source>
+        <target>Liste stockages</target>
+      </trans-unit>
+      <trans-unit id="BtFAS.q" resname="New storage">
+        <source>New storage</source>
+        <target>Ajouter stockage</target>
+      </trans-unit>
+      <trans-unit id="iXoije6" resname="Bins list">
+        <source>Bins list</source>
+        <target>Liste poubelles</target>
+      </trans-unit>
+      <trans-unit id="cbGUtB6" resname="New bin">
+        <source>New bin</source>
+        <target>Ajouter poubelle</target>
+      </trans-unit>
+      <trans-unit id=".2GceRQ" resname="GHS list">
+        <source>GHS list</source>
+        <target>Liste GHS</target>
+      </trans-unit>
+      <trans-unit id="M2st0An" resname="New GHS">
+        <source>New GHS</source>
+        <target>Ajouter GHS</target>
+      </trans-unit>
+      <trans-unit id="WGBuWCR" resname="Manage users">
+        <source>Manage users</source>
+        <target>Gérer utilisateurs</target>
+      </trans-unit>
+      <trans-unit id="OnqBk.y" resname="Users list">
+        <source>Users list</source>
+        <target>Liste utilisateurs</target>
+      </trans-unit>
+      <trans-unit id="Y4T.p3E" resname="New user">
+        <source>New user</source>
+        <target>Ajouter utilisateur</target>
+      </trans-unit>
+      <trans-unit id="dY9If_j" resname="Inventory">
+        <source>Inventory</source>
+        <target>Inventaire</target>
+      </trans-unit>
+      <trans-unit id="4fu3dd4" resname="See inventory">
+        <source>See inventory</source>
+        <target>Voir l'inventaire</target>
+      </trans-unit>
+      <trans-unit id="b5iWZzk" resname="New inventory">
+        <source>New inventory</source>
+        <target>Ajouter à l'inventaire</target>
+      </trans-unit>
+      <trans-unit id="YTEKKtV" resname="Export inventory">
+        <source>Export inventory</source>
+        <target>Exporter l'inventaire</target>
+      </trans-unit>
+      <trans-unit id="59PnafP" resname="Administrator">
+        <source>Administrator</source>
+        <target>Administrateur</target>
+      </trans-unit>
+      <trans-unit id="R6rzG4P" resname="Contact us">
+        <source>Contact us</source>
+        <target>Nous contacter</target>
+      </trans-unit>
+      <trans-unit id="6hxRDR3" resname="Scan">
+        <source>Scan</source>
+        <target>Scan</target>
+      </trans-unit>
+      <trans-unit id="0FJ_Sz1" resname="Logout">
+        <source>Logout</source>
+        <target>Se déconnecter</target>
+      </trans-unit>
+      <trans-unit id="nWMiwfT" resname="Login">
+        <source>Login</source>
+        <target>Se connecter</target>
+      </trans-unit>
+      <trans-unit id="v6k_tNT" resname="Product name">
+        <source>Product name</source>
+        <target>Nom produit</target>
+      </trans-unit>
+      <trans-unit id="uMFqLvt" resname="Concentration/purity">
+        <source>Concentration/purity</source>
+        <target>Concentration/pureté</target>
+      </trans-unit>
+      <trans-unit id="giurjUG" resname="Quantity">
+        <source>Quantity</source>
+        <target>Quantité</target>
+      </trans-unit>
+      <trans-unit id="ppxN7OF" resname="Storage">
+        <source>Storage</source>
+        <target>Stockage</target>
+      </trans-unit>
+      <trans-unit id="SxuKo2C" resname="Owner">
+        <source>Owner</source>
+        <target>Propriétaire</target>
+      </trans-unit>
+      <trans-unit id="awLg02O" resname="Added">
+        <source>Added</source>
+        <target>Description de votre solution</target>
+      </trans-unit>
+      <trans-unit id="NA9GMDP" resname="Code">
+        <source>Code</source>
+        <target>Code</target>
+      </trans-unit>
+      <trans-unit id="ZM.xMZ0" resname="Action">
+        <source>Action</source>
+        <target>Action</target>
+      </trans-unit>
+      <trans-unit id="4tClSWj" resname="Delete">
+        <source>Delete</source>
+        <target>Supprimer</target>
+      </trans-unit>
+      <trans-unit id="fozSBW2" resname="Title">
+        <source>Title</source>
+        <target>Titre</target>
+      </trans-unit>
+      <trans-unit id="1wueJLy" resname="Created">
+        <source>Created</source>
+        <target>Créée le</target>
+      </trans-unit>
+      <trans-unit id="gnSY91f" resname="Add a product to inventory">
+        <source>Add a product to inventory</source>
+        <target>Ajouter un produit dans l'inventaire</target>
+      </trans-unit>
+      <trans-unit id="QSvguc1" resname="Informations">
+        <source>Informations</source>
+        <target>Informations</target>
+      </trans-unit>
+      <trans-unit id="iUXRb4W" resname="Solutions represent the physical instantiation of a recipe.&#10;                        When you create a solution it will be added to the lab inventory">
+        <source>Solutions represent the physical instantiation of a recipe.
+                        When you create a solution it will be added to the lab inventory</source>
+        <target>Les solutions représentent l'instanciation physique d'une recette.
+                        Lorsque vous créez une solution, elle est automatiquement ajouté à l'inventaire</target>
+      </trans-unit>
+      <trans-unit id="iER7gwk" resname="Creator">
+        <source>Creator</source>
+        <target>Créateur</target>
+      </trans-unit>
+      <trans-unit id="UkLC8m5" resname="You are about to add a new solution. If you haven't already, consider creating the recipe to which your solution is associated.">
+        <source>You are about to add a new solution. If you haven't already, consider creating the recipe to which your solution is associated.</source>
+        <target>Vous êtes sur le point de créer une nouvelle solution. Si vous ne l'avez pas déjà fait, n'oubliez pas de créer la recette à laquelle votre solution est associée.</target>
+      </trans-unit>
+      <trans-unit id="_ttwd3F" resname="You can also create a solution without a recipe if you feel it is not necessary. In this case you just need not to choose a recipe in the &quot;recipe&quot; tab below.">
+        <source>You can also create a solution without a recipe if you feel it is not necessary. In this case you just need not to choose a recipe in the "recipe" tab below.</source>
+        <target>Vous pouvez également créer une solution sans recette si vous jugez que ça n'est pas nécessaire. Dans ce cas, il vous suffit de ne pas choisir de recette dans l'onglet "recette" ci-dessous.</target>
+      </trans-unit>
+      <trans-unit id="o_g67oY" resname="Confidential">
+        <source>Confidential</source>
+        <target>Confidentielle</target>
+      </trans-unit>
+      <trans-unit id="JaI5F5w" resname="Made by">
+        <source>Made by</source>
+        <target>Créée par</target>
+      </trans-unit>
+      <trans-unit id="uNMehSc" resname="on">
+        <source>on</source>
+        <target>le</target>
+      </trans-unit>
+      <trans-unit id="9Fo0ttF" resname="This solution was prepared from a confidential recipe">
+        <source>This solution was prepared from a confidential recipe</source>
+        <target>Cette solution a été préparée à partir d'une recette confidentielle</target>
+      </trans-unit>
+      <trans-unit id="i4hBqIE" resname="This solution was created from the recipe:">
+        <source>This solution was created from the recipe:</source>
+        <target>Cette solution a été créée à partir de la recette :</target>
+      </trans-unit>
+      <trans-unit id="h2dduDo" resname="Ingredients">
+        <source>Ingredients</source>
+        <target>Ingrédients</target>
+      </trans-unit>
+      <trans-unit id="_574lBd" resname="Product">
+        <source>Product</source>
+        <target>Produit</target>
+      </trans-unit>
+      <trans-unit id="Rtl39Nt" resname="Danger pictograms">
+        <source>Danger pictograms</source>
+        <target>Pictogrammes de danger</target>
+      </trans-unit>
+      <trans-unit id="QQ5SWBR" resname="Confidential solution">
+        <source>Confidential solution</source>
+        <target>Solution confidentielle</target>
+      </trans-unit>
+      <trans-unit id="nxTQvOv" resname="Add new solution">
+        <source>Add new solution</source>
+        <target>Ajouter une nouvelle solution</target>
+      </trans-unit>
+      <trans-unit id="MA8amrS" resname="You can use the form below to contact the administrators of the site and thus notify them&#10;                        if you have any problems while browsing.">
+        <source>You can use the form below to contact the administrators of the site and thus notify them
+                        if you have any problems while browsing.</source>
+        <target>Vous pouvez utiliser le formulaire ci-dessous pour contacter les administrateurs du
+               site et ainsi leur signaler si vous rencontrez des problèmes lors de votre navigation.</target>
+      </trans-unit>
+      <trans-unit id="K1w9JnI" resname="Contact">
+        <source>Contact</source>
+        <target>Contact</target>
+      </trans-unit>
+      <trans-unit id="9vRoj.I" resname="Send">
+        <source>Send</source>
+        <target>Envoyer</target>
+      </trans-unit>
+      <trans-unit id="bkSRYlL" resname="You have scanned">
+        <source>You have scanned</source>
+        <target>Vous avez scanné</target>
+      </trans-unit>
+      <trans-unit id="mCueOn4" resname=", what do you want to do ?">
+        <source>, what do you want to do ?</source>
+        <target>, que voulez-vous faire ?</target>
+      </trans-unit>
+      <trans-unit id=".p_ZHGo" resname="Use the solution">
+        <source>Use the solution</source>
+        <target>Utiliser la solution</target>
+      </trans-unit>
+      <trans-unit id="5VYqXfW" resname="Learn more about this solution">
+        <source>Learn more about this solution</source>
+        <target>En savoir plus sur la solution</target>
+      </trans-unit>
+      <trans-unit id="Cqn..L9" resname="See in inventory">
+        <source>See in inventory</source>
+        <target>Voir son inventaire</target>
+      </trans-unit>
+      <trans-unit id="Yy5DlYR" resname="This is a confidential solution, for your own safety you can know&#10;                                its date of manufacture and the dangers associated with it.">
+        <source>This is a confidential solution, for your own safety you can know
+                                its date of manufacture and the dangers associated with it.</source>
+        <target>Il s'agit d'une solution confidentielle, pour votre propre sécurité vous avez accès
+                à sa date de fabrication et les dangers qui lui sont associés.</target>
+      </trans-unit>
+      <trans-unit id="7mmFaVK" resname="Obligation pictograms">
+        <source>Obligation pictograms</source>
+        <target>Pictogrammes de recommandation</target>
+      </trans-unit>
+      <trans-unit id="x3aG7eE" resname="Use product">
+        <source>Use product</source>
+        <target>Utiliser le produit</target>
+      </trans-unit>
+      <trans-unit id="gB66hDu" resname="No security sheet">
+        <source>No security sheet</source>
+        <target>Pas de fiche de sécurité</target>
+      </trans-unit>
+      <trans-unit id="vhd7lAK" resname="Bin">
+        <source>Bin</source>
+        <target>Poubelle</target>
+      </trans-unit>
+      <trans-unit id="yu3NGPH" resname="QR Code scanner">
+        <source>QR Code scanner</source>
+        <target>QR Code scanner</target>
+      </trans-unit>
+      <trans-unit id="uitZfxE" resname="No access to the camera (Check that your camera is activated)">
+        <source>No access to the camera (Check that your camera is activated)</source>
+        <target>Pas d'accès à la camera (Vérifiez que votre caméra est bien activée)</target>
+      </trans-unit>
+      <trans-unit id="ZglGb9." resname="No QrCode detected">
+        <source>No QrCode detected</source>
+        <target>Pas de QrCode détecté</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target>Nom</target>
+      </trans-unit>
+      <trans-unit id="vS1ney7" resname="Family">
+        <source>Family</source>
+        <target>Famille</target>
+      </trans-unit>
+      <trans-unit id="9mMV6w4" resname="In stock">
+        <source>In stock</source>
+        <target>En stock</target>
+      </trans-unit>
+      <trans-unit id="fS0VSgz" resname="Display the complete safety data sheet">
+        <source>Display the complete safety data sheet</source>
+        <target>Afficher la fiche de sécurité complète</target>
+      </trans-unit>
+      <trans-unit id="d52MWzn" resname="Download the complete safety data sheet">
+        <source>Download the complete safety data sheet</source>
+        <target>Télécharger la fiche de sécurité complète</target>
+      </trans-unit>
+      <trans-unit id="7DkxZgz" resname="No safety data sheet">
+        <source>No safety data sheet</source>
+        <target>Pas de fiche de sécurité</target>
+      </trans-unit>
+      <trans-unit id="rUtg4Fd" resname="Print the summary safety sheet">
+        <source>Print the summary safety sheet</source>
+        <target>Imprimer la fiche de sécurité résumée</target>
+      </trans-unit>
+      <trans-unit id="2BFeolE" resname="Print product QR Code">
+        <source>Print product QR Code</source>
+        <target>Imprimer le QR Code du produit</target>
+      </trans-unit>
+      <trans-unit id="XeVb56M" resname="General informations">
+        <source>General informations</source>
+        <target>Informations générales</target>
+      </trans-unit>
+      <trans-unit id="7UWV2qI" resname="Technical informations">
+        <source>Technical informations</source>
+        <target>Informations techniques</target>
+      </trans-unit>
+      <trans-unit id="Wt1zI_6" resname="Molar mass">
+        <source>Molar mass</source>
+        <target>Masse molaire</target>
+      </trans-unit>
+      <trans-unit id="i7ZngWv" resname="Densité">
+        <source>Densité</source>
+        <target>Densité</target>
+      </trans-unit>
+      <trans-unit id="4dcuh9g" resname="autoflamm">
+        <source>autoflamm</source>
+        <target>autoflamm</target>
+      </trans-unit>
+      <trans-unit id="B7CRo.3" resname="Schema">
+        <source>Schema</source>
+        <target>Schéma</target>
+      </trans-unit>
+      <trans-unit id="_jK6OZv" resname="Risk of use">
+        <source>Risk of use</source>
+        <target>Risques d'utilisation</target>
+      </trans-unit>
+      <trans-unit id="5Aatzyp" resname="Hazardous mixtures">
+        <source>Hazardous mixtures</source>
+        <target>Mélanges dangereux</target>
+      </trans-unit>
+      <trans-unit id="Um4Ah8w" resname="Description">
+        <source>Description</source>
+        <target>Description</target>
+      </trans-unit>
+      <trans-unit id="Sdje5Wn" resname="Hazard statements">
+        <source>Hazard statements</source>
+        <target>Mention de danger</target>
+      </trans-unit>
+      <trans-unit id="OMtb7OI" resname="Manage GHS Hazard Statements">
+        <source>Manage GHS Hazard Statements</source>
+        <target>Gérer les mentions de danger GHS</target>
+      </trans-unit>
+      <trans-unit id="UplJZpf" resname="Create a GHS hazard statement">
+        <source>Create a GHS hazard statement</source>
+        <target>Créer une mention de danger GHS</target>
+      </trans-unit>
+      <trans-unit id="1f71ltt" resname="a pictogram">
+        <source>a pictogram</source>
+        <target>un pictogram</target>
+      </trans-unit>
+      <trans-unit id="xT.MVsk" resname="Add new family">
+        <source>Add new family</source>
+        <target>Ajouter une nouvelle famille</target>
+      </trans-unit>
+      <trans-unit id="fl__7l." resname="a product">
+        <source>a product</source>
+        <target>un produit</target>
+      </trans-unit>
+      <trans-unit id="4vm80sK" resname="Manage the storages">
+        <source>Manage the storages</source>
+        <target>Gérer les stockages</target>
+      </trans-unit>
+      <trans-unit id="HJgdZ3f" resname="a storage">
+        <source>a storage</source>
+        <target>un stockage</target>
+      </trans-unit>
+      <trans-unit id="JWwvRby" resname="Manage the trashcans">
+        <source>Manage the trashcans</source>
+        <target>Gérer les poubelles</target>
+      </trans-unit>
+      <trans-unit id="RvRFLos" resname="a trashcan">
+        <source>a trashcan</source>
+        <target>une poubelle</target>
+      </trans-unit>
+      <trans-unit id="1a6ou3H" resname="Written by">
+        <source>Written by</source>
+        <target>Rédigée par</target>
+      </trans-unit>
+      <trans-unit id="mSAv9cX" resname="Write a recipe">
+        <source>Write a recipe</source>
+        <target>Ecrire une recette</target>
+      </trans-unit>
+      <trans-unit id="47ienTP" resname="Username">
+        <source>Username</source>
+        <target>Nom d'utilisateur</target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target>Mot de passe</target>
+      </trans-unit>
+      <trans-unit id="CG9UULI" resname="Edit my profile">
+        <source>Edit my profile</source>
+        <target>Modifier mes informations personnelles</target>
+      </trans-unit>
+      <trans-unit id="H4msCWa" resname="Edit my password">
+        <source>Edit my password</source>
+        <target>Modifier mon mot de passe</target>
+      </trans-unit>
+      <trans-unit id="Jxxi_i3" resname="My profile">
+        <source>My profile</source>
+        <target>Mes informations personnelles</target>
+      </trans-unit>
+      <trans-unit id="ZHz6kbI" resname="Firstname">
+        <source>Firstname</source>
+        <target>Prénom</target>
+      </trans-unit>
+      <trans-unit id="htiPHRy" resname="Lastname">
+        <source>Lastname</source>
+        <target>Nom</target>
+      </trans-unit>
+      <trans-unit id="lpzL089" resname="Email">
+        <source>Email</source>
+        <target>Adresse mail</target>
+      </trans-unit>
+      <trans-unit id="Y9zriAC" resname="Phone">
+        <source>Phone</source>
+        <target>Téléphone</target>
+      </trans-unit>
+      <trans-unit id="QvrAAxN" resname="Edit profil">
+        <source>Edit profil</source>
+        <target>Modifier mes informations personnelles</target>
+      </trans-unit>
+      <trans-unit id="u92.A1p" resname="Edit password">
+        <source>Edit password</source>
+        <target>Modifier mon mot de passe</target>
+      </trans-unit>
+      <trans-unit id="U0Lgnyc" resname="Enable">
+        <source>Enable</source>
+        <target>Activé</target>
+      </trans-unit>
+      <trans-unit id="dQgbWT0" resname="Disabled">
+        <source>Disabled</source>
+        <target>Désactivé</target>
+      </trans-unit>
+      <trans-unit id="d6KD1pJ" resname="Density">
+        <source>Density</source>
+        <target>__Density</target>
+      </trans-unit>
+      <trans-unit id="eqfouzo" resname="Edit GHS Hazard Statements">
+        <source>Edit GHS Hazard Statements</source>
+        <target>Editer les mentions de danger GHS</target>
+      </trans-unit>
+      <trans-unit id="2VCCou5" resname="Author">
+        <source>Author</source>
+        <target>Auteur</target>
+      </trans-unit>
+      <trans-unit id="2pJaMOM" resname="older">
+        <source>older</source>
+        <target>moins récent</target>
+      </trans-unit>
+      <trans-unit id="gE9R9xJ" resname="newer">
+        <source>newer</source>
+        <target>plus récent</target>
+      </trans-unit>
+      <trans-unit id="UhUisYd" resname="Quantity (specify unit, e.g. mg, mL, mol)">
+        <source>Quantity (specify unit, e.g. mg, mL, mol)</source>
+        <target>Quantité (précisez l'unité, ex : mg, mL, mol)</target>
+      </trans-unit>
+      <trans-unit id=".Ziu2.e" resname="Include in search :">
+        <source>Include in search :</source>
+        <target>Inclure dans la recherche :</target>
+      </trans-unit>
+      <trans-unit id="3V_0A2f" resname="Products and solutions">
+        <source>Products and solutions</source>
+        <target>Produits et solutions</target>
+      </trans-unit>
+      <trans-unit id="TtyL_vx" resname="Products">
+        <source>Products</source>
+        <target>Produits</target>
+      </trans-unit>
+      <trans-unit id="abLNeNZ" resname="Name of your solution">
+        <source>Name of your solution</source>
+        <target>Nom de votre solution</target>
+      </trans-unit>
+      <trans-unit id="Bg_qIeh" resname="Quantity produced of your solution (specify the unit)">
+        <source>Quantity produced of your solution (specify the unit)</source>
+        <target>Quantité de solution produite (précisez l'unité)</target>
+      </trans-unit>
+      <trans-unit id="ZJVx9DQ" resname="Select the recipe you used">
+        <source>Select the recipe you used</source>
+        <target>Sélectionnez la recette que vous avez utilisé</target>
+      </trans-unit>
+      <trans-unit id="SiOxx6c" resname="Indicate where you keep your solution">
+        <source>Indicate where you keep your solution</source>
+        <target>Indiquez où vous conservez cette solution</target>
+      </trans-unit>
+      <trans-unit id="WJlpPwh" resname="Imprimer le QRcode de la solution">
+        <source>Imprimer le QRcode de la solution</source>
+        <target>__Imprimer le QRcode de la solution</target>
+      </trans-unit>
+      <trans-unit id="zT9A4d3" resname="Print the QR Code solution">
+        <source>Print the QR Code solution</source>
+        <target>Imprimer le QRcode de la solution</target>
+      </trans-unit>
+      <trans-unit id="qdbfrIU" resname="If the scan does not work, type in the search bar the code of the product or the solution (this is the code written under the QR Code, ex: P56):">
+        <source>If the scan does not work, type in the search bar the code of the product or the solution (this is the code written under the QR Code, ex: P56):</source>
+        <target>Si le scan ne fonctionne pas, tapez dans la barre de recherche le code du produit ou de la solution (il s'agit du code écrit sous le QR Code, ex : P56) :</target>
+      </trans-unit>
+      <trans-unit id="FQn1YfJ" resname="Save">
+        <source>Save</source>
+        <target>Enregistrer</target>
+      </trans-unit>
+      <trans-unit id="PW9j2bO" resname="Recipes should not be confused with solutions. When you create a recipe you write&#10;                            how to achieve a solution subsequently. A recipe does not correspond to an element physically present&#10;                            in the lab.">
+        <source>Recipes should not be confused with solutions. When you create a recipe you write
+                            how to achieve a solution subsequently. A recipe does not correspond to an element physically present
+                            in the lab.</source>
+        <target>Il ne faut pas confondre les recettes avec les solutions. Lorsque vous créez une recette vous écrivez comment réaliser par la suite une solution. Une recette ne correspond pas à un élément physiquement présent dans le laboratoire.</target>
+      </trans-unit>
+      <trans-unit id="Xcu79Sx" resname="You have to see the recipes as a cookbook and the solutions as the dishes you prepare by following&#10;                            the explanations of the book.">
+        <source>You have to see the recipes as a cookbook and the solutions as the dishes you prepare by following
+                            the explanations of the book.</source>
+        <target>Il faut voir les recettes comme un livre de cuisine et les solutions comme les plats que vous préparez en suivant les explications du livre.</target>
+      </trans-unit>
+      <trans-unit id="8d6wUsD" resname="Name of the family">
+        <source>Name of the family</source>
+        <target>Nom de la famille</target>
+      </trans-unit>
+      <trans-unit id="C8IRP_a" resname="Submit the safety sheet">
+        <source>Submit the safety sheet</source>
+        <target>Déposez la fiche de sécurité</target>
+      </trans-unit>
+      <trans-unit id="_vs6AUT" resname="Drop an image of the formula">
+        <source>Drop an image of the formula</source>
+        <target>Déposez une image de la formule</target>
+      </trans-unit>
+      <trans-unit id="MsmgJji" resname="Product color code">
+        <source>Product color code</source>
+        <target>Choisissez le code couleur du produit</target>
+      </trans-unit>
+      <trans-unit id="BqzgZJb" resname="French name">
+        <source>French name</source>
+        <target>Indiquez le nom français</target>
+      </trans-unit>
+      <trans-unit id="AHmdfrT" resname="English name">
+        <source>English name</source>
+        <target>Indiquez le nom anglais</target>
+      </trans-unit>
+      <trans-unit id="j1wgRWf" resname="Nomenclature">
+        <source>Nomenclature</source>
+        <target>Nomenclature</target>
+      </trans-unit>
+      <trans-unit id="xHkSU1x" resname="You can add a third product name in this field">
+        <source>You can add a third product name in this field</source>
+        <target>Vous pouvez ajouter un troisième nom dans ce champ</target>
+      </trans-unit>
+      <trans-unit id="cQc61Gk" resname="CAS number">
+        <source>CAS number</source>
+        <target>Numéro CAS</target>
+      </trans-unit>
+      <trans-unit id="6uXPi8c" resname="Select the families of this product">
+        <source>Select the families of this product</source>
+        <target>Sélectionnez les familles du produit</target>
+      </trans-unit>
+      <trans-unit id="ag3SLRe" resname="Indicate its molar mass">
+        <source>Indicate its molar mass</source>
+        <target>Indiquez sa masse molaire</target>
+      </trans-unit>
+      <trans-unit id="rPF03Bh" resname="Indicate its density">
+        <source>Indicate its density</source>
+        <target>Indiquez sa densité</target>
+      </trans-unit>
+      <trans-unit id="X39bya9" resname="Indicate its melting temperature">
+        <source>Indicate its melting temperature</source>
+        <target>Indiquez sa température de fusion</target>
+      </trans-unit>
+      <trans-unit id="YVXAGhO" resname="Indicate its boiling temperature">
+        <source>Indicate its boiling temperature</source>
+        <target>Indiquez sa température d'ébullition</target>
+      </trans-unit>
+      <trans-unit id="q0bwzmP" resname="Indicate its optical index">
+        <source>Indicate its optical index</source>
+        <target>Indiquez son indice optique</target>
+      </trans-unit>
+      <trans-unit id="IEKWTxu" resname="Indicate the auto-ignition point">
+        <source>Indicate the auto-ignition point</source>
+        <target>Indiquez le point d'auto-inflammation</target>
+      </trans-unit>
+      <trans-unit id="ctcToV8" resname="Indicate the risks associated with the use of this product">
+        <source>Indicate the risks associated with the use of this product</source>
+        <target>Indiquez les risques d'utilisation</target>
+      </trans-unit>
+      <trans-unit id="J5fMNFX" resname="Indicate hazardous mixtures">
+        <source>Indicate hazardous mixtures</source>
+        <target>Indiquez les mélanges dangereux</target>
+      </trans-unit>
+      <trans-unit id="QanWJpb" resname="Comments :">
+        <source>Comments :</source>
+        <target>Commentaires :</target>
+      </trans-unit>
+      <trans-unit id="m7dqBPM" resname="Select the pictograms (danger and/or obligation) associated with this product :">
+        <source>Select the pictograms (danger and/or obligation) associated with this product :</source>
+        <target>Sélectionnez les pictogrammes (danger et/ou utilisation) associés à ce produit :</target>
+      </trans-unit>
+      <trans-unit id="3E1ZJSB" resname="Indicate where this product is stored">
+        <source>Indicate where this product is stored</source>
+        <target>Indiquez où est rangé ce produit</target>
+      </trans-unit>
+      <trans-unit id="JZ1ufJm" resname="Indicate in which bin to throw this product">
+        <source>Indicate in which bin to throw this product</source>
+        <target>Indiquez dans quelle poubelle jeter ce produit</target>
+      </trans-unit>
+      <trans-unit id="In1DZD5" resname="Select the hazard statements associated with this product :">
+        <source>Select the hazard statements associated with this product :</source>
+        <target>Sélectionnez les mentions de danger associées à ce produit :</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

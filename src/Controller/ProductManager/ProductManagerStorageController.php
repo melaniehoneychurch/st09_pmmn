@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 class ProductManagerStorageController extends AbstractController{
@@ -82,7 +83,7 @@ class ProductManagerStorageController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function new(Request $request)
+    public function new(Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
@@ -98,7 +99,8 @@ class ProductManagerStorageController extends AbstractController{
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($storage);
             $this->em->flush();
-            $this->addFlash('success', 'Stockage créé avec succès');
+            $message = $translator->trans('Storage created successfully');
+            $this->addFlash('success', $message);
             return $this->redirectToRoute('productmanager.storage.index');
         }
 
@@ -117,7 +119,7 @@ class ProductManagerStorageController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function edit(Storage $storage, Request $request)
+    public function edit(Storage $storage, Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
@@ -132,7 +134,8 @@ class ProductManagerStorageController extends AbstractController{
         if ($form->isSubmitted() && $form->isValid()) {
             
             $this->em->flush();
-            $this->addFlash('success', 'Stockage modifié avec succès');
+            $message = $translator->trans('Storage modified successfully');
+            $this->addFlash('success', $message);
             
             return $this->redirectToRoute('productmanager.storage.index');
         }
@@ -152,7 +155,7 @@ class ProductManagerStorageController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse
      */
-    public function delete(Storage $storage, Request $request)
+    public function delete(Storage $storage, Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
@@ -163,7 +166,8 @@ class ProductManagerStorageController extends AbstractController{
 
         //check if the storage is used
         if ($storage->getInventories()->count() !== 0){
-            $this->addFlash('danger', 'Vous ne pouvez pas supprimer ce stockage car il contient actuellement au moins un produit.');
+            $message = $translator->trans('You cannot delete this storage because it currently contains at least one product.');
+            $this->addFlash('danger', $message);
             return $this->redirectToRoute('productmanager.storage.index');
         }
 
@@ -171,7 +175,8 @@ class ProductManagerStorageController extends AbstractController{
         if ($this->isCsrfTokenValid('delete' . $storage->getId(), $request->get('_token'))) {
             $this->em->remove($storage);
             $this->em->flush();
-            $this->addFlash('success', 'Stockage supprimé avec succès');
+            $message = $translator->trans('Storage deleted successfully');
+            $this->addFlash('success', $message);
         }
         return $this->redirectToRoute('productmanager.storage.index');
     }
@@ -184,14 +189,14 @@ class ProductManagerStorageController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse
      */
-    public function cancel(Request $request)
+    public function cancel(TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
-
-        $this->addFlash('warning', "Les modifications n'ont pas été enregistrées");
+        $message = $translator->trans('Changes have not been saved');
+        $this->addFlash('warning', $message);
 
         return $this->redirectToRoute('productmanager.storage.index');
     }

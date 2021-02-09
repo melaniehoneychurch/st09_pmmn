@@ -1,8 +1,8 @@
 {{ form_start(form) }}
-{{ form_row(form.code, {'label':"Indiquez le code de la mention de danger"}) }}
-{{ form_row(form.text, {'label':"Indiquez l'intitulé de la mention de danger"}) }}
+{{ form_row(form.code, {'label':"Indicate the code of the hazard statement "}) }}
+{{ form_row(form.text, {'label':"Indicate the title of the hazard statement"}) }}
 {{ form_widget(form) }}
-<button class="btn btn-primary">{{ button|default('Enregistrer') }}</button>
+<button class="btn btn-primary">{{ button|default('Save') }}</button>
 {{ form_end(form) }}
-<a href="{{ path('productmanager.hazardStatement.cancel') }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Annuler</a>
+<a href="{{ path('productmanager.hazardStatement.cancel') }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> {% trans %}Cancel{% endtrans %}</a>
 

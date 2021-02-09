@@ -17,7 +17,7 @@
 
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Toutes mes recettes</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{% trans %}My recipes{% endtrans %}</h6>
                 </div>
 
                 <!-- Card Body - search options -->
@@ -26,8 +26,8 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>Titre</th>
-                            <th>Action</th>
+                            <th>{% trans %}Title{% endtrans %}</th>
+                            <th>{% trans %}Actions{% endtrans %}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -35,11 +35,11 @@
                             <tr>
                                 <td><a href="{{ path('recipe.show', {slug: recipe.slug, id: recipe.id}) }}"><h6>{{ recipe.title }} {% if recipe.confidentiality %}<i class="fas fa-eye-slash"></i>{% endif %}</h6></a></td>
                                 <td>
-                                    <a href="{{ path('recipe.edit', {id: recipe.id}) }}" class="btn btn-secondary">Editer</a>
+                                    <a href="{{ path('recipe.edit', {id: recipe.id}) }}" class="btn btn-secondary">{% trans %}Edit{% endtrans %}</a>
                                     <form method="post" action="{{ path('recipe.delete', {id: recipe.id}) }}" style="display: inline-block">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recipe.id) }}">
-                                        <button class="btn btn-danger">Supprimer</button>
+                                        <button class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
                                     </form>
                                 </td>
                             </tr>
@@ -55,12 +55,6 @@
 
                 </div>
 
-            </div>
-
-            <div class="text-right">
-                <div style="display:inline-block">
-                    <a href="{{ path('recipe.new') }}" class="btn btn-primary">Créer une nouvelle recette</a>
-                </div>
             </div>
 
         </div>

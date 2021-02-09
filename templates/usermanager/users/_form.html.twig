@@ -10,35 +10,35 @@
             <div class="card shadow mb-4">
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">{{ button|default('Formulaire') }} un utilisateur</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{{ button|default('Formulaire') }} {% trans %} a user{% endtrans %}</h6>
                 </div>
 
                 <!-- Card Body - search options -->
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">{{ form_row(form.username, {'label':"Nom d'utilisateur"}) }}</div>
+                        <div class="col-md-6">{{ form_row(form.username, {'label':"Username"}) }}</div>
                         <div class="col-md-6" {% if app.request.get('_route') == 'usermanager.user.edit' %}style="display:none;"{% endif %}>
-                            {{ form_row(form.password, {'label':"Mot de passe"}) }}
+                            {{ form_row(form.password, {'label':"Password"}) }}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">{{ form_row(form.name, {'label':"Pénom de l'utilisateur"}) }}</div>
-                        <div class="col-md-6">{{ form_row(form.familyName, {'label':"Nom de l'utilisateur"}) }}</div>
+                        <div class="col-md-6">{{ form_row(form.name, {'label':"Firstname"}) }}</div>
+                        <div class="col-md-6">{{ form_row(form.familyName, {'label':"Lastname"}) }}</div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">{{ form_row(form.emailAddress, {'label':"Adresse email"}) }}</div>
-                        <div class="col-md-6">{{ form_row(form.phone, {'label':"Numéro de téléphone"}) }}</div>
+                        <div class="col-md-6">{{ form_row(form.emailAddress, {'label':"Email address"}) }}</div>
+                        <div class="col-md-6">{{ form_row(form.phone, {'label':"Phone number"}) }}</div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">{{ form_row(form.activate, {'label':"Utilisateur actif"}) }}</div>
+                        <div class="col-md-4">{{ form_row(form.activate, {'label':"Active user"}) }}</div>
                     </div>
                 </div>
 
             </div>
 
             <div class="text-right">
-                <div style="display:inline-block;"><button class="btn btn-sm btn-primary shadow-sm">{{ button|default('Enregistrer') }}</button></div>
-                <div style="display:inline-block"><a href="{{ path('usermanager.user.cancel') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Annuler</a></div>
+                <div style="display:inline-block;"><button class="btn btn-sm btn-primary shadow-sm">{{ button|default('Save') }}</button></div>
+                <div style="display:inline-block"><a href="{{ path('usermanager.user.cancel') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> {% trans %}Cancel{% endtrans %}</a></div>
             </div>
 
         </div>

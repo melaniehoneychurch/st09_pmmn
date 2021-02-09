@@ -9,18 +9,26 @@
 <div class="col-xl-11 col-lg-11">
   <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-      <h6 class="m-0 font-weight-bold text-primary">Qr Code scanner</h6>
+      <h6 class="m-0 font-weight-bold text-primary">{% trans %}QR Code scanner{% endtrans %}</h6>
     </div>
     <div class="card-body">
       <div class="text-center">
-          <div id="loadingMessage">🎥 Pas d'accès à la camera  (Vérifier que votre camera est bien activée)</div>
+          <div id="loadingMessage">🎥 {% trans %}No access to the camera (Check that your camera is activated){% endtrans %}</div>
             <canvas id="canvas" hidden></canvas>
             <div id="output" hidden>
-              <div id="outputMessage">Pas de QrCode detecté</div>
+              <div id="outputMessage">{% trans %}No QrCode detected{% endtrans %}</div>
               <div hidden><span id="outputData"></span></div>
 
       </div>
     </div>
+
+      <hr/>
+      {{ form_start(form) }}
+      {{ form_row(form.code) }}
+      <div class="text-right">
+        <div style="display:inline-block;"><button class="btn btn-sm btn-primary shadow-sm">{{ button|default('Rechercher') }}</button></div>
+      {{ form_end(form) }}
+
   </div>
 </div>
 

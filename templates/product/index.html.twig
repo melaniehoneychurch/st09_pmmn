@@ -3,12 +3,12 @@
 {% block title 'Product list' %}
 
 {% block body %}
-
-    <h2 class="mb-3">Liste des produits</h2>
+    <h2 class="mb-3">{% trans %}Product list{% endtrans %}</h2>
 
     {# recherche #}
     <!-- Content Row -->
     <div class="row">
+
 
         <!-- Area Chart -->
         <div class="col-xl-12 col-lg-12">
@@ -16,7 +16,7 @@
 
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Recherche</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{% trans %}Search{% endtrans %}</h6>
                 </div>
 
                 <!-- Card Body - search options -->
@@ -25,24 +25,24 @@
                     {{ form_start(form) }}
                     <div class="form-row">
                         <div class="col-lg-6">
-                            {{form_row(form.frenchName)}}
+                            {{form_row(form.frenchName, {'label':'Product'})}}
                         </div>
                         <div class="col-lg-6">
-                            {{form_row(form.casNumber)}}
+                            {{form_row(form.casNumber, {'label':'CAS'})}}
                         </div>
                             <div class="col-lg-4">
-                                {{ form_row(form.family, {'label':'Famille'}) }}
+                                {{ form_row(form.family, {'label':'Family'}) }}
                             </div>
                             <div class="col-lg-4">
-                                {{ form_row(form.storage, {'label':'Stockage'})}}
+                                {{ form_row(form.storage, {'label':'Storage'})}}
                             </div>
                             <div class="col-lg-4">
-                                {{ form_row(form.trashCan, {'label':'Poubelle'}) }}
+                                {{ form_row(form.trashCan, {'label':'Bin'}) }}
 
                         </div>
                     </div>
                     {{ form_widget(form) }}
-                    <button type="submit" class="btn-primary btn">Rechercher</button>
+                    <button type="submit" class="btn-primary btn">{% trans %}Search{% endtrans %}</button>
                     {{ form_end(form) }}
 
                 </div>
@@ -63,7 +63,7 @@
 
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Liste</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{% trans %}List{% endtrans %}</h6>
                 </div>
 
                 <!-- Card Body - search options -->
@@ -72,11 +72,11 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>Nom</th>
-                            <th>Familles</th>
-                            <th>Stockage</th>
-                            <th>Poubelle</th>
-                            <th>En stock</th>
+                            <th>{% trans %}Name{% endtrans %}</th>
+                            <th>{% trans %}Family{% endtrans %}</th>
+                            <th>{% trans %}Storage{% endtrans %}</th>
+                            <th>{% trans %}Bin{% endtrans %}</th>
+                            <th>{% trans %}In stock{% endtrans %}</th>
                         </tr>
                         </thead>
                         <tbody>

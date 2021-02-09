@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 class ProductManagerProductController extends AbstractController{
@@ -91,7 +92,7 @@ class ProductManagerProductController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function new(Request $request)
+    public function new(Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
@@ -107,7 +108,8 @@ class ProductManagerProductController extends AbstractController{
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($product);
             $this->em->flush();
-            $this->addFlash('success', 'Produit créé avec succès');
+            $message = $translator->trans('Product created successfully');
+            $this->addFlash('success', $message);
             return $this->redirectToRoute('productmanager.product.index');
         }
 
@@ -125,7 +127,7 @@ class ProductManagerProductController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function family(Request $request)
+    public function family(Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
@@ -140,7 +142,8 @@ class ProductManagerProductController extends AbstractController{
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($family);
             $this->em->flush();
-            $this->addFlash('success', 'Famille ajoutée avec succès');
+            $message = $translator->trans('Family created successfully');
+            $this->addFlash('success', $message);
             return $this->redirectToRoute('productmanager.product.index');
         }
 
@@ -159,7 +162,7 @@ class ProductManagerProductController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function edit(Product $product, Request $request)
+    public function edit(Product $product, Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
@@ -176,6 +179,7 @@ class ProductManagerProductController extends AbstractController{
             $product->setUpdatedAt(new \Datetime());
             
             $this->em->flush();
+            $message = $translator->trans('Product modified successfully');
             $this->addFlash('success', 'Produit modifié avec succès');
             
             return $this->redirectToRoute('productmanager.product.index');
@@ -196,7 +200,7 @@ class ProductManagerProductController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse
      */
-    public function delete(Product $product, Request $request)
+    public function delete(Product $product, Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
@@ -213,7 +217,8 @@ class ProductManagerProductController extends AbstractController{
         if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))) {
             $this->em->remove($product);
             $this->em->flush();
-            $this->addFlash('success', 'Produit supprimé avec succès');
+            $message = $translator->trans('Product deleted successfully');
+            $this->addFlash('success', $message);
         }
         return $this->redirectToRoute('productmanager.product.index');
     }
@@ -226,14 +231,14 @@ class ProductManagerProductController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse
      */
-    public function cancel(Request $request)
+    public function cancel(TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
-
-        $this->addFlash('warning', "Les modifications n'ont pas été enregistrées");
+        $message = $translator->trans('Changes have not been saved');
+        $this->addFlash('warning', $message);
 
         return $this->redirectToRoute('productmanager.product.index');
     }

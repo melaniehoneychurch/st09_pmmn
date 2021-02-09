@@ -16,31 +16,22 @@ class UserSearchType extends AbstractType
         $builder
             ->add('username', SearchType::class, [
                 'required' => false,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => "Nom d'utilisateur"
-                ]
+                'label' => 'Username',
             ])
             ->add('name', SearchType::class, [
                 'required' => false,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Prénom'
-                ]
+                'label' => 'Firstname',
             ])
             ->add('familyName', SearchType::class, [
                 'required' => false,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Nom de famille'
-                ]
+                'label' => 'Lastname',
             ])
             ->add('trie', ChoiceType::class, [
                 'choices'  => [
-                    'A à Z' => 0,
-                    'Z à A' => 1,
-                    'plus récent' => 2,
-                    'moins récent' =>3
+                    'A → Z' => 0,
+                    'Z → A' => 1,
+                    'newer' => 2,
+                    'older' =>3
 
                 ],
                 'required' => true,

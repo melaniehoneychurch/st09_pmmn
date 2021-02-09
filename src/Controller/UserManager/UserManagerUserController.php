@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserManagerUserController extends AbstractController{
 
@@ -95,7 +96,7 @@ class UserManagerUserController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function new(Request $request)
+    public function new(Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
@@ -112,7 +113,8 @@ class UserManagerUserController extends AbstractController{
             $user->setPassword($this->encoder->encodePassword($user, $user->getPassword()));
             $this->em->persist($user);
             $this->em->flush();
-            $this->addFlash('success', 'Utilisateur créé avec succès');
+            $message = $translator->trans('User created successfully');
+            $this->addFlash('success', $message);
             return $this->redirectToRoute('usermanager.user.index');
         }
 
@@ -130,7 +132,7 @@ class UserManagerUserController extends AbstractController{
      * @param Request $request
      * @return Response
      */
-    public function edit(User $user, Request $request)
+    public function edit(User $user, Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
@@ -144,7 +146,8 @@ class UserManagerUserController extends AbstractController{
         // analyse the form response and if the form is valid them the user is updated
         if ($form->isSubmitted() && $form->isValid()){
             $this->em->flush();
-            $this->addFlash('success', 'Utilisateur modifié avec succès');
+            $message = $translator->trans('User modified successfully');
+            $this->addFlash('success', $message);
             
             return $this->redirectToRoute('usermanager.user.index');
         }
@@ -163,13 +166,13 @@ class UserManagerUserController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse
      */
-    public function cancel(Request $request)
+    public function cancel(TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
-
+        $message = $translator->trans('Changes have not been saved');
         $this->addFlash('warning', 'Utilisateur non enregistré');
 
         return $this->redirectToRoute('usermanager.user.index');

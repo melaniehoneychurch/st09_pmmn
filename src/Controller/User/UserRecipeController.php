@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 class UserRecipeController extends AbstractController{
@@ -147,9 +148,10 @@ class UserRecipeController extends AbstractController{
      * @Route("/recipe/create", name="recipe.new")
      *
      * @param Request $request
+     * @param TranslatorInterface $translator
      * @return RedirectResponse|Response
      */
-    public function new(Request $request)
+    public function new(Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
@@ -166,7 +168,8 @@ class UserRecipeController extends AbstractController{
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($recipe);
             $this->em->flush();
-            $this->addFlash('success', 'Recette créée avec succès');
+            $message = $translator->trans('Recipe created succesfully');
+            $this->addFlash('success', $message);
             return $this->redirectToRoute('recipe.perso');
         }
 
@@ -187,7 +190,7 @@ class UserRecipeController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function edit(Recipe $recipe, Request $request)
+    public function edit(Recipe $recipe, Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
@@ -204,7 +207,8 @@ class UserRecipeController extends AbstractController{
             //$recipe->setUpdatedAt(new \Datetime());
 
             $this->em->flush();
-            $this->addFlash('success', 'recette modifiée avec succès');
+            $message = $translator->trans('Recipe modified succesfully');
+            $this->addFlash('success', $message);
 
             return $this->redirectToRoute('recipe.perso');
         }
@@ -224,7 +228,7 @@ class UserRecipeController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse
      */
-    public function delete(Recipe $recipe, Request $request)
+    public function delete(Recipe $recipe, Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
@@ -240,7 +244,8 @@ class UserRecipeController extends AbstractController{
         if ($this->isCsrfTokenValid('delete' . $recipe->getId(), $request->get('_token'))) {
             $this->em->remove($recipe);
             $this->em->flush();
-            $this->addFlash('success', 'Recette supprimée avec succès');
+            $message = $translator->trans('Recipe deleted succefully');
+            $this->addFlash('success', $message);
         }
         return $this->redirectToRoute('recipe.perso');
     }
@@ -250,17 +255,17 @@ class UserRecipeController extends AbstractController{
      *
      * @Route("/recipe/cancel/", name="recipe.cancel")
      *
-     * @param Request $request
+     * @param TranslatorInterface $translator
      * @return RedirectResponse
      */
-    public function cancel(Request $request)
+    public function cancel(TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
-
-        $this->addFlash('warning', "Les modifications n'ont pas été enregistrées");
+        $message = $translator->trans('Changes have not been saved');
+        $this->addFlash('warning', $message);
 
         return $this->redirectToRoute('recipe.index');
     }

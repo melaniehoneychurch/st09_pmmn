@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 // setup an "add a tag" link
-var $addTagLink = $('<a href="#" class="btn btn-outline-success">Ajouter un ingrédient</a>');
+var $addTagLink = $('<a href="#" class="btn btn-outline-success">Add ingredient</a>');
 var $newLinkLi = $('<a></a>').append($addTagLink);
 
 $(document).ready(function() {
@@ -47,7 +47,7 @@ function addTagForm($collectionHolder, $newLinkLi) {
 
     // Display the form in the page in an li, before the "Add a tag" link li
     //create the card
-    var $panel = $('<div class="panel card mb-3"><div class="card-header">Nouvel ingrédient</div></div>');
+    var $panel = $('<div class="panel card mb-3"><div class="card-header">New ingredient</div></div>');
     var $newFormLi = $('<div class="card-body"></div>').append(newForm);
     //append the body to the panel
     $panel.append($newFormLi);
@@ -62,7 +62,7 @@ function addTagForm($collectionHolder, $newLinkLi) {
 
 function addRemoveButton ($panel){
     //add remove button
-    var $removeButton = $('<a href="#" class="btn btn-outline-danger">Supprimer</a>');
+    var $removeButton = $('<a href="#" class="btn btn-outline-danger">Delete</a>');
     //appending the remove button to the panel footer
     var $panelFooter = $('<div class="card-footer"></div>').append($removeButton);
 

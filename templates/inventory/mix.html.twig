@@ -17,7 +17,7 @@
 
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Toutes mes solutions</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{% trans %}My solutions{% endtrans %}</h6>
                 </div>
 
                 <!-- Card Body - search options -->
@@ -26,11 +26,11 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>Titre</th>
-                            <th>Quantité</th>
-                            <th>Stockage</th>
-                            <th>Date de création</th>
-                            <th>Action</th>
+                            <th>{% trans %}Title{% endtrans %}</th>
+                            <th>{% trans %}Quantity{% endtrans %}</th>
+                            <th>{% trans %}Storage{% endtrans %}</th>
+                            <th>{% trans %}Created{% endtrans %}</th>
+                            <th>{% trans %}Actions{% endtrans %}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -48,11 +48,11 @@
                                 </td>
                                 <td>{{ inventory.mix.date }}</td>
                                 <td>
-                                    <a href="{{ path('inventory.edit', {id: inventory.id}) }}" class="btn btn-secondary">Editer</a>
+                                    <a href="{{ path('inventory.edit', {id: inventory.id}) }}" class="btn btn-secondary">{% trans %}Edit{% endtrans %}</a>
                                     <form method="post" action="{{ path('mix.delete', {id: inventory.id}) }}" style="display: inline-block">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ inventory.id) }}">
-                                        <button class="btn btn-danger">Supprimer</button>
+                                        <button class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
                                     </form>
                                 </td>
                             </tr>
@@ -70,11 +70,6 @@
 
             </div>
 
-            <div class="text-right">
-                <div style="display:inline-block">
-                    <a href="{{ path('mix.new') }}" class="btn btn-primary">Créer une nouvelle solution</a>
-                </div>
-            </div>
 
         </div>
 

@@ -22,9 +22,6 @@ class InventorySearchType extends AbstractType
             ->add('title', SearchType::class, [
                 'required' => false,
                 'label' => false,
-                'attr' => [
-                    'placeholder' => 'Nom produit'
-                ]
             ])
             ->add('owner', EntityType::class,[
                 'class' => User::class,
@@ -34,10 +31,10 @@ class InventorySearchType extends AbstractType
             ])
             ->add('trie', ChoiceType::class, [
                 'choices'  => [
-                    'A à Z' => 0,
-                    'Z à A' => 1,
-                    'plus récent' => 2,
-                    'moins récent' =>3
+                    'A → Z' => 0,
+                    'Z → A' => 1,
+                    'newer' => 2,
+                    'older' =>3
 
                 ],
                 'required' => true,
@@ -49,9 +46,6 @@ class InventorySearchType extends AbstractType
 
                 'required' => false,
                 'label' => false,
-                'attr' => [
-                    'placeholder' => 'Stockage'
-                ]
             ])
             ->add('entrydate', DateType::class,[
                 'widget' => 'single_text',
@@ -60,11 +54,11 @@ class InventorySearchType extends AbstractType
             ])
             ->add('including', ChoiceType::class, [
                 'choices'  => [
-                    'Produits et solutions' => null,
-                    'Les produits' => 'p',
-                    'Les solutions' => 'm'
+                    'Products and solutions' => null,
+                    'Products' => 'p',
+                    'Solutions' => 'm'
                 ],
-                'label' => 'Inclure dans la recherche :'
+                'label' => 'Include in search :'
             ])
         ;
     }

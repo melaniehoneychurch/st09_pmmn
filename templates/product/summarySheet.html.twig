@@ -17,7 +17,7 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Informations générales</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">{% trans %}General informations{% endtrans %}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -36,17 +36,17 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Informations techniques</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">{% trans %}Technical informations{% endtrans %}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
                   	<ul class="list-group py-3 ">
-						<li class="list-group-item">Masse molaire : {{ product.molarMass }} g/mol</li>
-						<li class="list-group-item">Densité : {{ product.density }}</li>
-						<li class="list-group-item">Tf : {{ product.meltingTemperature }} C°</li>
-						<li class="list-group-item">Te : {{ product.boilingTemperature }} C°</li>
+						<li class="list-group-item">{% trans %}Molar mass{% endtrans %} : {{ product.molarMass }} g/mol</li>
+						<li class="list-group-item">{% trans %}Density{% endtrans %} : {{ product.density }}</li>
+						<li class="list-group-item">Tf : {{ product.meltingTemperature }} °C</li>
+						<li class="list-group-item">Te : {{ product.boilingTemperature }} °C</li>
 						<li class="list-group-item">n : {{ product.opticalIndex }}</li>
-						<li class="list-group-item">T° autoflamme : {{ product.autoflameTemperature }} C°</li>
+						<li class="list-group-item">T° {% trans %}autoflamm{% endtrans %} : {{ product.autoflameTemperature }} °C</li>
 					</ul>
                 </div>
               </div>
@@ -57,7 +57,7 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Famille(s)</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">{% trans %}Family{% endtrans %}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -78,7 +78,7 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Schéma</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">{% trans %}Schema{% endtrans %}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -96,7 +96,7 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Pictogramme(s) de danger</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">{% trans %}Danger pictograms{% endtrans %}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -123,7 +123,7 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Risque(s) d'utilisation</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">{% trans %}Risk of use{% endtrans %}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -139,7 +139,7 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Pictogramme(s) de recommandation</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">{% trans %}Obligation pictograms{% endtrans %}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -164,7 +164,7 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Mélange(s) dangereux</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">{% trans %}Hazardous mixtures{% endtrans %}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -180,7 +180,7 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Stockage</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">{% trans %}Storage{% endtrans %}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -196,7 +196,7 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Poubelle</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">{% trans %}Bin{% endtrans %}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -217,7 +217,7 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Description</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">{% trans %}Description{% endtrans %}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -239,7 +239,7 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Mention(s) de danger</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">{% trans %}Hazard statements{% endtrans %}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -260,7 +260,7 @@
           
           <div id="qrCode" class="text-center" hidden>
                     
-            <img src="{{ qrCode.writeDataUri }}" />
+            <img src="{{ qrCode.writeDataUri }}" height="200px"/>
           </div>
                 
 

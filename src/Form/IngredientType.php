@@ -26,10 +26,10 @@ class IngredientType extends AbstractType
                 },
                 'choice_label' => 'french_name',
                 'required' => true,
-                'label' => 'Nom du produit',
+                'label' => 'Product name',
             ])
             ->add('quantity', TextType::class, [
-                'label' => "Quantité (précisez l'unité, ex : mg, mL, %)"
+                'label' => "Quantity (specify unit, e.g. mg, mL, mol)"
             ])
 
 

@@ -2,19 +2,18 @@
 
 namespace App\Form;
 
-use App\Controller\SecurityController;
-use App\Controller\User\UserMixController;
+
 use App\Entity\Mix;
 use App\Entity\Recipe;
 use App\Entity\Storage;
-use App\Entity\User;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class MixType extends AbstractType
 {
@@ -28,8 +27,12 @@ class MixType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('description')
+            ->add('title', TextType::class, [
+                'label' => 'Title',
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'Description of your solution',
+            ])
             ->add('quantity')
             ->add('recipe', EntityType::class, [
                 'class' => Recipe::class,

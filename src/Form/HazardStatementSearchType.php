@@ -18,15 +18,15 @@ class HazardStatementSearchType extends AbstractType
             'required' => false,
             'label' => false,
             'attr' => [
-                'placeholder' => "Code mention de danger"
+                'placeholder' => 'GHS Code'
             ]
         ])
             ->add('trie', ChoiceType::class, [
                 'choices'  => [
-                    'A à Z' => 0,
-                    'Z à A' => 1,
-                    'plus récent' => 2,
-                    'moins récent' =>3
+                    'A → Z' => 0,
+                    'Z → A' => 1,
+                    'newer' => 2,
+                    'older' =>3
 
                 ],
                 'required' => true,

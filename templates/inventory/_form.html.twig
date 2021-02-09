@@ -10,23 +10,23 @@
 
             <!-- Card Header -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Rentrer un produit dans l'inventaire</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{% trans %}Add a product to inventory{% endtrans %}</h6>
             </div>
 
             <!-- Card Body - search options -->
             <div class="card-body">
-                {{ form_row(form.product, {'label':"Indiquez le produit ajouté"}) }}
-                {{ form_row(form.dosage, {'label':"Indiquez le dosage du produit (précisez l'unité, ex : 10mol/L, 100%)"}) }}
-                {{ form_row(form.quantity, {'label':"Indiquez la quantité du produit (précisez l'unité, ex: 500g, 1L)"}) }}
-                {{ form_row(form.owner, {'label':"Sélectionnez le propriétaire du produit (s'il n'y a pas de propriétaire particulier sélectionnez Laboratory L2n)"}) }}
-                {{ form_row(form.storage, {'label':"Indiquez où sera stocké ce produit"}) }}
+                {{ form_row(form.product, {'label':"Indicate the added product"}) }}
+                {{ form_row(form.dosage, {'label':"Indicate the dosage of the product (specify the unit, ex: 10 mol/L, 100%)"}) }}
+                {{ form_row(form.quantity, {'label':"Indicate the quantity of the product (specify the unit, ex: 500g, 1L)"}) }}
+                {{ form_row(form.owner, {'label':"Select the product owner (if there is no specific owner select Laboratory L2n)"}) }}
+                {{ form_row(form.storage, {'label':"Indicate where this product will be stored"}) }}
             </div>
 
         </div>
 
         <div class="text-right">
-            <div style="display:inline-block"><button class="btn btn-primary">{{ button|default('Enregistrer') }}</button></div>
-            <div style="display:inline-block"><a href="{{ path('inventory.cancel') }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Annuler</a></div>
+            <div style="display:inline-block"><button class="btn btn-primary">{{ button|default('Save') }}</button></div>
+            <div style="display:inline-block"><a href="{{ path('inventory.cancel') }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">{% trans %}Cancel{% endtrans %}</a></div>
         </div>
 
     </div>

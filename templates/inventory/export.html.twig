@@ -13,13 +13,13 @@
 
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Exportation de l'inventaire</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{% trans %}Export inventory{% endtrans %}</h6>
                 </div>
 
                 <!-- Card Body - search options -->
                 <div class="card-body">
-                    <p>Si vous le souhaitez, vous pouvez exporter l'inventaire dans un fichier CSV.
-                        Vous pourrez ensuite lire facilement votre fichier CSV avec votre tableur habituel.</p>
+                    <p>{% trans %}If you want, you can export the inventory to a CSV file.
+                        You can then easily read your CSV file with your usual spreadsheet.{% endtrans %}</p>
                 </div>
 
             </div>
@@ -36,7 +36,7 @@
 
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Recherche</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{% trans %}Search{% trans %}</h6>
                 </div>
 
                 <!-- Card Body - search options -->
@@ -45,21 +45,21 @@
                     {{ form_start(form) }}
                     <div class="form-row">
                         <div class="col-lg-6">
-                            {{form_row(form.title, {'label':'Titre'})}}
+                            {{form_row(form.title, {'label':'Title'})}}
                         </div>
                         <div class="col-lg-6">
-                            {{ form_row(form.owner, { 'label':'Créateur'}) }}
+                            {{ form_row(form.owner, { 'label':'Creator'}) }}
                         </div>
 
                         <div class="col-lg-6">
-                            {{form_row(form.storage, {'label':'Stockage'})}}
+                            {{form_row(form.storage, {'label':'Storage'})}}
                         </div>
                         <div class="col-lg-6">
-                            {{ form_row(form.entrydate, { 'label':'Date de création'}) }}
+                            {{ form_row(form.entrydate, { 'label':'Creation date'}) }}
                         </div>
                     </div>
                     {{ form_widget(form) }}
-                    <button type="submit" class="btn-primary btn">Exporter</button>
+                    <button type="submit" class="btn-primary btn">{% trans %}Export{% trans %}</button>
                     {{ form_end(form) }}
 
                 </div>

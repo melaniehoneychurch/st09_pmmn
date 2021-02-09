@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 class ProductManagerPictogramController extends AbstractController{
@@ -82,7 +83,7 @@ class ProductManagerPictogramController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function new(Request $request)
+    public function new(Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
@@ -98,7 +99,8 @@ class ProductManagerPictogramController extends AbstractController{
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($pictogram);
             $this->em->flush();
-            $this->addFlash('success', 'Pictogramme créé avec succès');
+            $message = $translator->trans('Pictogram created successfully');
+            $this->addFlash('success', $message);
             return $this->redirectToRoute('productmanager.pictogram.index');
         }
 
@@ -117,7 +119,7 @@ class ProductManagerPictogramController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function edit(Pictogram $pictogram, Request $request)
+    public function edit(Pictogram $pictogram, Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
@@ -134,7 +136,9 @@ class ProductManagerPictogramController extends AbstractController{
             $pictogram->setUpdatedAt(new \Datetime());
 
             $this->em->flush();
-            $this->addFlash('success', 'Pictogramme modifié avec succès');
+            $message = $translator->trans('Pictogram modified successfully');
+
+            $this->addFlash('success', $message);
             
             return $this->redirectToRoute('productmanager.pictogram.index');
         }
@@ -154,7 +158,7 @@ class ProductManagerPictogramController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse
      */
-    public function delete(Pictogram $pictogram, Request $request)
+    public function delete(Pictogram $pictogram, Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
@@ -165,7 +169,8 @@ class ProductManagerPictogramController extends AbstractController{
         if ($this->isCsrfTokenValid('delete' . $pictogram->getId(), $request->get('_token'))) {
             $this->em->remove($pictogram);
             $this->em->flush();
-            $this->addFlash('success', 'Pictogramme supprimé avec succès');
+            $message = $translator->trans('Pictogram modified successfully');
+            $this->addFlash('success', $message);
         }
         return $this->redirectToRoute('productmanager.pictogram.index');
     }
@@ -177,14 +182,14 @@ class ProductManagerPictogramController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse
      */
-    public function cancel(Request $request)
+    public function cancel(TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
-
-        $this->addFlash('warning', "Les modifications n'ont pas été enregistrées");
+        $message = $translator->trans('Changes have not been saved');
+        $this->addFlash('warning', $message);
 
         return $this->redirectToRoute('productmanager.pictogram.index');
     }

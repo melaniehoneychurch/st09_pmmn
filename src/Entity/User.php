@@ -102,17 +102,17 @@ class User implements UserInterface, \Serializable
     private $reports;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Recipe", mappedBy="author")
+     * @ORM\OneToMany(targetEntity="App\Entity\Recipe", mappedBy="author", cascade={"remove"})
      */
     private $recipes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Mix", mappedBy="creator")
+     * @ORM\OneToMany(targetEntity="App\Entity\Mix", mappedBy="creator", cascade={"remove"})
      */
     private $mixes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Inventory", mappedBy="owner")
+     * @ORM\OneToMany(targetEntity="App\Entity\Inventory", mappedBy="owner", cascade={"remove"})
      */
     private $inventories;
 

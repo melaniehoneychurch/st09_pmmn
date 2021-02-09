@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 class UserMixController extends AbstractController{
@@ -123,7 +124,7 @@ class UserMixController extends AbstractController{
      * @param Request $request
      * @return Response
      */
-    public function new(Request $request)
+    public function new(Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
@@ -144,8 +145,8 @@ class UserMixController extends AbstractController{
 
             //Ajout du mélange dans l'inventaire
             $this->addInvent($mix);
-
-            $this->addFlash('success', 'Solution créée avec succès');
+            $message = $translator->trans("Solution created succesfully");
+            $this->addFlash('success', $message);
             return $this->redirectToRoute('inventory.mix');
         }
 
@@ -176,7 +177,7 @@ class UserMixController extends AbstractController{
 
 
 
-    public function edit(Mix $mix, Request $request)
+    public function edit(Mix $mix, Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
@@ -191,7 +192,8 @@ class UserMixController extends AbstractController{
         if ($form->isSubmitted() && $form->isValid()) {
             $mix->setUpdatedAt(new \Datetime());
             $this->em->flush();
-            $this->addFlash('success', 'Mélange modifié avec succès');
+            $message = $translator->trans('Solution modified succefully');
+            $this->addFlash('success', $message);
 
             //Update dans l'inventaire
             $this->updateInvent($mix);
@@ -224,6 +226,7 @@ class UserMixController extends AbstractController{
             ], 301);
         }
         $qrCode = new QrCode('M'.$mix->getId());
+        $qrCode->setLabel('M'.$mix->getId(), 10);
         $qrCode->setSize(130);
         return $this->render('mix/show.html.twig', [
             'mix' => $mix, // targeted product,
@@ -242,7 +245,7 @@ class UserMixController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse
      */
-    public function delete(Mix $mix, Request $request)
+    public function delete(Mix $mix, Request $request, TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
@@ -253,7 +256,8 @@ class UserMixController extends AbstractController{
         if ($this->isCsrfTokenValid('delete' . $mix->getId(), $request->get('_token'))) {
             $this->em->remove($mix);
             $this->em->flush();
-            $this->addFlash('success', 'Mélange supprimé avec succès');
+            $message = $translator->trans('Solution deleted succesfully');
+            $this->addFlash('success', $message);
         }
         return $this->redirectToRoute('mix.perso');
     }
@@ -267,14 +271,14 @@ class UserMixController extends AbstractController{
      * @param Request $request
      * @return RedirectResponse
      */
-    public function cancel(Request $request)
+    public function cancel(TranslatorInterface $translator)
     {
         // check if the user account is activate
         if (!$this->security->getUser()->getActivate() && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé, compte désactivé');
         }
-
-        $this->addFlash('warning', "Les modifications n'ont pas été enregistrées");
+        $message = $translator->trans('Changes have not been saved');
+        $this->addFlash('warning', $message);
 
         return $this->redirectToRoute('inventory.mix');
     }

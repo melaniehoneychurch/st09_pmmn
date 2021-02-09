@@ -26,7 +26,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-flask"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Laboratoire L2N</div>
+                <div class="sidebar-brand-text mx-3">{% trans %}Laboratory L2N{% endtrans %}</div>
             </a>
 
             {# USER #}
@@ -38,7 +38,7 @@
             or app.request.get('_route') == 'product.show'%} active {% endif %}">
                 <a class="nav-link" href="{{ path('home') }}">
                     <i class="fas fa-vial"></i>
-                    <span>Liste produits</span>
+                    <span>{% trans %}Product list{% endtrans %}</span>
                 </a>
             </li>
 
@@ -48,7 +48,7 @@
 
                 <!-- Heading -->
                 <div class="sidebar-heading">
-                    Recettes & Solutions
+                {% trans %}Recipes & Solutions{% endtrans %}
                 </div>
 
                 <!-- Nav Item - Recipe Collapse menu -->
@@ -59,7 +59,7 @@
                     or app.request.get('_route') == 'recipe.show'%} active {% endif %}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                     <i class="fas fa-book"></i>
-                    <span>Recettes</span>
+                    <span>{% trans %}Recipes{% endtrans %}</span>
                 </a>
                 <div id="collapseTwo" class="collapse {% if app.request.get('_route') == 'recipe.index'
                     or app.request.get('_route') == 'recipe.edit'
@@ -69,11 +69,11 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
                         <a class="collapse-item" href="{{ path('recipe.new') }}">
-                        <i class="fas fa-plus"></i> Nouvelle recette</a>
+                        <i class="fas fa-plus"></i> {% trans %}New recipe{% endtrans %}</a>
                         <a class="collapse-item" href="{{ path('recipe.index') }}">
-                        <i class="fas fa-book"></i> Toutes les recettes</a>
+                        <i class="fas fa-book"></i> {% trans %}All recipes{% endtrans %}</a>
                         <a class="collapse-item" href="{{ path('recipe.perso') }}">
-                        <i class="fas fa-book-open"></i> Mes recettes</a>
+                        <i class="fas fa-book-open"></i> {% trans %}My recipes{% endtrans %}</a>
                     </div>
                 </div>
                 </li>
@@ -86,7 +86,7 @@
                     or app.request.get('_route') == 'mix.show'%} active {% endif %}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="false" aria-controls="collapseUtilities">
                     <i class="fas fa-flask"></i>
-                    <span>Solutions</span>
+                    <span>{% trans %}Solutions{% endtrans %}</span>
                 </a>
                 <div id="collapseUtilities" class="collapse {% if app.request.get('_route') == 'mix.index'
                     or app.request.get('_route') == 'mix.edit'
@@ -96,11 +96,11 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Custom Utilities:</h6> -->
                         <a class="collapse-item" href="{{ path('mix.new') }}">
-                        <i class="fas fa-plus"></i> Nouvelle solution</a>
+                        <i class="fas fa-plus"></i> {% trans %}New solution{% endtrans %}</a>
                         <a class="collapse-item" href="{{ path('mix.index') }}">
-                        <i class="fas fa-vials"></i> Toutes les solutions</a>
+                        <i class="fas fa-vials"></i> {% trans %}All solutions{% endtrans %}</a>
                         <a class="collapse-item" href="{{ path('inventory.mix') }}">
-                        <i class="fas fa-vial"></i> Mes solutions</a>
+                        <i class="fas fa-vial"></i> {% trans %}My solutions{% endtrans %}</a>
                     </div>
                 </div>
                 </li>
@@ -115,7 +115,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Gestion
+                {% trans %}Management{% endtrans %}
             </div>
 
             <!-- Nav Item - Product Collapse Menu -->
@@ -128,7 +128,7 @@
                 or app.request.get('_route') == 'productmanager.product.new'%} active {% endif %}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                     <i class="fas fa-edit"></i>
-                    <span>Modération produits</span>
+                    <span>{% trans %}Product moderation{% endtrans %}</span>
                 </a>
                 <div id="collapsePages" class="collapse {% if app.request.get('_route') == 'productmanager.product.index'
                     or app.request.get('_route') == 'productmanager.product.edit'
@@ -136,25 +136,25 @@
                     or app.request.get('_route') == 'productmanager.product.new'%} show {% endif %}" aria-labelledby="headingPages" data-parent="#accordionSidebar" style="">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Produit :</h6>
-                        <a class="collapse-item" href="{{ path('productmanager.product.index') }}"><i class="fas fa-prescription-bottle"></i> Liste produits</a>
-                        <a class="collapse-item" href="{{ path('productmanager.product.new') }}"><i class="fas fa-plus"></i> Ajouter produit</a>
-                        <a class="collapse-item" href="{{ path('productmanager.family') }}"><i class="fas fa-plus"></i> Ajouter famille</a>
+                        <a class="collapse-item" href="{{ path('productmanager.product.index') }}"><i class="fas fa-prescription-bottle"></i> {% trans %}Products list{% endtrans %}</a>
+                        <a class="collapse-item" href="{{ path('productmanager.product.new') }}"><i class="fas fa-plus"></i> {% trans %}New product{% endtrans %}</a>
+                        <a class="collapse-item" href="{{ path('productmanager.family') }}"><i class="fas fa-plus"></i> {% trans %}New family{% endtrans %}</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Pictogramme :</h6>
-                        <a class="collapse-item" href="{{ path('productmanager.pictogram.index') }}"><i class="fas fa-exclamation-triangle"></i> Liste pictogrammes</a>
-                        <a class="collapse-item" href="{{ path('productmanager.pictogram.new') }}"><i class="fas fa-plus"></i> Ajouter pictogramme</a>
+                        <a class="collapse-item" href="{{ path('productmanager.pictogram.index') }}"><i class="fas fa-exclamation-triangle"></i> {% trans %}Pictograms list{% endtrans %}</a>
+                        <a class="collapse-item" href="{{ path('productmanager.pictogram.new') }}"><i class="fas fa-plus"></i> {% trans %}New pictogram{% endtrans %}</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Stockage :</h6>
-                        <a class="collapse-item" href="{{ path('productmanager.storage.index') }}"><i class="fas fa-cubes"></i> Liste stockages</a>
-                        <a class="collapse-item" href="{{ path('productmanager.storage.new') }}"><i class="fas fa-plus"></i> Ajouter stockage</a>
+                        <a class="collapse-item" href="{{ path('productmanager.storage.index') }}"><i class="fas fa-cubes"></i> {% trans %}Storages list{% endtrans %}</a>
+                        <a class="collapse-item" href="{{ path('productmanager.storage.new') }}"><i class="fas fa-plus"></i> {% trans %}New storage{% endtrans %}</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Poubelle :</h6>
-                        <a class="collapse-item" href="{{ path('productmanager.trashCan.index') }}"><i class="fas fa-trash"></i> Liste poubelles</a>
-                        <a class="collapse-item" href="{{ path('productmanager.trashCan.new') }}"><i class="fas fa-plus"></i> Ajouter poubelle</a>
+                        <a class="collapse-item" href="{{ path('productmanager.trashCan.index') }}"><i class="fas fa-trash"></i> {% trans %}Bins list{% endtrans %}</a>
+                        <a class="collapse-item" href="{{ path('productmanager.trashCan.new') }}"><i class="fas fa-plus"></i> {% trans %}New bin{% endtrans %}</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">GHS Mention danger :</h6>
-                        <a class="collapse-item" href="{{ path('productmanager.hazardStatement.index') }}"><i class="fas fa-biohazard"></i> Liste GHS</a>
-                        <a class="collapse-item" href="{{ path('productmanager.hazardStatement.new') }}"><i class="fas fa-plus"></i> Ajouter GHS</a>
+                        <a class="collapse-item" href="{{ path('productmanager.hazardStatement.index') }}"><i class="fas fa-biohazard"></i> {% trans %}GHS list{% endtrans %}</a>
+                        <a class="collapse-item" href="{{ path('productmanager.hazardStatement.new') }}"><i class="fas fa-plus"></i> {% trans %}New GHS{% endtrans %}</a>
                     </div>
                 </div>
             </li>
@@ -167,14 +167,14 @@
                     or app.request.get('_route') == 'usermanager.user.new'%} active {% endif %}">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUsers">
                         <i class="fas fa-users-cog"></i>
-                        <span>Gestion utilisateurs</span>
+                        <span>{% trans %}Manage users{% endtrans %}</span>
                     </a>
                     <div id="collapseUsers" class="collapse {% if app.request.get('_route') == 'usermanager.user.index'
                         or app.request.get('_route') == 'usermanager.user.edit'
                         or app.request.get('_route') == 'usermanager.user.new'%} show {% endif %}" aria-labelledby="headingUsers" data-parent="#accordionSidebar" style="">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="{{ path('usermanager.user.index') }}"><i class="fas fa-users"></i> Liste utilisateurs</a>
-                            <a class="collapse-item" href="{{ path('usermanager.user.new') }}"><i class="fas fa-plus"></i> Nouvel utilisateur</a>
+                            <a class="collapse-item" href="{{ path('usermanager.user.index') }}"><i class="fas fa-users"></i> {% trans %}Users list{% endtrans %}</a>
+                            <a class="collapse-item" href="{{ path('usermanager.user.new') }}"><i class="fas fa-plus"></i> {% trans %}New user{% endtrans %}</a>
                         </div>
                     </div>
                 </li>
@@ -186,14 +186,14 @@
                     or app.request.get('_route') == 'inventory.new' or app.request.get('_route') == 'inventory.export'%} active {% endif %}">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInventories" aria-expanded="false" aria-controls="collapseInventories">
                         <i class="fas fa-cubes"></i>
-                        <span>Inventaire</span>
+                        <span>{% trans %}Inventory{% endtrans %}</span>
                     </a>
                     <div id="collapseInventories" class="collapse {% if app.request.get('_route') == 'inventory.index'
                         or app.request.get('_route') == 'inventory.new' or app.request.get('_route') == 'inventory.export'%} show {% endif %}" aria-labelledby="headingInventories" data-parent="#accordionSidebar" style="">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="{{ path('inventory.index') }}"><i class="fas fa-boxes"></i> Voir l'inventaire</a>
-                            <a class="collapse-item" href="{{ path('inventory.new') }}"><i class="fas fa-plus"></i> Ajouter à l'inventaire</a>
-                            <a class="collapse-item" href="{{ path('inventory.export') }}"><i class="fas fa-download"></i> Exporter l'inventaire</a>
+                            <a class="collapse-item" href="{{ path('inventory.index') }}"><i class="fas fa-boxes"></i> {% trans %}See inventory{% endtrans %}</a>
+                            <a class="collapse-item" href="{{ path('inventory.new') }}"><i class="fas fa-plus"></i> {% trans %}New inventory{% endtrans %}</a>
+                            <a class="collapse-item" href="{{ path('inventory.export') }}"><i class="fas fa-download"></i> {% trans %}Export inventory{% endtrans %}</a>
                         </div>
                     </div>
                 </li>
@@ -210,7 +210,7 @@
 
                 <!-- Heading -->
                 <div class="sidebar-heading">
-                    Administrateur
+                {% trans %}Administrator{% endtrans %}
                 </div>
 
                 <!-- Nav Item - admin list -->
@@ -219,14 +219,14 @@
                     or app.request.get('_route') == 'admin.user.new'%} active {% endif %}">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin" aria-expanded="false" aria-controls="collapseAdmin">
                         <i class="fas fa-users-cog"></i>
-                        <span>Gestion utilisateurs</span>
+                        <span>{% trans %}Manage users{% endtrans %}</span>
                     </a>
                     <div id="collapseAdmin" class="collapse {% if app.request.get('_route') == 'admin.user.index'
                         or app.request.get('_route') == 'admin.user.edit'
                         or app.request.get('_route') == 'admin.user.new'%} show {% endif %}" aria-labelledby="headingAdmin" data-parent="#accordionSidebar" style="">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="{{ path('admin.user.index') }}"><i class="fas fa-users"></i> Liste utilisateurs</a>
-                            <a class="collapse-item" href="{{ path('admin.user.new') }}"><i class="fas fa-plus"></i> Nouvel utilisateur</a>
+                            <a class="collapse-item" href="{{ path('admin.user.index') }}"><i class="fas fa-users"></i> {% trans %}Users list{% endtrans %}</a>
+                            <a class="collapse-item" href="{{ path('admin.user.new') }}"><i class="fas fa-plus"></i> {% trans %}New user{% endtrans %}</a>
                         </div>
                     </div>
                 </li>
@@ -242,7 +242,7 @@
             <li class="nav-item {% if app.request.get('_route') == 'contact'%} active {% endif %}">
                 <a class="nav-link" href="{{ path('contact') }}">
                     <i class="fas fa-envelope"></i>
-                    <span>Nous contacter</span>
+                    <span>{% trans %}Contact us{% endtrans %}</span>
                 </a>
             </li>
 
@@ -278,7 +278,7 @@
                         <!-- Nav Item - qr code scan -->
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('scan') }}" role="button" >
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Scan</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{% trans %}Scan{% endtrans %}</span>
                                 <i class="fas fa-qrcode"></i>
                             </a>
                         </li>
@@ -293,12 +293,13 @@
                                 </a>
                             </li>
 
+
                             <div class="topbar-divider d-none d-sm-block"></div>
 
                             <!-- Nav Item - logout -->
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('logout') }}" role="button">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Se déconnecter</span>
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{% trans %}Logout{% endtrans %}</span>
                                     <i class="fas fa-sign-out-alt"></i>
                                 </a>
                             </li>
@@ -309,12 +310,30 @@
                             <!-- Nav Item - logout -->
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('login') }}" role="button">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Se connecter</span>
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{% trans %}Login{% endtrans %}</span>
                                     <i class="fas fa-sign-in-alt"></i>
                                 </a>
                             </li>
 
                         {% endif %}
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - Language -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <i class="fas fa-language fa-2x"></i>
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="{{ path('change_locale', {'locale': 'fr'}) }}">
+                                    <img class="img-fluid" src="{{ asset('images/countries/fr.png') }}" alt="fr"> Français
+                                </a>
+                                <a class="dropdown-item" href="{{ path('change_locale', {'locale': 'en'}) }}">
+                                    <img class="img-fluid" src="{{ asset('images/countries/en.png') }}" alt="en" > English
+                                </a>
+                            </div>
+                        </li>
 
                     </ul>
 

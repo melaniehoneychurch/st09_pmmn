@@ -6,38 +6,6 @@
 
     {% include 'flashes.html.twig' %}
 
-    <!-- Area Chart -->
-    <div class="col-xl-12 col-lg-12">
-        <div class="card shadow mb-4">
-
-            <!-- Card Header -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h5 class="m-0 font-weight text-primary">Vous avez scanné
-                    <strong class="font-weight-bold">{{ inventory.title }}</strong>
-                    , que souhaitez-vous faire ?</h5>
-            </div>
-
-            <!-- Card Body - search options -->
-            <div class="card-body">
-                <a href="{{ path('inventory.use', {id: inventory.id}) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-vial"></i> Utiliser le produit</a>
-                {% if inventory.product %}
-                    {% if inventory.product.securityFormNameFile %}
-                        <a href="{{ path('product.show.securityForm', {slug: inventory.product.slug, id: inventory.product.id}) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-file-pdf fa-sm text-white-50"></i> Afficher la fiche de sécurité complete</a>
-                    {% else %}
-                        <a href="" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm disabled"><i class="fas fa-times fa-sm text-white-50"></i> Pas de fiche de sécurité</a>
-                    {% endif %}
-                {% endif %}
-                {% if inventory.mix and not inventory.mix.confidentiality %}
-                    <a href="{{ path('mix.show', {slug: inventory.mix.slug, id: inventory.mix.id}) }}" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm"><i class="fas fa-info-circle"></i> En savoir plus sur cette solution</a>
-                {% endif %}
-                {% if is_granted('ROLE_INVENTORY_MANAGER') and (app.user.activate or is_granted('ROLE_ADMIN')) %}
-                <a href="{{ path('inventory.index', {title: inventory.qrCode}) }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-boxes"></i> Voir son inventaire</a>
-                {% endif %}
-            </div>
-
-        </div>
-    </div>
-
     {% if inventory.product %}
         {% include "pages/previewProduct.html.twig"%}
     {% else %}

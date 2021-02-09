@@ -10,45 +10,45 @@
 
             <!-- Card Header -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">{{ button|default('Formulaire') }} un produit</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{{ button|default('Formulaire') }} {% trans %}a product{% endtrans %}</h6>
             </div>
 
             <!-- Card Body - search options -->
             <div class="card-body">
-                {{ form_row(form.securityFormFile, {'label':"Déposez la fiche de sécurité"}, {'attr': {'onchange': "document.getElementById('securityFormFile').src = window.URL.createObjectURL(this.files[0])"}}) }}
+                {{ form_row(form.securityFormFile, {'label':"Submit the safety sheet"}, {'attr': {'onchange': "document.getElementById('securityFormFile').src = window.URL.createObjectURL(this.files[0])"}}) }}
                 <img id="securityFormFile" alt="fiche de securite" width="100" height="100" />
 
-                {{ form_row(form.formulaImageFile, {'label':"Déposez une image de la formule"}, {'attr': {'onchange': "document.getElementById('formulaImage').src = window.URL.createObjectURL(this.files[0])"}}) }}
+                {{ form_row(form.formulaImageFile, {'label':"Drop an image of the formula"}, {'attr': {'onchange': "document.getElementById('formulaImage').src = window.URL.createObjectURL(this.files[0])"}}) }}
                 <img id="formulaImage" alt="image de la formule" width="100" height="100" />
 
 
-                {{ form_row(form.colorName, {'label':"Code couleur du produit"}) }}
-                {{ form_row(form.frenchName, {'label':"Nom français"}) }}
-                {{ form_row(form.englishName, {'label':"Nom anglais"}) }}
+                {{ form_row(form.colorName, {'label':"Product color code"}) }}
+                {{ form_row(form.frenchName, {'label':"French name"}) }}
+                {{ form_row(form.englishName, {'label':"English name"}) }}
                 {{ form_row(form.nomenclature, {'label':"Nomenclature"}) }}
-                {{ form_row(form.otherName, {'label':"Vous pouvez ajouter un troisième nom du produit dans ce champ"}) }}
-                {{ form_row(form.casNumber, {'label':"Numéro CAS"}) }}
-                {{ form_row(form.families, {'label':"Sélectionnez les familles de ce produit"}) }}
-                {{ form_row(form.molarMass, {'label':"Indiquez sa masse molaire"}) }}
-                {{ form_row(form.density, {'label':"Indiquez sa densité"}) }}
-                {{ form_row(form.meltingTemperature, {'label':"Indiquez sa température de fusion"}) }}
-                {{ form_row(form.boilingTemperature, {'label':"Indiquez sa température d'ébulition"}) }}
-                {{ form_row(form.opticalIndex, {'label':"Indiquez son indice optique"}) }}
-                {{ form_row(form.autoflameTemperature, {'label':"Indiquez le point d'auto-inflammation"}) }}
-                {{ form_row(form.riskOfUse, {'label':"Indiquez les risques liés à l'utilisation de ce produit"}) }}
-                {{ form_row(form.dangerousMixtures, {'label':"Indiquez les mélanges dangereux"}) }}
-                {{ form_row(form.frenchCommentary, {'label':"Commentaires :"}) }}
-                {{ form_row(form.pictograms, {'label':"Sélectionnez les pictogrammes (danger et/ou obligation) associés à ce produit :"}) }}
-                {{ form_row(form.storage, {'label':"Indiquez où se range ce produit"}) }}
-                {{ form_row(form.trashCan, {'label':"Indiquez dans quelle poubelle jeter ce produit"}) }}
-                {{ form_row(form.hazardStatements, {'label':"Sélectionnez les mentions de danger associées à ce produit :"}) }}
+                {{ form_row(form.otherName, {'label':"You can add a third product name in this field"}) }}
+                {{ form_row(form.casNumber, {'label':"CAS number"}) }}
+                {{ form_row(form.families, {'label':"Select the families of this product"}) }}
+                {{ form_row(form.molarMass, {'label':"Indicate its molar mass"}) }}
+                {{ form_row(form.density, {'label':"Indicate its density"}) }}
+                {{ form_row(form.meltingTemperature, {'label':"Indicate its melting temperature"}) }}
+                {{ form_row(form.boilingTemperature, {'label':"Indicate its boiling temperature"}) }}
+                {{ form_row(form.opticalIndex, {'label':"Indicate its optical index"}) }}
+                {{ form_row(form.autoflameTemperature, {'label':"Indicate the auto-ignition point"}) }}
+                {{ form_row(form.riskOfUse, {'label':"Indicate the risks associated with the use of this product"}) }}
+                {{ form_row(form.dangerousMixtures, {'label':"Indicate hazardous mixtures"}) }}
+                {{ form_row(form.frenchCommentary, {'label':"Comments :"}) }}
+                {{ form_row(form.pictograms, {'label':"Select the pictograms (danger and/or obligation) associated with this product :"}) }}
+                {{ form_row(form.storage, {'label':"Indicate where this product is stored"}) }}
+                {{ form_row(form.trashCan, {'label':"Indicate in which bin to throw this product"}) }}
+                {{ form_row(form.hazardStatements, {'label':"Select the hazard statements associated with this product :"}) }}
             </div>
 
         </div>
 
         <div class="text-right">
-            <div style="display:inline-block"><button class="btn btn-primary">{{ button|default('Enregistrer') }}</button></div>
-            <div style="display:inline-block"><a href="{{ path('productmanager.product.cancel') }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Annuler</a></div>
+            <div style="display:inline-block"><button class="btn btn-primary">{{ button|default('Save') }}</button></div>
+            <div style="display:inline-block"><a href="{{ path('productmanager.product.cancel') }}" class="mt-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> {% trans %}Cancel{% endtrans %}</a></div>
         </div>
 
     </div>

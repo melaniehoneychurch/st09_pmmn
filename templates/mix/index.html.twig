@@ -16,13 +16,13 @@
 
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-success">Informations</h6>
+                    <h6 class="m-0 font-weight-bold text-success">{% trans %}Informations{% endtrans %}</h6>
                 </div>
 
                 <!-- Card Body - search options -->
                 <div class="card-body">
-                    <p>Les solutions représentent l'instanciation physique d'une recette.
-                        Lorsque vous créez une solution elle sera ajoutée à l'inventaire des produits présents dans le laboratoire.</p>
+                    <p>{% trans %}Solutions represent the physical instantiation of a recipe.
+                        When you create a solution it will be added to the lab inventory{% endtrans %}</p>
                 </div>
 
             </div>
@@ -34,7 +34,7 @@
 
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Recherche</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{% trans %}Search{% endtrans %}</h6>
                 </div>
 
                 <!-- Card Body - search options -->
@@ -43,14 +43,14 @@
                     {{ form_start(form) }}
                     <div class="form-row">
                         <div class="col">
-                            {{ form_row(form.title, { 'label':'Nom de la solution'})  }}
+                            {{ form_row(form.title, { 'label':'Name'})  }}
                         </div>
                         <div class="col">
-                            {{ form_row(form.creator, { 'label':'Créateur'}) }}
+                            {{ form_row(form.creator, { 'label':'Creator'}) }}
                         </div>
                    </div>
                     {{ form_widget(form) }}
-                    <button type="submit" class="btn-primary btn">Rechercher</button>
+                    <button type="submit" class="btn-primary btn">{% trans %}Search{% endtrans %}</button>
                     {{ form_end(form) }}
 
                 </div>
@@ -70,7 +70,7 @@
 
                 <!-- Card Header -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Liste</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{% trans %}List{% endtrans %}</h6>
                 </div>
 
                 <!-- Card Body - search options -->
@@ -79,11 +79,11 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>Titre</th>
-                            <th>Créateur</th>
-                            <th>Quantité</th>
-                            <th>Stockage</th>
-                            <th>Date de création</th>
+                            <th>{% trans %}Title{% endtrans %}</th>
+                            <th>{% trans %}Creator{% endtrans %}</th>
+                            <th>{% trans %}Quantity{% endtrans %}</th>
+                            <th>{% trans %}Storage{% endtrans %}</th>
+                            <th>{% trans %}Created{% endtrans %}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -113,12 +113,6 @@
 
                 </div>
 
-            </div>
-
-            <div class="text-right">
-                <div style="display:inline-block">
-                    <a href="{{ path('mix.new') }}" class="btn btn-primary">Créer une nouvelle solution</a>
-                </div>
             </div>
 
         </div>

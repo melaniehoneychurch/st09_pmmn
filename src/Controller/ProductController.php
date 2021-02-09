@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use Endroid\QrCode\LabelAlignment;
 use Endroid\QrCode\QrCode;
 use Twig\Environment;
 use App\Entity\Product;
@@ -71,8 +72,7 @@ class ProductController extends AbstractController
             ], 301);
         }
         $qrCode = new QrCode('P'.$product->getId());
-        //header('Content-Type: '.$qrCode->getContentType());
-        //echo $qrCode->writeDataUri();
+        $qrCode->setLabel('P'.$product->getId(), 11);
         return $this->render('product/show.html.twig', [
             'product' => $product, // targeted product
             'dangerPictograms' => $product->getDangerPictograms(),

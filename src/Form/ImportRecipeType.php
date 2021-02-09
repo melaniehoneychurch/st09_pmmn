@@ -19,7 +19,7 @@ class ImportRecipeType extends AbstractType
         $builder
             ->add('recipe', EntityType::class,[
                 'class' => Recipe::class,
-                'choice_label' => 'title',
+                'label' => 'title',
                 'multiple' => false,
                 'required' => true,
             ])
